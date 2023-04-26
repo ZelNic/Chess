@@ -3,7 +3,7 @@ public struct ConstantsLayer
 {
     public const int TILE_LAYER = 7;
     public const int SELECTED_TILE_LAYER = 8;
-    public const int POWN_LAYER = 10;
+    public const int PIECE = 10;
 }
 public class Player : MonoBehaviour
 {
@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
         {
             int positionNowX = (int)rayHit.collider.transform.position.x;
             int positionNowY = (int)rayHit.collider.transform.position.y;
-            if (rayHit.collider != null && rayHit.collider.gameObject.layer == ConstantsLayer.POWN_LAYER)
+            if (rayHit.collider != null && rayHit.collider.gameObject.layer == ConstantsLayer.PIECE)
             {
                 if (_countClick == 0)
                 {
@@ -63,9 +63,25 @@ public class Player : MonoBehaviour
                 _touchpointPiece.transform.position = transform.position;
                 _selectedPiece.transform.position = rayHit.collider.gameObject.transform.position;
                 _countClick = 0;
-
                 Distributor.onSetOnPlace?.Invoke(_selectedPiece, positionNowX, positionNowY,
                                                 (int)rayHit.collider.transform.position.x, (int)rayHit.collider.transform.position.y);
+                _selectedPiece = null;
+            }
+
+            if (_countClick > 0 && rayHit.collider.gameObject.layer == ConstantsLayer.PIECE)
+            {
+                if (_selectedPiece.gameObject.GetComponent<ChessPiece>().team != rayHit.collider.gameObject.GetComponent<ChessPiece>().team)
+                {
+                    print("Enemy");
+                    rayHit.collider.gameObject.SetActive(false);
+                    _touchpointPiece.gameObject.SetActive(false);
+                    _touchpointPiece.transform.position = transform.position;
+                    _selectedPiece.transform.position = rayHit.collider.gameObject.transform.position;
+                    _countClick = 0;
+                    Distributor.onSetOnPlace?.Invoke(_selectedPiece, positionNowX, positionNowY,
+                                                    (int)rayHit.collider.transform.position.x, (int)rayHit.collider.transform.position.y);
+                    _selectedPiece = null;
+                }
             }
         }
     }

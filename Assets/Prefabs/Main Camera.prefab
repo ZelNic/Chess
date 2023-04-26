@@ -99,8 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c09eccc2cf397943ad1d23ca4215213, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _touchpointTile: {fileID: 0}
-  _touchpointPiece: {fileID: 0}
+  _touchpointTile: {fileID: 54549611724944070}
+  _touchpointPiece: {fileID: 1649888297876326690}
 --- !u!1001 &4078268420314283766
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -162,6 +162,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e73602e5df858c4598eb47ab210bcd2, type: 3}
+--- !u!1 &54549611724944070 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4060319490838531120, guid: 5e73602e5df858c4598eb47ab210bcd2, type: 3}
+  m_PrefabInstance: {fileID: 4078268420314283766}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2305391963101314317 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2839113037530989563, guid: 5e73602e5df858c4598eb47ab210bcd2, type: 3}
@@ -231,5 +236,10 @@ PrefabInstance:
 --- !u!4 &1582694218151704592 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7773751186935979541, guid: a37ac9def9ff16449ac719caadf93755, type: 3}
+  m_PrefabInstance: {fileID: 9085789622640322053}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1649888297876326690 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7562283950372433703, guid: a37ac9def9ff16449ac719caadf93755, type: 3}
   m_PrefabInstance: {fileID: 9085789622640322053}
   m_PrefabAsset: {fileID: 0}
