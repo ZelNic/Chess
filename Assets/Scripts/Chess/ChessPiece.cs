@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum ChessPieceType
@@ -17,7 +18,4 @@ public class ChessPiece : MonoBehaviour
     public int team;
     public int currentPositionX;
     public int currentPositionY;
-
-    private Vector3 _desiredPosition;
-    private Vector3 _desiredScale;
 }

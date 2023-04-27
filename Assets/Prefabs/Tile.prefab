@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4925456226093826046}
-  - component: {fileID: 2212666455731243327}
+  - component: {fileID: 6617997245855955017}
   - component: {fileID: -3179317144807256832}
   - component: {fileID: -5747819337794914157}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Tile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,7 +34,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &2212666455731243327
+--- !u!212 &6617997245855955017
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -54,7 +54,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 30dc370b164eefc43b95744fc796dad0, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -98,9 +98,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 287be8ba8b978ed4ca41ff541c5f712a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseColor: {r: 0.9811321, g: 0.9811321, b: 0.9811321, a: 1}
-  _offSetColor: {r: 0.745283, g: 0.46755964, b: 0.46755964, a: 1}
-  _renderer: {fileID: 2212666455731243327}
+  _baseColor: {r: 0.047058824, g: 0.08235294, b: 0.10980392, a: 1}
+  _offSetColor: {r: 0.89411765, g: 0.8980392, b: 0.91764706, a: 1}
+  _highlight: {r: 0.83853406, g: 0.9245283, b: 0.07413671, a: 1}
+  _renderer: {fileID: 6617997245855955017}
 --- !u!61 &-5747819337794914157
 BoxCollider2D:
   m_ObjectHideFlags: 0
