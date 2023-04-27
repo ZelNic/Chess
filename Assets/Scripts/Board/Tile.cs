@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
+    public static Action onSetDefautColor;
     [SerializeField] private SpriteRenderer _renderer;
-    [SerializeField] private Color _baseColor, _offSetColor;    
+    [SerializeField] private Color _baseColor, _offSetColor;
     [SerializeField] private Color _highlight;
     private Color _defaultColor;
 
+    private void OnEnable()
+    {
+        onSetDefautColor += SetDefaultColor;
+    }
 
     public void ChangeColor(bool isOffSet)
     {
@@ -23,6 +28,9 @@ public class Tile : MonoBehaviour
 
     public void SetDefaultColor()
     {
-        _renderer.color = _defaultColor;
+        if (_renderer.color == _defaultColor)
+            return;
+        else
+            _renderer.color = _defaultColor;
     }
 }

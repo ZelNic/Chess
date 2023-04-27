@@ -24,28 +24,28 @@ public class Player : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0)) // перести логику в скрипт фигур
         {
+            Tile.onSetDefautColor?.Invoke();
             if (rayHit.collider != null && rayHit.collider.gameObject.layer == ConstantsLayer.PIECE)
             {
                 if (_countClick == 0)
                 {
+                   
                     _touchpointPiece.gameObject.SetActive(true);
                     _selectedPiece = rayHit.collider.gameObject.GetComponent<ChessPiece>();
                     _touchpointPiece.transform.position = _selectedPiece.transform.position;
                     _countClick++;
-
-
-
                     Distributor.onSwonAviableMoves?.Invoke(_selectedPiece, (int)rayHit.collider.transform.position.x, (int)rayHit.collider.transform.position.y);
                 }
             }
 
             if (_countClick > 0 && rayHit.collider.gameObject.layer == ConstantsLayer.TILE_LAYER)
             {
+                
                 _touchpointPiece.gameObject.SetActive(false);
                 _touchpointPiece.transform.position = transform.position;
                 _countClick = 0;
-                Distributor.onSetOnPlace?.Invoke(_selectedPiece, (int)rayHit.collider.transform.position.x,
-                                                 (int)rayHit.collider.transform.position.y);
+                Distributor.onChangePositionPiece?.Invoke(_selectedPiece, (int)rayHit.collider.transform.position.x,
+                                                 (int)rayHit.collider.transform.position.y);                
             }
 
             if (_countClick > 0 && rayHit.collider.gameObject.layer == ConstantsLayer.PIECE)
@@ -57,7 +57,7 @@ public class Player : MonoBehaviour
 
                     _touchpointPiece.transform.position = transform.position;
                     _countClick = 0;
-                    Distributor.onSetOnPlace?.Invoke(_selectedPiece, (int)rayHit.collider.transform.position.x, (int)rayHit.collider.transform.position.y);
+                    Distributor.onChangePositionPiece?.Invoke(_selectedPiece, (int)rayHit.collider.transform.position.x, (int)rayHit.collider.transform.position.y);
                 }
 
                 if (_selectedPiece.team == rayHit.collider.gameObject.GetComponent<ChessPiece>().team)

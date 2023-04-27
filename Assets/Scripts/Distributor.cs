@@ -5,7 +5,7 @@ using UnityEngine;
 public class Distributor : MonoBehaviour
 {
     public static Action<ChessPiece[,]> onStartDistribution;
-    public static Action<ChessPiece, int, int> onSetOnPlace;
+    public static Action<ChessPiece, int, int> onChangePositionPiece;
     public static Action<ChessPiece, int, int> onSwonAviableMoves;
     private ChessPiece[,] _coordinatePiece;
     private readonly int _positionPieceZ = -5;
@@ -15,7 +15,7 @@ public class Distributor : MonoBehaviour
     private void OnEnable()
     {
         onStartDistribution += Distribute;
-        onSetOnPlace += ChangePositionPiece;
+        onChangePositionPiece += ChangePositionPiece;
         onSwonAviableMoves += ShowAviableMoves;
     }
 
@@ -36,16 +36,18 @@ public class Distributor : MonoBehaviour
 
     private void ShowAviableMoves(ChessPiece chessPiece, int posChangeOnX, int posChangeOnY)
     {
+
         ChessPieceType type = chessPiece.type;
         avaibleMove = new List<Vector2Int>();
         Tile[,] _arrayTile = BoardCreator.onSendArrayTile?.Invoke();
+        
         switch (type)
         {
             case ChessPieceType.Pown:
 
                 int direction = (chessPiece.team == 0) ? 1 : -1;
 
-                if (_coordinatePiece[chessPiece.currentPositionX, chessPiece.currentPositionX + direction] == null)
+                if (_coordinatePiece[chessPiece.currentPositionX, chessPiece.currentPositionY + direction] == null)
                     avaibleMove.Add(new Vector2Int(chessPiece.currentPositionX, chessPiece.currentPositionY + direction));
                 break;
         }
