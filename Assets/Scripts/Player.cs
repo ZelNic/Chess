@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
         {
             int positionNowX = (int)rayHit.collider.transform.position.x;
             int positionNowY = (int)rayHit.collider.transform.position.y;
+            
             if (rayHit.collider != null && rayHit.collider.gameObject.layer == ConstantsLayer.PIECE)
             {
                 if (_countClick == 0)
@@ -45,18 +46,9 @@ public class Player : MonoBehaviour
                     _countClick++;
                     positionNowX = (int)rayHit.collider.transform.position.x;
                     positionNowY = (int)rayHit.collider.transform.position.y;
-
-                }
-                if (_countClick > 0 && _selectedPiece != null)
-                {
-                    _touchpointPiece.gameObject.SetActive(true);
-                    _selectedPiece = rayHit.collider.gameObject.GetComponent<ChessPiece>();
-                    _touchpointPiece.transform.position = _selectedPiece.transform.position;
-                    _countClick++;
-                    positionNowX = (int)rayHit.collider.transform.position.x;
-                    positionNowY = (int)rayHit.collider.transform.position.y;
                 }
             }
+            
             if (_countClick > 0 && rayHit.collider.gameObject.layer == ConstantsLayer.TILE_LAYER)
             {
                 _touchpointPiece.gameObject.SetActive(false);
@@ -64,23 +56,30 @@ public class Player : MonoBehaviour
                 _selectedPiece.transform.position = rayHit.collider.gameObject.transform.position;
                 _countClick = 0;
                 Distributor.onSetOnPlace?.Invoke(_selectedPiece, positionNowX, positionNowY,
-                                                (int)rayHit.collider.transform.position.x, (int)rayHit.collider.transform.position.y);
-                _selectedPiece = null;
+                                                 (int)rayHit.collider.transform.position.x, 
+                                                 (int)rayHit.collider.transform.position.y);                
             }
-
+            
             if (_countClick > 0 && rayHit.collider.gameObject.layer == ConstantsLayer.PIECE)
             {
-                if (_selectedPiece.gameObject.GetComponent<ChessPiece>().team != rayHit.collider.gameObject.GetComponent<ChessPiece>().team)
-                {
-                    print("Enemy");
+                if (_selectedPiece.team != rayHit.collider.gameObject.GetComponent<ChessPiece>().team)
+                {                    
                     rayHit.collider.gameObject.SetActive(false);
                     _touchpointPiece.gameObject.SetActive(false);
                     _touchpointPiece.transform.position = transform.position;
                     _selectedPiece.transform.position = rayHit.collider.gameObject.transform.position;
                     _countClick = 0;
                     Distributor.onSetOnPlace?.Invoke(_selectedPiece, positionNowX, positionNowY,
-                                                    (int)rayHit.collider.transform.position.x, (int)rayHit.collider.transform.position.y);
-                    _selectedPiece = null;
+                                                    (int)rayHit.collider.transform.position.x, (int)rayHit.collider.transform.position.y);                    
+                }
+
+                if(_selectedPiece.team == rayHit.collider.gameObject.GetComponent<ChessPiece>().team)
+                {
+                    _touchpointPiece.gameObject.SetActive(true);
+                    _selectedPiece = rayHit.collider.gameObject.GetComponent<ChessPiece>();
+                    _touchpointPiece.transform.position = _selectedPiece.transform.position;                    
+                    positionNowX = (int)rayHit.collider.transform.position.x;
+                    positionNowY = (int)rayHit.collider.transform.position.y;
                 }
             }
         }
