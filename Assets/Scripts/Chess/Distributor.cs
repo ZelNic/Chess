@@ -29,10 +29,19 @@ public class Distributor : MonoBehaviour
 
     private void ChangePositionPiece(ChessPiece chessPiece, int positionNowX, int positionNowY, int posChangeOnX, int posChangeOnY)
     {
-        _coordinatePiece[positionNowX, positionNowY] = null;
         _coordinatePiece[positionNowX, positionNowY] = chessPiece;
-        _coordinatePiece[positionNowX, positionNowY].currentPositionX = posChangeOnX;
-        _coordinatePiece[positionNowX, positionNowY].currentPositionY = posChangeOnY;
-        _coordinatePiece[posChangeOnX, posChangeOnY].transform.position = new Vector3(posChangeOnX, posChangeOnY, -5);       
+        _coordinatePiece[posChangeOnX, posChangeOnY].currentPositionX = posChangeOnX;
+        _coordinatePiece[posChangeOnX, posChangeOnY].currentPositionY = posChangeOnY;
+        _coordinatePiece[posChangeOnX, posChangeOnY] = chessPiece;
+
+        if (chessPiece.type == ChessPieceType.Pown && chessPiece.team == 0 && posChangeOnY == _coordinatePiece.GetLength(1) - 1)
+            print("Change type Pown White");
+
+        if (chessPiece.type == ChessPieceType.Pown && chessPiece.team == 1 && posChangeOnY == 0)
+        {
+            chessPiece.type = ChessPieceType.Queen;
+            print("black");
+        }
+        _coordinatePiece[posChangeOnX, posChangeOnY].transform.position = new Vector3(posChangeOnX, posChangeOnY, -5);
     }
 }

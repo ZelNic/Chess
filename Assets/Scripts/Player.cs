@@ -52,8 +52,7 @@ public class Player : MonoBehaviour
             if (_countClick > 0 && rayHit.collider.gameObject.layer == ConstantsLayer.TILE_LAYER)
             {
                 _touchpointPiece.gameObject.SetActive(false);
-                _touchpointPiece.transform.position = transform.position;
-                _selectedPiece.transform.position = rayHit.collider.gameObject.transform.position;
+                _touchpointPiece.transform.position = transform.position;                
                 _countClick = 0;
                 Distributor.onSetOnPlace?.Invoke(_selectedPiece, positionNowX, positionNowY,
                                                  (int)rayHit.collider.transform.position.x, 
@@ -65,9 +64,9 @@ public class Player : MonoBehaviour
                 if (_selectedPiece.team != rayHit.collider.gameObject.GetComponent<ChessPiece>().team)
                 {                    
                     rayHit.collider.gameObject.SetActive(false);
+
                     _touchpointPiece.gameObject.SetActive(false);
-                    _touchpointPiece.transform.position = transform.position;
-                    _selectedPiece.transform.position = rayHit.collider.gameObject.transform.position;
+                    _touchpointPiece.transform.position = transform.position;                    
                     _countClick = 0;
                     Distributor.onSetOnPlace?.Invoke(_selectedPiece, positionNowX, positionNowY,
                                                     (int)rayHit.collider.transform.position.x, (int)rayHit.collider.transform.position.y);                    
