@@ -22,7 +22,7 @@ public class CreaterAllChessPiece : MonoBehaviour
         {
             _keeperOfCoordinates[i, 1] = CreaterSingleChessPiece.onCreateSinglePiece?.Invoke(ChessPieceType.Pown, 0);
         }
-        _keeperOfCoordinates[0, 0] = CreaterSingleChessPiece.onCreateSinglePiece.Invoke(ChessPieceType.Rook, 0);
+        _keeperOfCoordinates[0, 3] = CreaterSingleChessPiece.onCreateSinglePiece.Invoke(ChessPieceType.Rook, 0);
         _keeperOfCoordinates[1, 0] = CreaterSingleChessPiece.onCreateSinglePiece.Invoke(ChessPieceType.Knight, 0);
         _keeperOfCoordinates[2, 0] = CreaterSingleChessPiece.onCreateSinglePiece.Invoke(ChessPieceType.Bishop, 0);
         _keeperOfCoordinates[3, 0] = CreaterSingleChessPiece.onCreateSinglePiece.Invoke(ChessPieceType.Queen, 0);

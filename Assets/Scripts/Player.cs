@@ -50,26 +50,23 @@ public class Player : MonoBehaviour
 
             if (_countClick > 0 && rayHit.collider.gameObject.layer == ConstantsLayer.PIECE)
             {
-               
+
                 if (_selectedPiece.team != rayHit.collider.gameObject.GetComponent<ChessPiece>().team)
                 {
-                   // rayHit.collider.gameObject.SetActive(false); // перенести в скрипт фигурки
-                   
-                    _touchpointPiece.gameObject.SetActive(false);
-
-                    _touchpointPiece.transform.position = transform.position;
                     _countClick = 0;
-
+                    _touchpointPiece.gameObject.SetActive(false);
+                  
                     Distributor.onChangePositionPiece?.Invoke(_selectedPiece, (int)rayHit.collider.transform.position.x, (int)rayHit.collider.transform.position.y);
                 }
 
-               
-                
                 if (_selectedPiece.team == rayHit.collider.gameObject.GetComponent<ChessPiece>().team)
                 {
                     _touchpointPiece.gameObject.SetActive(true);
-                    _selectedPiece = rayHit.collider.gameObject.GetComponent<ChessPiece>();
                     _touchpointPiece.transform.position = _selectedPiece.transform.position;
+
+
+                    _selectedPiece = rayHit.collider.gameObject.GetComponent<ChessPiece>();
+                    
 
 
 
