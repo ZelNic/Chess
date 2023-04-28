@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 
-
 public class Tile : MonoBehaviour
 {
     public static Action onSetDefautColor;

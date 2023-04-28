@@ -8,6 +8,7 @@ public class Distributor : MonoBehaviour
     public static Action<ChessPiece, int, int> onChangePositionPiece;
     public static Action<ChessPiece, int, int> onSwonAviableMoves;
     private ChessPiece[,] _coordinatePiece;
+    private Tile[,] _arrayTile;
     private readonly int _positionPieceZ = -5;
     private List<Vector2Int> avaibleMove;
 
@@ -17,6 +18,11 @@ public class Distributor : MonoBehaviour
         onStartDistribution += Distribute;
         onChangePositionPiece += ChangePositionPiece;
         onSwonAviableMoves += ShowAviableMoves;
+    }
+
+    private void Start()
+    {
+        _arrayTile = BoardCreator.onSendArrayTile?.Invoke();
     }
 
     public void Distribute(ChessPiece[,] chessPieces)
@@ -36,19 +42,31 @@ public class Distributor : MonoBehaviour
 
     private void ShowAviableMoves(ChessPiece chessPiece, int posChangeOnX, int posChangeOnY)
     {
-
         ChessPieceType type = chessPiece.type;
         avaibleMove = new List<Vector2Int>();
-        Tile[,] _arrayTile = BoardCreator.onSendArrayTile?.Invoke();
-        
+
+        int posX = chessPiece.currentPositionX;
+        int posY = chessPiece.currentPositionY;
+
         switch (type)
         {
             case ChessPieceType.Pown:
 
                 int direction = (chessPiece.team == 0) ? 1 : -1;
+                if (_coordinatePiece[posX, posY + direction] == null)
+                    avaibleMove.Add(new Vector2Int(posX, posY + direction));
+                switch (direction)
+                {
+                    case 1:
+                        if (_coordinatePiece[posX, posY + direction++] == null && posY == 1)
+                            avaibleMove.Add(new Vector2Int(posX, posY + direction++));
+                        break;
 
-                if (_coordinatePiece[chessPiece.currentPositionX, chessPiece.currentPositionY + direction] == null)
-                    avaibleMove.Add(new Vector2Int(chessPiece.currentPositionX, chessPiece.currentPositionY + direction));
+                    case -1:
+                        if (_coordinatePiece[posX, posY + direction--] == null && posY == 6)
+                            avaibleMove.Add(new Vector2Int(posX, posY + direction--));
+                        break;
+                }
                 break;
         }
 
@@ -61,29 +79,19 @@ public class Distributor : MonoBehaviour
     private void ChangePositionPiece(ChessPiece chessPiece, int posChangeOnX, int posChangeOnY)
     {
         _coordinatePiece[chessPiece.currentPositionX, chessPiece.currentPositionY] = chessPiece;
-        _coordinatePiece[posChangeOnX, posChangeOnY].currentPositionX = posChangeOnX;
-        _coordinatePiece[posChangeOnX, posChangeOnY].currentPositionY = posChangeOnY;
         _coordinatePiece[posChangeOnX, posChangeOnY] = chessPiece;
 
-        if (chessPiece.type == ChessPieceType.Pown && chessPiece.team == 0 && posChangeOnY == _coordinatePiece.GetLength(1) - 1)
-            print("Change type Pown White");
-
-        if (chessPiece.type == ChessPieceType.Pown && chessPiece.team == 1 && posChangeOnY == 0)
-            print("black");
-
-
-        _coordinatePiece[posChangeOnX, posChangeOnY].transform.position = new Vector3(posChangeOnX, posChangeOnY, _positionPieceZ);
+        for (int i = 0; i < avaibleMove.Count; i++)
+            if (avaibleMove[i] == new Vector2Int(posChangeOnX, posChangeOnY))
+            {
+                _coordinatePiece[posChangeOnX, posChangeOnY].transform.position = new Vector3(posChangeOnX, posChangeOnY, _positionPieceZ);
+                chessPiece.currentPositionX = posChangeOnX;
+                chessPiece.currentPositionY = posChangeOnY;
+                break;
+            }
     }
 }
-/*List<Vector2Int> avaibleMove = new List<Vector2Int>();
 
-int direction = (team == 0) ? 1 : -1;
-
-if (chessPieces[currentPositionX, currentPositionY + direction] == null)
-    avaibleMove.Add(new Vector2Int(currentPositionX, currentPositionY + direction));
-
-
-return avaibleMove;*/
 
 
 

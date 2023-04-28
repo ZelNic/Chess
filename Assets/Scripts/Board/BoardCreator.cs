@@ -18,7 +18,7 @@ public class BoardCreator : MonoBehaviour
         CreateBoard();
     }
     private void Start()
-    {
+    {        
         onSendSize?.Invoke(SizeByX, SizeByY);
         CreaterAllChessPiece.onCreateAllChessPiece?.Invoke();
         _cameraTransform.position = new Vector3(_sizeByX / 2 - .5f, _sizeByY / 2 - .5f, -10);
