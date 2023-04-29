@@ -435,88 +435,78 @@ public class Distributor : MonoBehaviour
 
             #region King
             case ChessPieceType.King:
-
+                
+                //правый верхний
                 if (posX + 1 < sizeMap && posY + 1 < sizeMap)
-                {
-                    //правый верхний
+                {                    
                     if (_mapCP[posX + 1, posY + 1] == null)
                         avaibleMove.Add(new Vector2Int(posX + 1, posY + 1));
                     if (_mapCP[posX + 1, posY + 1] != null && _mapCP[posX + 1, posY + 1].team != chessPiece.team)
                         avaibleMove.Add(new Vector2Int(posX + 1, posY + 1));
-
-                    //верх
+                }
+                //верх
+                if (posY + 1 < sizeMap)
+                {                    
                     if (_mapCP[posX, posY + 1] == null)
                         avaibleMove.Add(new Vector2Int(posX, posY + 1));
                     if (_mapCP[posX, posY + 1] != null && _mapCP[posX, posY + 1].team != chessPiece.team)
                         avaibleMove.Add(new Vector2Int(posX, posY + 1));
-
-                    //право
+                }
+                //право
+                if (posX + 1 < sizeMap)
+                {                    
                     if (_mapCP[posX + 1, posY] == null)
                         avaibleMove.Add(new Vector2Int(posX + 1, posY));
                     if (_mapCP[posX + 1, posY] != null && _mapCP[posX + 1, posY].team != chessPiece.team)
                         avaibleMove.Add(new Vector2Int(posX + 1, posY));
                 }
-
-
+                //левый нижний
                 if (posX - 1 >= 0 && posY - 1 >= 0)
                 {
-                    //левый нижний
                     if (_mapCP[posX - 1, posY - 1] == null)
                         avaibleMove.Add(new Vector2Int(posX - 1, posY - 1));
                     if (_mapCP[posX - 1, posY - 1] != null && _mapCP[posX - 1, posY - 1].team != chessPiece.team)
                         avaibleMove.Add(new Vector2Int(posX - 1, posY - 1));
-
-                    //низ
+                }
+                //низ
+                if (posY - 1 >= 0)
+                {                    
                     if (_mapCP[posX, posY - 1] == null)
                         avaibleMove.Add(new Vector2Int(posX, posY - 1));
                     if (_mapCP[posX, posY - 1] != null && _mapCP[posX, posY - 1].team != chessPiece.team)
                         avaibleMove.Add(new Vector2Int(posX, posY - 1));
-
-                    //лево
+                }
+                //лево
+                if (posX - 1 >= 0)
+                {                    
                     if (_mapCP[posX - 1, posY] == null)
                         avaibleMove.Add(new Vector2Int(posX - 1, posY));
                     if (_mapCP[posX - 1, posY] != null && _mapCP[posX - 1, posY].team != chessPiece.team)
                         avaibleMove.Add(new Vector2Int(posX - 1, posY));
                 }
-
+                //верхний левый
                 if (posX - 1 >= 0 && posY + 1 < sizeMap)
                 {
-                    //верхний левый
                     if (_mapCP[posX - 1, posY + 1] == null)
                         avaibleMove.Add(new Vector2Int(posX - 1, posY + 1));
                     if (_mapCP[posX - 1, posY + 1] != null && _mapCP[posX - 1, posY + 1].team != chessPiece.team)
                         avaibleMove.Add(new Vector2Int(posX - 1, posY + 1));
                 }
-
-                if (posY + 1 < sizeMap && posY - 1 >= 0)
-                {
-                    //правый нижний
+                //правый нижний
+                if (posX + 1 < sizeMap && posY - 1 >= 0)
+                {                    
                     if (_mapCP[posX + 1, posY - 1] == null)
                         avaibleMove.Add(new Vector2Int(posX + 1, posY - 1));
+
                     if (_mapCP[posX + 1, posY - 1] != null && _mapCP[posX + 1, posY - 1].team != chessPiece.team)
                         avaibleMove.Add(new Vector2Int(posX + 1, posY - 1));
                 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 break;
+                #endregion
         }
-        #endregion
+
 
 
         for (int i = 0; i < avaibleMove.Count; i++)
