@@ -156,43 +156,46 @@ public class Distributor : MonoBehaviour
             #region Knight
             case ChessPieceType.Knight:
                 {
+                    //UpR
                     if (posX + 1 < sizeMap && posY + 2 < sizeMap)
                         if (_mapCP[posX + 1, posY + 2] == null ||
                             _mapCP[posX + 1, posY + 2] != null && _mapCP[posX + 1, posY + 2].team != chessPiece.team)
                             avaibleMove.Add(new Vector2Int(posX + 1, posY + 2));
-
-
-                    if (posX + 1 < sizeMap && posY - 2 > 0)
-                        if (_mapCP[posX + 1, posY - 2] == null ||
-                            _mapCP[posX + 1, posY - 2] != null && _mapCP[posX + 1, posY - 2].team != chessPiece.team)
-                            avaibleMove.Add(new Vector2Int(posX + 1, posY - 2));
-
-                    if (posX - 1 > 0 && posY + 2 < sizeMap)
-                        if (_mapCP[posX - 1, posY + 2] == null ||
-                            _mapCP[posX - 1, posY + 2] != null && _mapCP[posX - 1, posY + 2].team != chessPiece.team)
-                            avaibleMove.Add(new Vector2Int(posX - 1, posY + 2));
-
-                    if (posX - 1 > 0 && posY - 2 > 0)
-                        if (_mapCP[posX - 1, posY - 2] == null ||
-                            _mapCP[posX - 1, posY - 2] != null && _mapCP[posX - 1, posY - 2].team != chessPiece.team)
-                            avaibleMove.Add(new Vector2Int(posX - 1, posY - 2));
 
                     if (posX + 2 < sizeMap && posY + 1 < sizeMap)
                         if (_mapCP[posX + 2, posY + 1] == null ||
                             _mapCP[posX + 2, posY + 1] != null && _mapCP[posX + 2, posY + 1].team != chessPiece.team)
                             avaibleMove.Add(new Vector2Int(posX + 2, posY + 1));
 
-                    if (posX + 2 < sizeMap && posY - 1 < sizeMap)
-                        if (_mapCP[posX + 2, posY - 1] == null ||
-                            _mapCP[posX + 2, posY - 1] != null && _mapCP[posX + 2, posY - 1].team != chessPiece.team)
-                            avaibleMove.Add(new Vector2Int(posX + 2, posY - 1));
-
-                    if (posX - 2 > 0 && posY + 1 < sizeMap)
+                    //UpL
+                    if (posX - 1 >= 0 && posY + 2 < sizeMap)
+                        if (_mapCP[posX - 1, posY + 2] == null ||
+                            _mapCP[posX - 1, posY + 2] != null && _mapCP[posX - 1, posY + 2].team != chessPiece.team)
+                            avaibleMove.Add(new Vector2Int(posX - 1, posY + 2));
+                    
+                    
+                    if (posX - 2 >= 0 && posY + 1 < sizeMap)
                         if (_mapCP[posX - 2, posY + 1] == null ||
                             _mapCP[posX - 2, posY + 1] != null && _mapCP[posX - 2, posY + 1].team != chessPiece.team)
                             avaibleMove.Add(new Vector2Int(posX - 2, posY + 1));
 
-                    if (posX - 2 > 0 && posY - 1 > 0)
+                    //DwR
+                    if (posX + 1 < sizeMap && posY - 2 >= 0)
+                        if (_mapCP[posX + 1, posY - 2] == null ||
+                            _mapCP[posX + 1, posY - 2] != null && _mapCP[posX + 1, posY - 2].team != chessPiece.team)
+                            avaibleMove.Add(new Vector2Int(posX + 1, posY - 2));
+                    
+                    if (posX + 2 < sizeMap && posY - 1 >= 0)
+                        if (_mapCP[posX + 2, posY - 1] == null ||
+                            _mapCP[posX + 2, posY - 1] != null && _mapCP[posX + 2, posY - 1].team != chessPiece.team)
+                            avaibleMove.Add(new Vector2Int(posX + 2, posY - 1));
+
+                    //DwL
+                    if (posX - 1 >= 0 && posY - 2 >= 0)
+                        if (_mapCP[posX - 1, posY - 2] == null ||
+                            _mapCP[posX - 1, posY - 2] != null && _mapCP[posX - 1, posY - 2].team != chessPiece.team)
+                            avaibleMove.Add(new Vector2Int(posX - 1, posY - 2));
+                    if (posX - 2 >= 0 && posY - 1 >= 0)
                         if (_mapCP[posX - 2, posY - 1] == null ||
                            _mapCP[posX - 2, posY - 1] != null && _mapCP[posX - 2, posY - 1].team != chessPiece.team)
                             avaibleMove.Add(new Vector2Int(posX - 2, posY - 1));
@@ -203,21 +206,86 @@ public class Distributor : MonoBehaviour
             #region Bishop
             case ChessPieceType.Bishop:
 
-                for (int x = 0; x < sizeMap; x++)
-                    if (posX + x < sizeMap && posY + x < sizeMap)
+                for (int UpR = 0; UpR < sizeMap; UpR++)
+                    if (posX + UpR < sizeMap && posY + UpR < sizeMap)
                     {
-                        if (_mapCP[posX + x, posY + x] == null)
-                            avaibleMove.Add(new Vector2Int(posX + x, posY + x));
+                        if (posY + UpR == posY) continue;
+                        if (_mapCP[posX + UpR, posY + UpR] == null)
+                            avaibleMove.Add(new Vector2Int(posX + UpR, posY + UpR));
 
-                        if (_mapCP[posX + x, posY + x] != null && _mapCP[posX + x, posY + x].team != chessPiece.team)
+                        if (_mapCP[posX + UpR, posY + UpR] != null)
                         {
-                            avaibleMove.Add(new Vector2Int(posX + x, posY + x));
-                            break;
+                            if (_mapCP[posX + UpR, posY + UpR].team != chessPiece.team)
+                            {
+                                avaibleMove.Add(new Vector2Int(posX + UpR, posY + UpR));
+                                break;
+                            }
+                            if (_mapCP[posX + UpR, posY + UpR].team == chessPiece.team)
+                                break;
                         }
                     }
                     else break;
 
-               
+                for (int DwR = 0; DwR < sizeMap; DwR++)
+                    if (posX + DwR < sizeMap && posY - DwR >= 0)
+                    {
+                        if (posY - DwR == posY) continue;
+                        if (_mapCP[posX + DwR, posY - DwR] == null)
+                            avaibleMove.Add(new Vector2Int(posX + DwR, posY - DwR));
+
+                        if (_mapCP[posX + DwR, posY - DwR] != null)
+                        {
+                            if (_mapCP[posX + DwR, posY - DwR].team != chessPiece.team)
+                            {
+                                avaibleMove.Add(new Vector2Int(posX + DwR, posY - DwR));
+                                break;
+                            }
+                            if (_mapCP[posX + DwR, posY - DwR].team == chessPiece.team)
+                                break;
+                        }
+                    }
+                    else break;
+
+                for (int UpL = 0; UpL < sizeMap; UpL++)
+                    if (posX - UpL >= 0 && posY + UpL < sizeMap)
+                    {
+                        if (posX - UpL == posX) continue;
+                        if (_mapCP[posX - UpL, posY + UpL] == null)
+                            avaibleMove.Add(new Vector2Int(posX - UpL, posY + UpL));
+
+                        if (_mapCP[posX - UpL, posY + UpL] != null)
+                        {
+                            if (_mapCP[posX - UpL, posY + UpL].team != chessPiece.team)
+                            {
+                                avaibleMove.Add(new Vector2Int(posX - UpL, posY + UpL));
+                                break;
+                            }
+                            if (_mapCP[posX - UpL, posY + UpL].team == chessPiece.team)
+                                break;
+                        }
+                    }
+                    else break;
+
+                for (int DwL = 0; DwL < sizeMap; DwL++)
+                    if (posX - DwL >= 0 && posY - DwL >= 0)
+                    {
+                        if (posX - DwL == posX && posY - DwL == posY) continue;
+                        if (_mapCP[posX - DwL, posY - DwL] == null)
+                            avaibleMove.Add(new Vector2Int(posX - DwL, posY - DwL));
+
+                        if (_mapCP[posX - DwL, posY - DwL] != null)
+                        {
+                            if (_mapCP[posX - DwL, posY - DwL].team != chessPiece.team)
+                            {
+                                avaibleMove.Add(new Vector2Int(posX - DwL, posY - DwL));
+                                break;
+                            }
+                            if (_mapCP[posX - DwL, posY - DwL].team == chessPiece.team)
+                                break;
+                        }
+                    }
+                    else break;
+
 
 
 
@@ -233,6 +301,7 @@ public class Distributor : MonoBehaviour
 
                 break;
                 #endregion
+
 
 
         }
