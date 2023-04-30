@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1533507676177517426}
   - component: {fileID: 265881061946307989}
-  - component: {fileID: 5934998395993040193}
   - component: {fileID: -7108276704449927159}
+  - component: {fileID: 3520964996440345584}
   m_Layer: 10
   m_Name: Pown
   m_TagString: Untagged
@@ -86,22 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5934998395993040193
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7738414528791735839}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ece1fe060ffe8642b5a273abaf81650, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 0
-  team: 0
-  currentPositionX: 0
-  currentPositionY: 0
 --- !u!61 &-7108276704449927159
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -128,3 +112,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &3520964996440345584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7738414528791735839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ece1fe060ffe8642b5a273abaf81650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  team: 0
+  currentPositionX: 0
+  currentPositionY: 0

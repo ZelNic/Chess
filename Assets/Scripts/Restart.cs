@@ -3,8 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class Restart : MonoBehaviour
 {
-   public void RestartScene()
+    public void RestartScene()
     {
-        SceneManager.LoadScene(0);
+       Distributor.onSendPiecesToScrap?.Invoke();
+       CreaterAllChessPiece.onCreateAllChessPiece?.Invoke();
     }
 }

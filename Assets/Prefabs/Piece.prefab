@@ -46,15 +46,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chessPiece:
-  - {fileID: 5934998395993040193, guid: b4b34a24633f9744eb8f4f1b90cea98d, type: 3}
-  - {fileID: -8073093754377755402, guid: f006ed5fd4627544c8631cc768451353, type: 3}
-  - {fileID: -1908974164859628065, guid: 58cd9a00dddefef40b6585a5ee2db284, type: 3}
-  - {fileID: 7523633381342864520, guid: da9889b046af00f4db4fddfccf8b63a3, type: 3}
-  - {fileID: -4384424171835128768, guid: 86934784e96810f4bb5150b8441400c1, type: 3}
-  - {fileID: 8476094579560704925, guid: 2607835f922b7e944982acb5e61d7350, type: 3}
+  - {fileID: 3520964996440345584, guid: b4b34a24633f9744eb8f4f1b90cea98d, type: 3}
+  - {fileID: 129121976786263495, guid: f006ed5fd4627544c8631cc768451353, type: 3}
+  - {fileID: -6524943855489667344, guid: 58cd9a00dddefef40b6585a5ee2db284, type: 3}
+  - {fileID: -2021477025115883475, guid: da9889b046af00f4db4fddfccf8b63a3, type: 3}
+  - {fileID: -5588090495487132090, guid: 86934784e96810f4bb5150b8441400c1, type: 3}
+  - {fileID: -6301038142960662457, guid: 2607835f922b7e944982acb5e61d7350, type: 3}
   _colorsTeam:
-  - {r: 0.42256215, g: 0.8509804, b: 0.32549027, a: 1}
-  - {r: 0.8584906, g: 0.31267178, b: 0.22272164, a: 1}
+  - {r: 0.8235294, g: 0.8235294, b: 0.83137256, a: 1}
+  - {r: 0.2784314, g: 0.5647059, b: 0.6, a: 1}
 --- !u!114 &8750793669365834982
 MonoBehaviour:
   m_ObjectHideFlags: 0

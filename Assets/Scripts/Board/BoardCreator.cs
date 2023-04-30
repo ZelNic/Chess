@@ -33,7 +33,6 @@ public class BoardCreator : MonoBehaviour
         return _arrayTile;
     }
 
-
     public void CreateBoard()
     {
         _arrayTile = new Tile[_sizeByX, _sizeByY];

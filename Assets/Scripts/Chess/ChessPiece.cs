@@ -17,4 +17,10 @@ public class ChessPiece : MonoBehaviour
     public int team; // 0 - white / 1 - black
     public int currentPositionX;
     public int currentPositionY;
+
+    
+    public void DestroyPiece()
+    {
+        Destroy(gameObject);
+    }
 }

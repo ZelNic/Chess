@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Distributor : MonoBehaviour
 {
+    public static Action onSendPiecesToScrap;
     public static Action<ChessPiece[,]> onStartDistribution;
     public static Action<ChessPiece, int, int> onChangePositionPiece;
     public static Action<ChessPiece, int, int> onSwonAviableMoves;
@@ -19,6 +20,7 @@ public class Distributor : MonoBehaviour
         onStartDistribution += Distribute;
         onChangePositionPiece += ChangePositionPiece;
         onSwonAviableMoves += ShowAviableMoves;
+        onSendPiecesToScrap += SendPiecesToScrap;
     }
 
     private void Start()
@@ -26,7 +28,17 @@ public class Distributor : MonoBehaviour
         _arrayTile = BoardCreator.onSendArrayTile?.Invoke();
     }
 
-    public void Distribute(ChessPiece[,] chessPieces)
+    private void SendPiecesToScrap()
+    {
+        for (int x = 0; x < _mapCP.GetLength(0); x++)
+            for (int y = 0; y < _mapCP.GetLength(1); y++)
+                if (_mapCP[x, y] != null)
+                {
+                    Destroy(_mapCP[x, y].gameObject);
+                } 
+    }
+
+    private void Distribute(ChessPiece[,] chessPieces)
     {
         _mapCP = chessPieces;
         for (int x = 0; x < _mapCP.GetLength(0); x++)
@@ -40,7 +52,6 @@ public class Distributor : MonoBehaviour
         _mapCP[x, y].currentPositionY = y;
         _mapCP[x, y].transform.position = new Vector3(x, y, _positionPieceZ);
     }
-
     private void ShowAviableMoves(ChessPiece chessPiece, int posChangeOnX, int posChangeOnY)
     {
         ChessPieceType type = chessPiece.type;
@@ -57,7 +68,7 @@ public class Distributor : MonoBehaviour
             #region Pown
             case ChessPieceType.Pown:
                 //Move on one tile
-                if (_mapCP[posX, posY + direction] == null)
+                if (posY + direction < sizeMap && posY + direction >= 0 && _mapCP[posX, posY + direction] == null)
                     avaibleMove.Add(new Vector2Int(posX, posY + direction));
 
                 //Move on two tile
@@ -65,7 +76,7 @@ public class Distributor : MonoBehaviour
                     avaibleMove.Add(new Vector2Int(posX, posY + (direction * 2)));
 
                 //Kill Move
-                if (posX == 0)
+                if (posX + 1 < sizeMap && posY + direction >= 0 && posY + direction < sizeMap)
                     if (_mapCP[posX + 1, posY + direction] != null)
                         if (_mapCP[posX + 1, posY + direction].team != chessPiece.team)
                             avaibleMove.Add(new Vector2Int(posX + 1, posY + direction));
@@ -75,16 +86,16 @@ public class Distributor : MonoBehaviour
                         if (_mapCP[posX - 1, posY + direction].team != chessPiece.team)
                             avaibleMove.Add(new Vector2Int(posX - 1, posY + direction));
 
-                if (posX != 0 && posX != _mapCP.GetLength(0) - 1)
-                {
+                if (posX  - 1 >= 0 && posY + direction < sizeMap && posY + direction >= 0)                
                     if (_mapCP[posX - 1, posY + direction] != null)
                         if (_mapCP[posX - 1, posY + direction].team != chessPiece.team)
                             avaibleMove.Add(new Vector2Int(posX - 1, posY + direction));
 
+                if(posX + 1 < sizeMap && posX + direction < sizeMap && posY + direction < sizeMap && posY + direction >= 0)
                     if (_mapCP[posX + 1, posY + direction] != null)
                         if (_mapCP[posX + 1, posY + direction].team != chessPiece.team)
                             avaibleMove.Add(new Vector2Int(posX + 1, posY + direction));
-                }
+                
 
                 break;
             #endregion
@@ -435,10 +446,10 @@ public class Distributor : MonoBehaviour
 
             #region King
             case ChessPieceType.King:
-                
+
                 //правый верхний
                 if (posX + 1 < sizeMap && posY + 1 < sizeMap)
-                {                    
+                {
                     if (_mapCP[posX + 1, posY + 1] == null)
                         avaibleMove.Add(new Vector2Int(posX + 1, posY + 1));
                     if (_mapCP[posX + 1, posY + 1] != null && _mapCP[posX + 1, posY + 1].team != chessPiece.team)
@@ -446,7 +457,7 @@ public class Distributor : MonoBehaviour
                 }
                 //верх
                 if (posY + 1 < sizeMap)
-                {                    
+                {
                     if (_mapCP[posX, posY + 1] == null)
                         avaibleMove.Add(new Vector2Int(posX, posY + 1));
                     if (_mapCP[posX, posY + 1] != null && _mapCP[posX, posY + 1].team != chessPiece.team)
@@ -454,7 +465,7 @@ public class Distributor : MonoBehaviour
                 }
                 //право
                 if (posX + 1 < sizeMap)
-                {                    
+                {
                     if (_mapCP[posX + 1, posY] == null)
                         avaibleMove.Add(new Vector2Int(posX + 1, posY));
                     if (_mapCP[posX + 1, posY] != null && _mapCP[posX + 1, posY].team != chessPiece.team)
@@ -470,7 +481,7 @@ public class Distributor : MonoBehaviour
                 }
                 //низ
                 if (posY - 1 >= 0)
-                {                    
+                {
                     if (_mapCP[posX, posY - 1] == null)
                         avaibleMove.Add(new Vector2Int(posX, posY - 1));
                     if (_mapCP[posX, posY - 1] != null && _mapCP[posX, posY - 1].team != chessPiece.team)
@@ -478,7 +489,7 @@ public class Distributor : MonoBehaviour
                 }
                 //лево
                 if (posX - 1 >= 0)
-                {                    
+                {
                     if (_mapCP[posX - 1, posY] == null)
                         avaibleMove.Add(new Vector2Int(posX - 1, posY));
                     if (_mapCP[posX - 1, posY] != null && _mapCP[posX - 1, posY].team != chessPiece.team)
@@ -494,7 +505,7 @@ public class Distributor : MonoBehaviour
                 }
                 //правый нижний
                 if (posX + 1 < sizeMap && posY - 1 >= 0)
-                {                    
+                {
                     if (_mapCP[posX + 1, posY - 1] == null)
                         avaibleMove.Add(new Vector2Int(posX + 1, posY - 1));
 
@@ -507,16 +518,9 @@ public class Distributor : MonoBehaviour
                 #endregion
         }
 
-
-
         for (int i = 0; i < avaibleMove.Count; i++)
             _arrayTile[avaibleMove[i].x, avaibleMove[i].y].OnHighlight();
     }
-
-
-
-
-
     private void ChangePositionPiece(ChessPiece chessPiece, int posChangeOnX, int posChangeOnY)
     {
         for (int i = 0; i < avaibleMove.Count; i++)
@@ -524,7 +528,8 @@ public class Distributor : MonoBehaviour
             if (avaibleMove[i] == new Vector2Int(posChangeOnX, posChangeOnY))
             {
                 if (_mapCP[posChangeOnX, posChangeOnY] != null && _mapCP[posChangeOnX, posChangeOnY].team != chessPiece.team)
-                    _mapCP[posChangeOnX, posChangeOnY].gameObject.SetActive(false);
+
+                    Destroy(_mapCP[posChangeOnX, posChangeOnY].gameObject);
 
 
                 _mapCP[chessPiece.currentPositionX, chessPiece.currentPositionY] = null;

@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4163042742144150722}
   - component: {fileID: 4301381933385681243}
-  - component: {fileID: -1908974164859628065}
   - component: {fileID: 8031621052926495896}
+  - component: {fileID: -6524943855489667344}
   m_Layer: 10
   m_Name: Knight
   m_TagString: Untagged
@@ -86,22 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-1908974164859628065
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3821040236507792035}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ece1fe060ffe8642b5a273abaf81650, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 0
-  team: 0
-  currentPositionX: 0
-  currentPositionY: 0
 --- !u!61 &8031621052926495896
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -128,3 +112,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-6524943855489667344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3821040236507792035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ece1fe060ffe8642b5a273abaf81650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  team: 0
+  currentPositionX: 0
+  currentPositionY: 0
