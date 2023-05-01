@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CreaterSingleChessPiece : MonoBehaviour
 {
-    public static Func<ChessPieceType, byte, ChessPiece> onCreateSinglePiece;
+    public static Func<ChessPieceType, int, ChessPiece> onCreateSinglePiece;
     [SerializeField] private ChessPiece[] chessPiece;
     [SerializeField] private Color[] _colorsTeam; // 0 - white / 1 - black
 
@@ -11,7 +11,7 @@ public class CreaterSingleChessPiece : MonoBehaviour
     {
         onCreateSinglePiece += CreateSinglePiece;
     }
-    private ChessPiece CreateSinglePiece(ChessPieceType type, byte team)
+    private ChessPiece CreateSinglePiece(ChessPieceType type, int team)
     {
         ChessPiece cp = Instantiate(chessPiece[(int)type - 1], transform); GetComponent<ChessPiece>();       
         cp.type = type;

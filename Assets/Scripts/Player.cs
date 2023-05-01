@@ -42,18 +42,15 @@ public class Player : MonoBehaviour
                 _touchpointPiece.gameObject.SetActive(false);
                 _touchpointPiece.transform.position = transform.position;
                 _countClick = 0;
-
                 Distributor.onChangePositionPiece?.Invoke(_selectedPiece, (int)rayHit.collider.transform.position.x, (int)rayHit.collider.transform.position.y);
             }
 
             if (_countClick > 0 && rayHit.collider.gameObject.layer == ConstantsLayer.PIECE)
             {
-
                 if (_selectedPiece.team != rayHit.collider.gameObject.GetComponent<ChessPiece>().team)
                 {
                     _countClick = 0;
-                    _touchpointPiece.gameObject.SetActive(false);
-                  
+                    _touchpointPiece.gameObject.SetActive(false);                  
                     Distributor.onChangePositionPiece?.Invoke(_selectedPiece, (int)rayHit.collider.transform.position.x, (int)rayHit.collider.transform.position.y);
                 }
 

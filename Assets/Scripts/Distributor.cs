@@ -9,18 +9,20 @@ public class Distributor : MonoBehaviour
     public static Action<ChessPiece[,]> onStartDistribution;
     public static Action<ChessPiece, int, int> onChangePositionPiece;
     public static Action<ChessPiece, int, int> onSwonAviableMoves;
+
     private ChessPiece[,] _mapCP;
     private Tile[,] _arrayTile;
     private readonly int _positionPieceZ = -5;
     private List<Vector2Int> avaibleMove;
 
+    
 
     private void OnEnable()
     {
         onStartDistribution += Distribute;
         onChangePositionPiece += ChangePositionPiece;
         onSwonAviableMoves += ShowAviableMoves;
-        onSendPiecesToScrap += SendPiecesToScrap;
+        onSendPiecesToScrap += SendPiecesToScrap;        
     }
 
     private void Start()
@@ -35,7 +37,7 @@ public class Distributor : MonoBehaviour
                 if (_mapCP[x, y] != null)
                 {
                     Destroy(_mapCP[x, y].gameObject);
-                } 
+                }
     }
 
     private void Distribute(ChessPiece[,] chessPieces)
@@ -65,8 +67,8 @@ public class Distributor : MonoBehaviour
 
         switch (type)
         {
-            #region Pown
-            case ChessPieceType.Pown:
+            #region Pàwn
+            case ChessPieceType.Pàwn:
                 //Move on one tile
                 if (posY + direction < sizeMap && posY + direction >= 0 && _mapCP[posX, posY + direction] == null)
                     avaibleMove.Add(new Vector2Int(posX, posY + direction));
@@ -86,17 +88,15 @@ public class Distributor : MonoBehaviour
                         if (_mapCP[posX - 1, posY + direction].team != chessPiece.team)
                             avaibleMove.Add(new Vector2Int(posX - 1, posY + direction));
 
-                if (posX  - 1 >= 0 && posY + direction < sizeMap && posY + direction >= 0)                
+                if (posX - 1 >= 0 && posY + direction < sizeMap && posY + direction >= 0)
                     if (_mapCP[posX - 1, posY + direction] != null)
                         if (_mapCP[posX - 1, posY + direction].team != chessPiece.team)
                             avaibleMove.Add(new Vector2Int(posX - 1, posY + direction));
 
-                if(posX + 1 < sizeMap && posX + direction < sizeMap && posY + direction < sizeMap && posY + direction >= 0)
+                if (posX + 1 < sizeMap && posX + direction < sizeMap && posY + direction < sizeMap && posY + direction >= 0)
                     if (_mapCP[posX + 1, posY + direction] != null)
                         if (_mapCP[posX + 1, posY + direction].team != chessPiece.team)
                             avaibleMove.Add(new Vector2Int(posX + 1, posY + direction));
-                
-
                 break;
             #endregion
 
@@ -524,21 +524,25 @@ public class Distributor : MonoBehaviour
     private void ChangePositionPiece(ChessPiece chessPiece, int posChangeOnX, int posChangeOnY)
     {
         for (int i = 0; i < avaibleMove.Count; i++)
-        {
             if (avaibleMove[i] == new Vector2Int(posChangeOnX, posChangeOnY))
             {
+                //Ñhecking for an enemy
                 if (_mapCP[posChangeOnX, posChangeOnY] != null && _mapCP[posChangeOnX, posChangeOnY].team != chessPiece.team)
-
                     Destroy(_mapCP[posChangeOnX, posChangeOnY].gameObject);
 
-
+                //Change position current chessPiece
                 _mapCP[chessPiece.currentPositionX, chessPiece.currentPositionY] = null;
                 _mapCP[posChangeOnX, posChangeOnY] = chessPiece;
                 _mapCP[posChangeOnX, posChangeOnY].transform.position = new Vector3(posChangeOnX, posChangeOnY, _positionPieceZ);
                 chessPiece.currentPositionX = posChangeOnX;
                 chessPiece.currentPositionY = posChangeOnY;
+
+                //Checking for change type piece
+                if (chessPiece.type == ChessPieceType.Pàwn && (chessPiece.currentPositionY == _mapCP.GetLength(1) - 1 || chessPiece.currentPositionY == 0))
+                {
+                    ChangePiece.onActiveChoose.Invoke(_mapCP,chessPiece);             
+                }
                 break;
             }
-        }
     }
 }

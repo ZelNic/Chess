@@ -3,7 +3,7 @@ using UnityEngine;
 public enum ChessPieceType
 {
     None = 0,
-    Pown = 1,
+    Pàwn = 1,
     Rook = 2,
     Knight = 3,
     Bishop = 4,
