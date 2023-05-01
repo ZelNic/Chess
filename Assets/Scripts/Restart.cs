@@ -1,11 +1,10 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Restart : MonoBehaviour
 {
     public void RestartScene()
     {
-       Distributor.onSendPiecesToScrap?.Invoke();
+       Distributor.onDestroyPieces?.Invoke();
        CreaterAllChessPiece.onCreateAllChessPiece?.Invoke();
     }
 }

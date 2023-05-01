@@ -1,10 +1,11 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChangePiece : MonoBehaviour
 {
     public static Action<ChessPiece[,], ChessPiece> onActiveChoose;
-    [SerializeField] private GameObject _selectionBox;
+    [SerializeField] private Image _selectionBox;
     private ChessPiece[,] _mapCP;
     private ChessPiece _figureToReplace;
 
@@ -14,20 +15,20 @@ public class ChangePiece : MonoBehaviour
     }
     private void ActiveChoicePiece(ChessPiece[,] mapCP, ChessPiece chessPiece)
     {
-        _selectionBox.SetActive(true);
+        _selectionBox.gameObject.SetActive(true);
         _mapCP = mapCP;
         _figureToReplace = chessPiece;
     }
 
     private void ReplacePiece(ChessPieceType type)
     {
-        ChessPiece newChessPiece = CreaterSingleChessPiece.onCreateSinglePiece(type, _figureToReplace.team);
-        newChessPiece.currentPositionX = _figureToReplace.currentPositionX;
-        newChessPiece.currentPositionY = _figureToReplace.currentPositionY;
+        ChessPiece newPiece = CreaterSingleChessPiece.onCreateSinglePiece(type, _figureToReplace.team);
+        newPiece.currentPositionX = _figureToReplace.currentPositionX;
+        newPiece.currentPositionY = _figureToReplace.currentPositionY;
+        _mapCP[_figureToReplace.currentPositionX, _figureToReplace.currentPositionY] = newPiece;
         _figureToReplace.DestroyPiece();
-        _mapCP[_figureToReplace.currentPositionX, _figureToReplace.currentPositionY] = newChessPiece;
-        _mapCP[_figureToReplace.currentPositionX, _figureToReplace.currentPositionY].transform.position =
-        new Vector3(_figureToReplace.currentPositionX, _figureToReplace.currentPositionY);
+        Distributor.onSetOnPlace.Invoke(newPiece.currentPositionX, newPiece.currentPositionY);
+        Player.onStopSelection.Invoke();
     }
 
     public void ChooseRock()
@@ -55,6 +56,6 @@ public class ChangePiece : MonoBehaviour
 
     private void DeactiveChoicePiece()
     {
-        _selectionBox.SetActive(false);
+        _selectionBox.gameObject.SetActive(false);
     }
 }

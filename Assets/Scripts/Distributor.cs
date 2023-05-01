@@ -1,28 +1,27 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Distributor : MonoBehaviour
 {
-    public static Action onSendPiecesToScrap;
+    public static Action onDestroyPieces;
     public static Action<ChessPiece[,]> onStartDistribution;
     public static Action<ChessPiece, int, int> onChangePositionPiece;
     public static Action<ChessPiece, int, int> onSwonAviableMoves;
+    public static Action<int, int> onSetOnPlace;
 
     private ChessPiece[,] _mapCP;
     private Tile[,] _arrayTile;
     private readonly int _positionPieceZ = -5;
     private List<Vector2Int> avaibleMove;
 
-    
-
     private void OnEnable()
     {
         onStartDistribution += Distribute;
         onChangePositionPiece += ChangePositionPiece;
         onSwonAviableMoves += ShowAviableMoves;
-        onSendPiecesToScrap += SendPiecesToScrap;        
+        onDestroyPieces += SendPiecesToScrap;
+        onSetOnPlace += SetOnPlace;
     }
 
     private void Start()
@@ -528,7 +527,12 @@ public class Distributor : MonoBehaviour
             {
                 //Ñhecking for an enemy
                 if (_mapCP[posChangeOnX, posChangeOnY] != null && _mapCP[posChangeOnX, posChangeOnY].team != chessPiece.team)
-                    Destroy(_mapCP[posChangeOnX, posChangeOnY].gameObject);
+                {
+                    //Checking which king was killed
+                    if (_mapCP[posChangeOnX, posChangeOnY].type == ChessPieceType.King)
+                        GameResult.onShowWhoWins.Invoke(chessPiece.team);
+                    _mapCP[posChangeOnX, posChangeOnY].DestroyPiece();
+                }
 
                 //Change position current chessPiece
                 _mapCP[chessPiece.currentPositionX, chessPiece.currentPositionY] = null;
@@ -540,7 +544,8 @@ public class Distributor : MonoBehaviour
                 //Checking for change type piece
                 if (chessPiece.type == ChessPieceType.Pàwn && (chessPiece.currentPositionY == _mapCP.GetLength(1) - 1 || chessPiece.currentPositionY == 0))
                 {
-                    ChangePiece.onActiveChoose.Invoke(_mapCP,chessPiece);             
+                    ChangePiece.onActiveChoose.Invoke(_mapCP, chessPiece);
+                    Player.onStopSelection.Invoke();
                 }
                 break;
             }
