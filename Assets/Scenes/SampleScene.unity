@@ -1804,6 +1804,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 853184417926301577, guid: a8ba2accdc1da8843956b30958901476, type: 3}
+      propertyPath: chessPiece.Array.data[0]
+      value: 
+      objectReference: {fileID: -5738693008827300327, guid: b4b34a24633f9744eb8f4f1b90cea98d, type: 3}
+    - target: {fileID: 853184417926301577, guid: a8ba2accdc1da8843956b30958901476, type: 3}
+      propertyPath: chessPiece.Array.data[1]
+      value: 
+      objectReference: {fileID: -6048428636406546645, guid: f006ed5fd4627544c8631cc768451353, type: 3}
+    - target: {fileID: 853184417926301577, guid: a8ba2accdc1da8843956b30958901476, type: 3}
+      propertyPath: chessPiece.Array.data[2]
+      value: 
+      objectReference: {fileID: 3536384443030054916, guid: 58cd9a00dddefef40b6585a5ee2db284, type: 3}
+    - target: {fileID: 853184417926301577, guid: a8ba2accdc1da8843956b30958901476, type: 3}
+      propertyPath: chessPiece.Array.data[3]
+      value: 
+      objectReference: {fileID: -5300522491847197897, guid: da9889b046af00f4db4fddfccf8b63a3, type: 3}
+    - target: {fileID: 853184417926301577, guid: a8ba2accdc1da8843956b30958901476, type: 3}
+      propertyPath: chessPiece.Array.data[4]
+      value: 
+      objectReference: {fileID: 8118409591605177596, guid: 86934784e96810f4bb5150b8441400c1, type: 3}
+    - target: {fileID: 853184417926301577, guid: a8ba2accdc1da8843956b30958901476, type: 3}
+      propertyPath: chessPiece.Array.data[5]
+      value: 
+      objectReference: {fileID: 8171555657704360792, guid: 2607835f922b7e944982acb5e61d7350, type: 3}
     - target: {fileID: 2364074994213717853, guid: a8ba2accdc1da8843956b30958901476, type: 3}
       propertyPath: m_RootOrder
       value: 2

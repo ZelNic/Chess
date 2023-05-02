@@ -20,7 +20,7 @@ public class CreaterAllChessPiece : MonoBehaviour
     {
         for (int i = 0; i < _keeperOfCoordinates.GetLength(1); i++)
         {
-            _keeperOfCoordinates[i, 1] = CreaterSingleChessPiece.onCreateSinglePiece?.Invoke(ChessPieceType.Pàwn, 0);
+            _keeperOfCoordinates[i, 1] = CreaterSingleChessPiece.onCreateSinglePiece?.Invoke(ChessPieceType.Pawn, 0);
         }
         _keeperOfCoordinates[0, 0] = CreaterSingleChessPiece.onCreateSinglePiece.Invoke(ChessPieceType.Rook, 0);
         _keeperOfCoordinates[1, 0] = CreaterSingleChessPiece.onCreateSinglePiece.Invoke(ChessPieceType.Knight, 0);
@@ -34,7 +34,7 @@ public class CreaterAllChessPiece : MonoBehaviour
 
         for (int i = 0; i < _keeperOfCoordinates.GetLength(1); i++)
         {
-            _keeperOfCoordinates[i, 6] = CreaterSingleChessPiece.onCreateSinglePiece.Invoke(ChessPieceType.Pàwn, 1);
+            _keeperOfCoordinates[i, 6] = CreaterSingleChessPiece.onCreateSinglePiece.Invoke(ChessPieceType.Pawn, 1);
         }
         _keeperOfCoordinates[0, 7] = CreaterSingleChessPiece.onCreateSinglePiece.Invoke(ChessPieceType.Rook, 1);
         _keeperOfCoordinates[1, 7] = CreaterSingleChessPiece.onCreateSinglePiece.Invoke(ChessPieceType.Knight, 1);

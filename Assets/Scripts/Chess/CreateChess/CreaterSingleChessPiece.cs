@@ -13,13 +13,13 @@ public class CreaterSingleChessPiece : MonoBehaviour
     }
     private ChessPiece CreateSinglePiece(ChessPieceType type, int team)
     {
-        ChessPiece cp = Instantiate(chessPiece[(int)type - 1], transform); GetComponent<ChessPiece>();       
-        cp.type = type;
-        cp.team = team;
+        ChessPiece piece = Instantiate(chessPiece[(int)type - 1], transform).GetComponent<ChessPiece>();       
+        piece.type = type;
+        piece.team = team;
         if(team == 0)   
-            cp.name = "0_" + gameObject.name;
-        else cp.name = "1_" + gameObject.name;
-        cp.GetComponent<SpriteRenderer>().color = _colorsTeam[team];
-        return cp;
+            piece.name = "0_" + gameObject.name;
+        else piece.name = "1_" + gameObject.name;
+        piece.GetComponent<SpriteRenderer>().color = _colorsTeam[team];
+        return piece;
     }
 }

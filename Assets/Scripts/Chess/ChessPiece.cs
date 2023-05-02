@@ -1,9 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum ChessPieceType
 {
     None = 0,
-    Pàwn = 1,
+    Pawn = 1,
     Rook = 2,
     Knight = 3,
     Bishop = 4,
@@ -20,5 +21,12 @@ public class ChessPiece : MonoBehaviour
     public void DestroyPiece()
     {
         Destroy(gameObject);
+    }
+
+    public virtual List<Vector2Int> ShowAviableMove(ChessPiece[,] _mapCP)
+    {
+        List<Vector2Int> avaibleMove = new List<Vector2Int>();
+
+        return avaibleMove;
     }
 }

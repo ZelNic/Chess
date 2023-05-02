@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
                     _touchpointPiece.gameObject.SetActive(true);
                     _touchpointPiece.transform.position = _selectedPiece.transform.position;
                     _countClick++;
-                    Distributor.onSwonAviableMoves?.Invoke(_selectedPiece, (int)_rayHitGO.transform.position.x, (int)_rayHitGO.transform.position.y);
+                    Distributor.onShowAviableMoves?.Invoke(_selectedPiece);
                 }
 
             if (_countClick > 0 && _rayHitGO.layer == ConstantsLayer.TILE_LAYER)
@@ -72,10 +72,8 @@ public class Player : MonoBehaviour
                 {
                     _touchpointPiece.gameObject.SetActive(true);
                     _touchpointPiece.transform.position = _selectedPiece.transform.position;
-
                     _selectedPiece = _rayHitGO.GetComponent<ChessPiece>();
-
-                    Distributor.onSwonAviableMoves?.Invoke(_selectedPiece, (int)_rayHitGO.transform.position.x, (int)_rayHitGO.transform.position.y);
+                    Distributor.onShowAviableMoves?.Invoke(_selectedPiece);
                 }
             }
         }

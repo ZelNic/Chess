@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 41066998048811591}
   - component: {fileID: 1920621405968887196}
   - component: {fileID: 8385508167680198055}
-  - component: {fileID: -2021477025115883475}
+  - component: {fileID: -5300522491847197897}
   m_Layer: 10
   m_Name: Bishop
   m_TagString: Untagged
@@ -112,7 +112,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &-2021477025115883475
+--- !u!114 &-5300522491847197897
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,10 +121,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 959329832381790828}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ece1fe060ffe8642b5a273abaf81650, type: 3}
+  m_Script: {fileID: 11500000, guid: b8cd37a0b669cc3408a7da47e43113c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
-  team: 0
-  currentPositionX: 0
-  currentPositionY: 0
