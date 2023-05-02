@@ -3,6 +3,17 @@ using UnityEngine;
 
 public class Rock : ChessPiece
 {
+    private bool _firstStep = true;
+    public bool FirstStep
+    {
+        get { return _firstStep; }
+        private set { _firstStep = value; }
+    }
+    private void MakeMove()
+    {
+        FirstStep = false;
+    }
+
     public override List<Vector2Int> ShowAviableMove(ChessPiece[,] _mapCP)
     {
         int sizeMap = _mapCP.GetLength(0);
@@ -67,6 +78,25 @@ public class Rock : ChessPiece
             }
         }
 
+        //Castling for white
+        if (FirstStep == true)
+        {
+            for (int x = currentPositionX; x == 3; x++)
+            {
+                if (_mapCP[x, currentPositionY] != null)
+                    break;
+                if (x == 3 && _mapCP[4, currentPositionY].type == ChessPieceType.King && _mapCP[4, currentPositionY].GetComponent<King>().FirstStep == true)
+                    avaibleMove.Add(new Vector2Int(3, currentPositionY));
+            }
+
+            for (int x = currentPositionX; x == sizeMap - 3; x--)
+            {
+                if (_mapCP[x, currentPositionY] != null)
+                    break;
+                if (x == sizeMap - 3 && _mapCP[4, currentPositionY].type == ChessPieceType.King && _mapCP[4, currentPositionY].GetComponent<King>().FirstStep == true)
+                    avaibleMove.Add(new Vector2Int(sizeMap - 3, 0));
+            }
+        }
         return avaibleMove;
     }
 }

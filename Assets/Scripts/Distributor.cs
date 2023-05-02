@@ -13,13 +13,7 @@ public class Distributor : MonoBehaviour
     private ChessPiece[,] _mapCP;
     private Tile[,] _arrayTile;
     private readonly int _positionPieceZ = -5;
-    private List<Vector2Int> avaibleMove;
-
-    private void Update()
-    {
-        if (_mapCP[2, 3] != null)
-            print("Bug");
-    }
+    private List<Vector2Int> avaibleMove;   
 
     private void OnEnable()
     {
@@ -57,6 +51,8 @@ public class Distributor : MonoBehaviour
     }
     private void ShowAviableMoves(ChessPiece chessPiece)
     {
+        print(_mapCP.GetLength(0));
+
         avaibleMove = chessPiece.ShowAviableMove(_mapCP);
         for (int i = 0; i < avaibleMove.Count; i++)
             _arrayTile[avaibleMove[i].x, avaibleMove[i].y].OnHighlight();

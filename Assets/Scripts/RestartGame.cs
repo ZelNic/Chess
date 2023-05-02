@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Restart : MonoBehaviour
+public class RestartGame : MonoBehaviour
 {
     public void RestartScene()
     {

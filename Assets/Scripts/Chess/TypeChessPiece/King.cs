@@ -1,10 +1,23 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class King : ChessPiece
 {
+    private bool _firstStep = true;
+    public bool FirstStep
+    {
+        get { return _firstStep; }
+        private set { _firstStep = value; }
+    }
+    private void MakeMove()
+    {
+        _firstStep = false;
+    }
+
     public override List<Vector2Int> ShowAviableMove(ChessPiece[,] _mapCP)
     {
+        print(currentPositionX);
         int direction = (team == 0) ? 1 : -1;
         int sizeMap = _mapCP.GetLength(0);
         List<Vector2Int> avaibleMove = new List<Vector2Int>();
@@ -33,7 +46,7 @@ public class King : ChessPiece
             if (_mapCP[currentPositionX + 1, currentPositionY + 1] != null && _mapCP[currentPositionX + 1, currentPositionY + 1].team != team)
                 avaibleMove.Add(new Vector2Int(currentPositionX + 1, currentPositionY + 1));
         }
-       
+
         //Left
         if (currentPositionX - 1 >= 0)
         {
@@ -50,7 +63,7 @@ public class King : ChessPiece
             if (_mapCP[currentPositionX + 1, currentPositionY] != null && _mapCP[currentPositionX + 1, currentPositionY].team != team)
                 avaibleMove.Add(new Vector2Int(currentPositionX + 1, currentPositionY));
         }
-       
+
         //Bottom left
         if (currentPositionX - 1 >= 0 && currentPositionY - 1 >= 0)
         {
@@ -66,7 +79,7 @@ public class King : ChessPiece
                 avaibleMove.Add(new Vector2Int(currentPositionX, currentPositionY - 1));
             if (_mapCP[currentPositionX, currentPositionY - 1] != null && _mapCP[currentPositionX, currentPositionY - 1].team != team)
                 avaibleMove.Add(new Vector2Int(currentPositionX, currentPositionY - 1));
-        }   
+        }
         //Bottom right
         if (currentPositionX + 1 < sizeMap && currentPositionY - 1 >= 0)
         {
@@ -76,7 +89,26 @@ public class King : ChessPiece
             if (_mapCP[currentPositionX + 1, currentPositionY - 1] != null && _mapCP[currentPositionX + 1, currentPositionY - 1].team != team)
                 avaibleMove.Add(new Vector2Int(currentPositionX + 1, currentPositionY - 1));
         }
-       
+
+        //Castling for white
+        if (FirstStep == true)
+        {
+            for (int x = currentPositionX; x == 1; x--)
+            {                
+                if (_mapCP[x, currentPositionY] != null)
+                    break;
+                if (x == 1 && _mapCP[x - 1, currentPositionY].type == ChessPieceType.Rook && _mapCP[x - 1, currentPositionY].GetComponent<Rock>().FirstStep == true)
+                    avaibleMove.Add(new Vector2Int(2, 0));
+            }
+
+            for (int x = currentPositionX; x == sizeMap - 2; x++)
+            {
+                if (_mapCP[x, currentPositionY] != null)
+                    break;
+                if (x == sizeMap - 2 && _mapCP[sizeMap - 1, currentPositionY].type == ChessPieceType.Rook && _mapCP[sizeMap - 1, currentPositionY].GetComponent<Rock>().FirstStep == true)
+                    avaibleMove.Add(new Vector2Int(sizeMap - 2, 0));
+            }
+        }
         return avaibleMove;
     }
 }

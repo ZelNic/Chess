@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
     {
         _isWhite = true;
     }
-    private void PlayerSwitch() => _isWhite = _isWhite == true ? false : true;
+    private void PlayerSwitch() => _isWhite = _isWhite == true ? true : true; //
     private void StopSelection() => _isStopSelection = _isStopSelection == false ? true : false;
     private void Update() => SelectObject();
     private void SelectObject()
