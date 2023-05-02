@@ -18,7 +18,6 @@ public class King : ChessPiece
     public override List<Vector2Int> ShowAviableMove(ChessPiece[,] _mapCP)
     {
         print(currentPositionX);
-        int direction = (team == 0) ? 1 : -1;
         int sizeMap = _mapCP.GetLength(0);
         List<Vector2Int> avaibleMove = new List<Vector2Int>();
 
