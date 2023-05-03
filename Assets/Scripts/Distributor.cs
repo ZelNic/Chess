@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class Distributor : MonoBehaviour
@@ -10,6 +9,8 @@ public class Distributor : MonoBehaviour
     public static Action<ChessPiece, int, int> onChangePositionPiece;
     public static Action<ChessPiece> onShowAviableMoves;
     public static Action<int, int, int, int> onSetOnPlace;
+    public static Action<ChessPiece> onSendToReplaceType;
+    public static Action onPawnOnEdgeBoard;
 
     private ChessPiece[,] _mapCP;
     private Tile[,] _arrayTile;
@@ -101,8 +102,8 @@ public class Distributor : MonoBehaviour
                 //Checking for change type piece
                 if (chessPiece.type == ChessPieceType.Pawn && (chessPiece.currentPositionY == _mapCP.GetLength(1) - 1 || chessPiece.currentPositionY == 0))
                 {
-                    ChangeTypePiece.onActiveChoose.Invoke(chessPiece);
-                    Player.onStopSelection.Invoke();
+                    onSendToReplaceType?.Invoke(chessPiece);
+                    onPawnOnEdgeBoard?.Invoke();
                 }
                 break;
             }

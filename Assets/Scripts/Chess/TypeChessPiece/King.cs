@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class King : ChessPiece
@@ -95,7 +94,7 @@ public class King : ChessPiece
                 if (_mapCP[x, currentPositionY] != null)
                     break;
                 if (x == 1 && _mapCP[x - 1, currentPositionY].type == ChessPieceType.Rook && _mapCP[x - 1, currentPositionY].GetComponent<Rock>().FirstStep == true) { }
-                    avaibleMove.Add(new Vector2Int(2, currentPositionY));
+                avaibleMove.Add(new Vector2Int(2, currentPositionY));
             }
 
             for (int x = currentPositionX + 1; x < sizeMap - 1; x++)
@@ -106,7 +105,7 @@ public class King : ChessPiece
                     avaibleMove.Add(new Vector2Int(sizeMap - 2, currentPositionY));
             }
         }
-        
+
         return avaibleMove;
     }
 }

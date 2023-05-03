@@ -7,7 +7,6 @@ public struct ConstantsLayer
 }
 public class Player : MonoBehaviour
 {
-    public static Action onStopSelection;
     [SerializeField] private GameObject _touchpointPiece;
     private ChessPiece _selectedPiece;
     private RaycastHit2D _rayHit;
@@ -18,17 +17,13 @@ public class Player : MonoBehaviour
 
     private void OnEnable()
     {
-        onStopSelection += StopSelection;
         Distributor.onDestroyPieces += SetIsWhiteTrue;
+        Distributor.onPawnOnEdgeBoard += StopSelection;
     }
-    private void SetIsWhiteTrue()
-    {
-        _isWhite = true;
-    }
-    private void PlayerSwitch() => _isWhite = _isWhite == true ? false : true; 
+    private void SetIsWhiteTrue() => _isWhite = true;
+    private void PlayerSwitch() => _isWhite = _isWhite == true ? true : true; 
     private void StopSelection() => _isStopSelection = _isStopSelection == false ? true : false;
     private void Update() => SelectObject();
-
    
     private void SelectObject()
     {
