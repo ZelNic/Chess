@@ -11,13 +11,10 @@ public class CreaterAllChessPiece : MonoBehaviour
         onCreateAllChessPiece += SendCreationChessPieces;        
         BoardCreator.onSendSize += GetSizeBoard;        
     }
-
-    private void GetSizeBoard(int width, int height)
-    {
-        _keeperOfCoordinates = new ChessPiece[width, height];
-    }
+    private void GetSizeBoard(int width, int height) => _keeperOfCoordinates = new ChessPiece[width, height];   
     private void SendCreationChessPieces()
     {
+        //White
         for (int i = 0; i < _keeperOfCoordinates.GetLength(1); i++)
         {
             _keeperOfCoordinates[i, 1] = CreaterSingleChessPiece.onCreateSinglePiece?.Invoke(ChessPieceType.Pawn, 0);
@@ -31,7 +28,7 @@ public class CreaterAllChessPiece : MonoBehaviour
         _keeperOfCoordinates[6, 0] = CreaterSingleChessPiece.onCreateSinglePiece.Invoke(ChessPieceType.Knight, 0);
         _keeperOfCoordinates[7, 0] = CreaterSingleChessPiece.onCreateSinglePiece.Invoke(ChessPieceType.Rook, 0);
 
-
+        //Black
         for (int i = 0; i < _keeperOfCoordinates.GetLength(1); i++)
         {
             _keeperOfCoordinates[i, 6] = CreaterSingleChessPiece.onCreateSinglePiece.Invoke(ChessPieceType.Pawn, 1);

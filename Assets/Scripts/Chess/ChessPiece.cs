@@ -25,8 +25,7 @@ public class ChessPiece : MonoBehaviour
 
     public virtual List<Vector2Int> ShowAviableMove(ChessPiece[,] _mapCP)
     {
-        List<Vector2Int> avaibleMove = new List<Vector2Int>();
-
+        List<Vector2Int> avaibleMove = new();
         return avaibleMove;
     }
 }
