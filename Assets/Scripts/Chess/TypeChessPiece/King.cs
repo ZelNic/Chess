@@ -17,7 +17,6 @@ public class King : ChessPiece
 
     public override List<Vector2Int> ShowAviableMove(ChessPiece[,] _mapCP)
     {
-        print(currentPositionX);
         int sizeMap = _mapCP.GetLength(0);
         List<Vector2Int> avaibleMove = new List<Vector2Int>();
 
@@ -92,20 +91,20 @@ public class King : ChessPiece
         //Castling for white
         if (FirstStep == true)
         {
-            for (int x = currentPositionX; x == 1; x--)
-            {                
+            for (int x = currentPositionX - 1; x >= 0; x--)
+            {
                 if (_mapCP[x, currentPositionY] != null)
                     break;
                 if (x == 1 && _mapCP[x - 1, currentPositionY].type == ChessPieceType.Rook && _mapCP[x - 1, currentPositionY].GetComponent<Rock>().FirstStep == true)
-                    avaibleMove.Add(new Vector2Int(2, 0));
+                    avaibleMove.Add(new Vector2Int(2, currentPositionY));
             }
 
-            for (int x = currentPositionX; x == sizeMap - 2; x++)
+            for (int x = currentPositionX + 1; x < sizeMap - 1; x++)
             {
                 if (_mapCP[x, currentPositionY] != null)
                     break;
                 if (x == sizeMap - 2 && _mapCP[sizeMap - 1, currentPositionY].type == ChessPieceType.Rook && _mapCP[sizeMap - 1, currentPositionY].GetComponent<Rock>().FirstStep == true)
-                    avaibleMove.Add(new Vector2Int(sizeMap - 2, 0));
+                    avaibleMove.Add(new Vector2Int(sizeMap - 2, currentPositionY));
             }
         }
         return avaibleMove;

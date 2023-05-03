@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Distributor : MonoBehaviour
@@ -13,11 +14,11 @@ public class Distributor : MonoBehaviour
     private ChessPiece[,] _mapCP;
     private Tile[,] _arrayTile;
     private readonly int _positionPieceZ = -5;
-    private List<Vector2Int> avaibleMove;   
+    private List<Vector2Int> avaibleMove;
 
     private void OnEnable()
     {
-        onStartDistribution += Distribute;
+        onStartDistribution += StartDistribute;
         onChangePositionPiece += ChangePositionPiece;
         onShowAviableMoves += ShowAviableMoves;
         onDestroyPieces += SendPiecesToScrap;
@@ -35,7 +36,7 @@ public class Distributor : MonoBehaviour
                 }
     }
 
-    private void Distribute(ChessPiece[,] chessPieces)
+    private void StartDistribute(ChessPiece[,] chessPieces)
     {
         _mapCP = chessPieces;
         for (int x = 0; x < _mapCP.GetLength(0); x++)
@@ -51,8 +52,6 @@ public class Distributor : MonoBehaviour
     }
     private void ShowAviableMoves(ChessPiece chessPiece)
     {
-        print(_mapCP.GetLength(0));
-
         avaibleMove = chessPiece.ShowAviableMove(_mapCP);
         for (int i = 0; i < avaibleMove.Count; i++)
             _arrayTile[avaibleMove[i].x, avaibleMove[i].y].OnHighlight();
@@ -62,6 +61,7 @@ public class Distributor : MonoBehaviour
         for (int i = 0; i < avaibleMove.Count; i++)
             if (avaibleMove[i] == new Vector2Int(posChangeOnX, posChangeOnY))
             {
+
                 //Ñhecking for an enemy
                 if (_mapCP[posChangeOnX, posChangeOnY] != null && _mapCP[posChangeOnX, posChangeOnY].team != chessPiece.team)
                 {
@@ -77,6 +77,16 @@ public class Distributor : MonoBehaviour
                 _mapCP[posChangeOnX, posChangeOnY].transform.position = new Vector3(posChangeOnX, posChangeOnY, _positionPieceZ);
                 chessPiece.currentPositionX = posChangeOnX;
                 chessPiece.currentPositionY = posChangeOnY;
+
+                //Castling
+                if (avaibleMove[i] == new Vector2Int(2, posChangeOnY) && chessPiece.type == ChessPieceType.King)
+                    if (chessPiece.GetComponent<King>().FirstStep == true)
+                    {
+                        _mapCP[0, posChangeOnY].transform.position = new Vector3(3, posChangeOnY, _positionPieceZ);
+                        chessPiece.currentPositionX = 3;
+                        chessPiece.currentPositionY = posChangeOnY;
+                    }
+                        
 
                 //Checking for change type piece
                 if (chessPiece.type == ChessPieceType.Pawn && (chessPiece.currentPositionY == _mapCP.GetLength(1) - 1 || chessPiece.currentPositionY == 0))

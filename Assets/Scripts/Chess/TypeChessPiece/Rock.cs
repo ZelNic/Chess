@@ -79,24 +79,26 @@ public class Rock : ChessPiece
         }
 
         //Castling for white
-        if (FirstStep == true)
+        /*if (FirstStep == true)
         {
-            for (int x = currentPositionX; x == 3; x++)
+            for (int x = currentPositionX + 1; x < 4; x++)
             {
                 if (_mapCP[x, currentPositionY] != null)
                     break;
                 if (x == 3 && _mapCP[4, currentPositionY].type == ChessPieceType.King && _mapCP[4, currentPositionY].GetComponent<King>().FirstStep == true)
                     avaibleMove.Add(new Vector2Int(3, currentPositionY));
+                print("Left");
             }
 
-            for (int x = currentPositionX; x == sizeMap - 3; x--)
+            for (int x = currentPositionX - 1; x < sizeMap - 1; x--)
             {
                 if (_mapCP[x, currentPositionY] != null)
                     break;
                 if (x == sizeMap - 3 && _mapCP[4, currentPositionY].type == ChessPieceType.King && _mapCP[4, currentPositionY].GetComponent<King>().FirstStep == true)
                     avaibleMove.Add(new Vector2Int(sizeMap - 3, 0));
+                print("Right");
             }
-        }
+        }*/
         return avaibleMove;
     }
 }

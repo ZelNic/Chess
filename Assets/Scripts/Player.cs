@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     private RaycastHit2D _rayHit;
     private GameObject _rayHitGO;
     private int _countClick = 0;
-    private bool _isWhite = true;
+    private bool _isWhite = false;
     private bool _isStopSelection = false;
 
     private void OnEnable()
@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
     {
         _isWhite = true;
     }
-    private void PlayerSwitch() => _isWhite = _isWhite == true ? true : true; //
+    private void PlayerSwitch() => _isWhite = _isWhite == false ? false : true; 
     private void StopSelection() => _isStopSelection = _isStopSelection == false ? true : false;
     private void Update() => SelectObject();
     private void SelectObject()
