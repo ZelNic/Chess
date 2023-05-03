@@ -15,8 +15,9 @@ public class Pawn : ChessPiece
 
         //Move on two tile
         if ((currentPositionY == 1 && direction == 1) || (currentPositionY == 6 && direction == -1))
-            if (_mapCP[currentPositionX, currentPositionY + (direction * 2)] == null)
-                avaibleMove.Add(new Vector2Int(currentPositionX, currentPositionY + (direction * 2)));
+            if (_mapCP[currentPositionX, currentPositionY + direction] == null)
+                if (_mapCP[currentPositionX, currentPositionY + (direction * 2)] == null)
+                    avaibleMove.Add(new Vector2Int(currentPositionX, currentPositionY + (direction * 2)));
 
         //Kill Move
         if (currentPositionX + 1 < sizeMap && currentPositionY + direction >= 0 && currentPositionY + direction < sizeMap)

@@ -13,26 +13,15 @@ public class BoardCreator : MonoBehaviour
     public int SizeByX { get { return _sizeByX; } }
     public int SizeByY { get { return _sizeByY; } }
 
-    private void Awake()
-    {
-        CreateBoard();
-    }
+    private void Awake() => CreateBoard();
+    private void OnEnable() => onSendArrayTile += SendArrayTile;
     private void Start()
     {        
         onSendSize?.Invoke(SizeByX, SizeByY);
         CreaterAllChessPiece.onCreateAllChessPiece?.Invoke();
-        _cameraTransform.position = new Vector3(_sizeByX / 2 - .5f, _sizeByY / 2 - .5f, -10);
     }
-    private void OnEnable()
-    {
-        onSendArrayTile += SendArrayTile;
-    }
-
-    private Tile[,] SendArrayTile()
-    {
-        return _arrayTile;
-    }
-
+    private Tile[,] SendArrayTile() => _arrayTile;
+     
     public void CreateBoard()
     {
         _arrayTile = new Tile[_sizeByX, _sizeByY];

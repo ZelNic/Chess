@@ -9,7 +9,7 @@ public class Distributor : MonoBehaviour
     public static Action<ChessPiece[,]> onStartDistribution;
     public static Action<ChessPiece, int, int> onChangePositionPiece;
     public static Action<ChessPiece> onShowAviableMoves;
-    public static Action<int, int> onSetOnPlace;
+    public static Action<int, int, int, int> onSetOnPlace;
 
     private ChessPiece[,] _mapCP;
     private Tile[,] _arrayTile;
@@ -19,14 +19,14 @@ public class Distributor : MonoBehaviour
     private void OnEnable()
     {
         onStartDistribution += StartDistribute;
-        onChangePositionPiece += ChangePositionPiece;
+        onChangePositionPiece += PositionAvailabilityCheck;
         onShowAviableMoves += ShowAviableMoves;
-        onDestroyPieces += SendPiecesToScrap;
+        onDestroyPieces += DestroyPieces;
         onSetOnPlace += SetOnPlace;
     }
 
     private void Start() => _arrayTile = BoardCreator.onSendArrayTile?.Invoke();
-    private void SendPiecesToScrap()
+    private void DestroyPieces()
     {
         for (int x = 0; x < _mapCP.GetLength(0); x++)
             for (int y = 0; y < _mapCP.GetLength(1); y++)
@@ -35,20 +35,28 @@ public class Distributor : MonoBehaviour
                     Destroy(_mapCP[x, y].gameObject);
                 }
     }
-
     private void StartDistribute(ChessPiece[,] chessPieces)
     {
         _mapCP = chessPieces;
         for (int x = 0; x < _mapCP.GetLength(0); x++)
             for (int y = 0; y < _mapCP.GetLength(1); y++)
                 if (_mapCP[x, y] != null)
-                    SetOnPlace(x, y);
+                    SetOnPlaceInBegginig(x, y);
     }
-    private void SetOnPlace(int x, int y)
+    private void SetOnPlaceInBegginig(int x, int y)
     {
         _mapCP[x, y].currentPositionX = x;
         _mapCP[x, y].currentPositionY = y;
         _mapCP[x, y].transform.position = new Vector3(x, y, _positionPieceZ);
+    }
+
+    private void SetOnPlace(int x, int y, int newX, int newY)
+    {
+        _mapCP[newX, newY] = _mapCP[x, y];
+        _mapCP[newX, newY].transform.position = new Vector3(newX, newY, _positionPieceZ);
+        _mapCP[newX, newY].currentPositionX = newX;
+        _mapCP[newX, newY].currentPositionY = newY;
+        _mapCP[x, y] = null;
     }
     private void ShowAviableMoves(ChessPiece chessPiece)
     {
@@ -56,12 +64,11 @@ public class Distributor : MonoBehaviour
         for (int i = 0; i < avaibleMove.Count; i++)
             _arrayTile[avaibleMove[i].x, avaibleMove[i].y].OnHighlight();
     }
-    private void ChangePositionPiece(ChessPiece chessPiece, int posChangeOnX, int posChangeOnY)
+    private void PositionAvailabilityCheck(ChessPiece chessPiece, int posChangeOnX, int posChangeOnY)
     {
         for (int i = 0; i < avaibleMove.Count; i++)
             if (avaibleMove[i] == new Vector2Int(posChangeOnX, posChangeOnY))
             {
-
                 //Ñhecking for an enemy
                 if (_mapCP[posChangeOnX, posChangeOnY] != null && _mapCP[posChangeOnX, posChangeOnY].team != chessPiece.team)
                 {
@@ -71,27 +78,30 @@ public class Distributor : MonoBehaviour
                     _mapCP[posChangeOnX, posChangeOnY].DestroyPiece();
                 }
 
-                //Change position current chessPiece
-                _mapCP[chessPiece.currentPositionX, chessPiece.currentPositionY] = null;
-                _mapCP[posChangeOnX, posChangeOnY] = chessPiece;
-                _mapCP[posChangeOnX, posChangeOnY].transform.position = new Vector3(posChangeOnX, posChangeOnY, _positionPieceZ);
-                chessPiece.currentPositionX = posChangeOnX;
-                chessPiece.currentPositionY = posChangeOnY;
+                SetOnPlace(chessPiece.currentPositionX, chessPiece.currentPositionY, posChangeOnX, posChangeOnY);
 
                 //Castling
-                if (avaibleMove[i] == new Vector2Int(2, posChangeOnY) && chessPiece.type == ChessPieceType.King)
-                    if (chessPiece.GetComponent<King>().FirstStep == true)
-                    {
-                        _mapCP[0, posChangeOnY].transform.position = new Vector3(3, posChangeOnY, _positionPieceZ);
-                        chessPiece.currentPositionX = 3;
-                        chessPiece.currentPositionY = posChangeOnY;
-                    }
-                        
+                if (chessPiece.type == ChessPieceType.King)
+                {
+                    if (avaibleMove[i] == new Vector2Int(2, posChangeOnY))
+                        if (chessPiece.GetComponent<King>().FirstStep == true && _mapCP[0, posChangeOnY].GetComponent<Rock>().FirstStep == true)
+                        {
+                            _mapCP[0, posChangeOnY].GetComponent<Rock>().MakeMove();
+                            SetOnPlace(0, posChangeOnY, 3, posChangeOnY);
+                        }
+                    if (avaibleMove[i] == new Vector2Int(6, posChangeOnY))
+                        if (chessPiece.GetComponent<King>().FirstStep == true && _mapCP[7, posChangeOnY].GetComponent<Rock>().FirstStep == true)
+                        {
+                            _mapCP[7, posChangeOnY].GetComponent<Rock>().MakeMove();
+                            SetOnPlace(7, posChangeOnY, 5, posChangeOnY);
+                        }
+                    chessPiece.GetComponent<King>().MakeMove();
+                }
 
                 //Checking for change type piece
                 if (chessPiece.type == ChessPieceType.Pawn && (chessPiece.currentPositionY == _mapCP.GetLength(1) - 1 || chessPiece.currentPositionY == 0))
                 {
-                    ChangePiece.onActiveChoose.Invoke(_mapCP, chessPiece);
+                    ChangeTypePiece.onActiveChoose.Invoke(chessPiece);
                     Player.onStopSelection.Invoke();
                 }
                 break;

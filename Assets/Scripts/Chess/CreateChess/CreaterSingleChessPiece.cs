@@ -17,9 +17,11 @@ public class CreaterSingleChessPiece : MonoBehaviour
         piece.type = type;
         piece.team = team;
         if(team == 0)   
-            piece.name = "0_" + gameObject.name;
-        else piece.name = "1_" + gameObject.name;
+            piece.name = "0_" + type;
+        else piece.name = "1_" + type;
         piece.GetComponent<SpriteRenderer>().color = _colorsTeam[team];
+        if(piece.type == ChessPieceType.Knight &&  piece.team == 1)
+            piece.GetComponent<SpriteRenderer>().flipX = true;
         return piece;
     }
 }

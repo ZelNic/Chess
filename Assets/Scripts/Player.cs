@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     private RaycastHit2D _rayHit;
     private GameObject _rayHitGO;
     private int _countClick = 0;
-    private bool _isWhite = false;
+    private bool _isWhite = true;
     private bool _isStopSelection = false;
 
     private void OnEnable()
@@ -25,9 +25,11 @@ public class Player : MonoBehaviour
     {
         _isWhite = true;
     }
-    private void PlayerSwitch() => _isWhite = _isWhite == false ? false : true; 
+    private void PlayerSwitch() => _isWhite = _isWhite == true ? false : true; 
     private void StopSelection() => _isStopSelection = _isStopSelection == false ? true : false;
     private void Update() => SelectObject();
+
+   
     private void SelectObject()
     {
         Vector2 cursorPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -36,34 +38,31 @@ public class Player : MonoBehaviour
             _rayHitGO = _rayHit.collider.gameObject;
 
         if (Input.GetMouseButtonDown(0) && _isStopSelection == false)
-        {            
+        {
+            _touchpointPiece.gameObject.SetActive(false);
             Tile.onSetDefautColor?.Invoke();
-
             if (_rayHit.collider != null && _rayHitGO.layer == ConstantsLayer.PIECE && _countClick == 0)
                 if ((_isWhite && _rayHitGO.GetComponent<ChessPiece>().team == 0) || (!_isWhite && _rayHitGO.GetComponent<ChessPiece>().team == 1))
                 {
-                    _selectedPiece = _rayHitGO.GetComponent<ChessPiece>();
                     _touchpointPiece.gameObject.SetActive(true);
+                    _selectedPiece = _rayHitGO.GetComponent<ChessPiece>();
                     _touchpointPiece.transform.position = _selectedPiece.transform.position;
                     _countClick++;
                     Distributor.onShowAviableMoves?.Invoke(_selectedPiece);
                 }
 
             if (_countClick > 0 && _rayHitGO.layer == ConstantsLayer.TILE_LAYER)
-            {
-                _touchpointPiece.gameObject.SetActive(false);
-                _touchpointPiece.transform.position = transform.position;
+            {                
                 _countClick = 0;
                 Distributor.onChangePositionPiece?.Invoke(_selectedPiece, (int)_rayHitGO.transform.position.x, (int)_rayHitGO.transform.position.y);
                 PlayerSwitch();
             }
 
             if (_countClick > 0 && _rayHitGO.layer == ConstantsLayer.PIECE)
-            {
+            {                
                 if (_selectedPiece.team != _rayHitGO.GetComponent<ChessPiece>().team)
                 {
                     _countClick = 0;
-                    _touchpointPiece.gameObject.SetActive(false);
                     Distributor.onChangePositionPiece?.Invoke(_selectedPiece, (int)_rayHitGO.transform.position.x, (int)_rayHitGO.transform.position.y);
                     PlayerSwitch();
                 }

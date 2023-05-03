@@ -2,32 +2,26 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ChangePiece : MonoBehaviour
+public class ChangeTypePiece : MonoBehaviour
 {
-    public static Action<ChessPiece[,], ChessPiece> onActiveChoose;
+    public static Action<ChessPiece> onActiveChoose;
     [SerializeField] private Image _selectionBox;
     private ChessPiece[,] _mapCP;
     private ChessPiece _figureToReplace;
 
-    private void OnEnable()
+    private void OnEnable() => onActiveChoose += ActiveChoicePiece;
+   
+    private void ActiveChoicePiece(ChessPiece chessPiece)
     {
-        onActiveChoose += ActiveChoicePiece;
-    }
-    private void ActiveChoicePiece(ChessPiece[,] mapCP, ChessPiece chessPiece)
-    {
-        _selectionBox.gameObject.SetActive(true);
-        _mapCP = mapCP;
+        _selectionBox.gameObject.SetActive(true);        
         _figureToReplace = chessPiece;
     }
 
     private void ReplacePiece(ChessPieceType type)
     {
         ChessPiece newPiece = CreaterSingleChessPiece.onCreateSinglePiece(type, _figureToReplace.team);
-        newPiece.currentPositionX = _figureToReplace.currentPositionX;
-        newPiece.currentPositionY = _figureToReplace.currentPositionY;
-        _mapCP[_figureToReplace.currentPositionX, _figureToReplace.currentPositionY] = newPiece;
-        _figureToReplace.DestroyPiece();
-        Distributor.onSetOnPlace.Invoke(newPiece.currentPositionX, newPiece.currentPositionY);
+        Distributor.onSetOnPlace.Invoke(newPiece.currentPositionX, newPiece.currentPositionY, _figureToReplace.currentPositionX, _figureToReplace.currentPositionY);
+        _figureToReplace.DestroyPiece();        
         Player.onStopSelection.Invoke();
     }
 
@@ -36,13 +30,11 @@ public class ChangePiece : MonoBehaviour
         ReplacePiece(ChessPieceType.Rook);
         DeactiveChoicePiece();
     }
-
     public void ChooseKnight()
     {
         ReplacePiece(ChessPieceType.Knight);
         DeactiveChoicePiece();
     }
-
     public void ChooseBishop()
     {
         ReplacePiece(ChessPieceType.Bishop);
@@ -53,7 +45,6 @@ public class ChangePiece : MonoBehaviour
         ReplacePiece(ChessPieceType.Queen);
         DeactiveChoicePiece();
     }
-
     private void DeactiveChoicePiece()
     {
         _selectionBox.gameObject.SetActive(false);

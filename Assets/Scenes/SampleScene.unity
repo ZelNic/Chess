@@ -1739,7 +1739,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 954313156}
-  m_PlaneDistance: 100
+  m_PlaneDistance: 5
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -2060,10 +2060,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4496236463097601400, guid: 9c37e1aa4191d0b4a8968886a62cee9b, type: 3}
-      propertyPath: orthographic size
-      value: 7.42
-      objectReference: {fileID: 0}
     - target: {fileID: 4496236463097601403, guid: 9c37e1aa4191d0b4a8968886a62cee9b, type: 3}
       propertyPath: m_Name
       value: Main Camera
