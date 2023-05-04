@@ -11,7 +11,7 @@ public class Distributor : MonoBehaviour
     public static Action<ChessPiece[,], ChessPiece> onSendToReplaceType;
     public static Action onPawnOnEdgeBoard;
     public static Action onWasMadeMove;
-    public static Action<int, int, int, int> onSetOnPlace;
+    public static Action<int, int, int, int, bool> onSetOnPlace;
 
     private ChessPiece[,] _mapCP;
     private Tile[,] _arrayTile;
@@ -51,13 +51,14 @@ public class Distributor : MonoBehaviour
         _mapCP[x, y].currentPositionY = y;
         _mapCP[x, y].transform.position = new Vector3(x, y, _positionPieceZ);
     }
-    private void SetOnPlace(int x, int y, int newX, int newY)
+    private void SetOnPlace(int x, int y, int newX, int newY, bool clearSell)
     {
         _mapCP[newX, newY] = _mapCP[x, y];
         _mapCP[newX, newY].transform.position = new Vector3(newX, newY, _positionPieceZ);
         _mapCP[newX, newY].currentPositionX = newX;
         _mapCP[newX, newY].currentPositionY = newY;
-        _mapCP[x, y] = null;
+        if (clearSell == true)
+            _mapCP[x, y] = null;
     }
     private void ShowAviableMoves(ChessPiece chessPiece)
     {
@@ -67,8 +68,9 @@ public class Distributor : MonoBehaviour
     }
     private void PositionAvailabilityCheck(ChessPiece chessPiece, int posChangeOnX, int posChangeOnY)
     {
-
         MovementJournal.onMovingChessPiece.Invoke(chessPiece);
+
+
         for (int i = 0; i < avaibleMove.Count; i++)
             if (avaibleMove[i] == new Vector2Int(posChangeOnX, posChangeOnY))
             {
@@ -81,7 +83,7 @@ public class Distributor : MonoBehaviour
                     _mapCP[posChangeOnX, posChangeOnY].DestroyPiece();
                 }
 
-                SetOnPlace(chessPiece.currentPositionX, chessPiece.currentPositionY, posChangeOnX, posChangeOnY);
+                SetOnPlace(chessPiece.currentPositionX, chessPiece.currentPositionY, posChangeOnX, posChangeOnY,true);
                 onWasMadeMove.Invoke();
                 //Castling
                 if (chessPiece.type == ChessPieceType.King)
@@ -90,13 +92,13 @@ public class Distributor : MonoBehaviour
                         if (chessPiece.GetComponent<King>().FirstStep == true && _mapCP[0, posChangeOnY].GetComponent<Rock>().FirstStep == true)
                         {
                             _mapCP[0, posChangeOnY].GetComponent<Rock>().MakeMove();
-                            SetOnPlace(0, posChangeOnY, 3, posChangeOnY);
+                            SetOnPlace(0, posChangeOnY, 3, posChangeOnY, true);
                         }
                     if (avaibleMove[i] == new Vector2Int(6, posChangeOnY))
                         if (chessPiece.GetComponent<King>().FirstStep == true && _mapCP[7, posChangeOnY].GetComponent<Rock>().FirstStep == true)
                         {
                             _mapCP[7, posChangeOnY].GetComponent<Rock>().MakeMove();
-                            SetOnPlace(7, posChangeOnY, 5, posChangeOnY);
+                            SetOnPlace(7, posChangeOnY, 5, posChangeOnY, true);
                         }
                     chessPiece.GetComponent<King>().MakeMove();
                 }

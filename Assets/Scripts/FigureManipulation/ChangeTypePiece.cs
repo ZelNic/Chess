@@ -20,6 +20,7 @@ public class ChangeTypePiece : MonoBehaviour
     private void ReplacePiece(ChessPieceType type)
     {
         ChessPiece newCP = CreaterSingleChessPiece.onCreateSinglePiece.Invoke(type, _figureToReplace.team);
+       // Distributor.onSendToReplaceType()
         newCP.currentPositionX = _mapCP[_figureToReplace.currentPositionX, _figureToReplace.currentPositionY].currentPositionX;
         newCP.currentPositionY = _mapCP[_figureToReplace.currentPositionX, _figureToReplace.currentPositionY].currentPositionY;
         newCP.transform.position = _figureToReplace.transform.position;
