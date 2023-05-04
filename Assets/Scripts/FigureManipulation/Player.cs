@@ -23,14 +23,7 @@ public class Player : MonoBehaviour
     private void SetIsWhiteTrue() => _isWhite = true;
     private void PlayerSwitch() => _isWhite = _isWhite == true ? false : true;
     private void SelectionSwitch() => _isStopSelection = _isStopSelection == false ? true : false;
-    //private void Update() => SelectObject();
-
-    private void Update()
-    {
-        SelectObject();
-        print(_isWhite);
-    }
-
+    private void Update() => SelectObject();
     private void SelectObject()
     {
         Vector2 cursorPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);

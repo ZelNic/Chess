@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Distributor : MonoBehaviour
@@ -50,8 +51,7 @@ public class Distributor : MonoBehaviour
         _mapCP[x, y].currentPositionX = x;
         _mapCP[x, y].currentPositionY = y;
         _mapCP[x, y].transform.position = new Vector3(x, y, _positionPieceZ);        
-    }
-  
+    }  
     private void SetOnPlace(int x, int y, int newX, int newY)
     {
         _mapCP[newX, newY] = _mapCP[x, y];
