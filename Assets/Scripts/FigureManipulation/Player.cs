@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
         Distributor.onWasMadeMove += PlayerSwitch;
     }
     private void SetIsWhiteTrue() => _isWhite = true;
-    private void PlayerSwitch() => _isWhite = _isWhite == true ? false : true;
+    private void PlayerSwitch() => _isWhite = _isWhite == true ? true : true;
     private void SelectionSwitch() => _isStopSelection = _isStopSelection == false ? true : false;
     private void Update() => SelectObject();
     private void SelectObject()

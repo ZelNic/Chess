@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Distributor : MonoBehaviour
@@ -9,10 +8,10 @@ public class Distributor : MonoBehaviour
     public static Action<ChessPiece[,]> onStartDistribution;
     public static Action<ChessPiece, int, int> onChangePositionPiece;
     public static Action<ChessPiece> onShowAviableMoves;
-    public static Action<int, int, int, int> onSetOnPlace;
-    public static Action<ChessPiece[,],ChessPiece> onSendToReplaceType;
+    public static Action<ChessPiece[,], ChessPiece> onSendToReplaceType;
     public static Action onPawnOnEdgeBoard;
     public static Action onWasMadeMove;
+    public static Action<int, int, int, int> onSetOnPlace;
 
     private ChessPiece[,] _mapCP;
     private Tile[,] _arrayTile;
@@ -50,8 +49,8 @@ public class Distributor : MonoBehaviour
     {
         _mapCP[x, y].currentPositionX = x;
         _mapCP[x, y].currentPositionY = y;
-        _mapCP[x, y].transform.position = new Vector3(x, y, _positionPieceZ);        
-    }  
+        _mapCP[x, y].transform.position = new Vector3(x, y, _positionPieceZ);
+    }
     private void SetOnPlace(int x, int y, int newX, int newY)
     {
         _mapCP[newX, newY] = _mapCP[x, y];
@@ -68,6 +67,8 @@ public class Distributor : MonoBehaviour
     }
     private void PositionAvailabilityCheck(ChessPiece chessPiece, int posChangeOnX, int posChangeOnY)
     {
+
+        MovementJournal.onMovingChessPiece.Invoke(chessPiece);
         for (int i = 0; i < avaibleMove.Count; i++)
             if (avaibleMove[i] == new Vector2Int(posChangeOnX, posChangeOnY))
             {
@@ -103,7 +104,7 @@ public class Distributor : MonoBehaviour
                 //Checking for change type piece
                 if (chessPiece.type == ChessPieceType.Pawn && (chessPiece.currentPositionY == _mapCP.GetLength(1) - 1 || chessPiece.currentPositionY == 0))
                 {
-                    onSendToReplaceType?.Invoke(_mapCP,chessPiece);
+                    onSendToReplaceType?.Invoke(_mapCP, chessPiece);
                     onPawnOnEdgeBoard?.Invoke();
                 }
                 break;
