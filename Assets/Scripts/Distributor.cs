@@ -11,6 +11,7 @@ public class Distributor : MonoBehaviour
     public static Action<int, int, int, int> onSetOnPlace;
     public static Action<ChessPiece[,],ChessPiece> onSendToReplaceType;
     public static Action onPawnOnEdgeBoard;
+    public static Action onWasMadeMove;
 
     private ChessPiece[,] _mapCP;
     private Tile[,] _arrayTile;
@@ -48,16 +49,9 @@ public class Distributor : MonoBehaviour
     {
         _mapCP[x, y].currentPositionX = x;
         _mapCP[x, y].currentPositionY = y;
-        _mapCP[x, y].transform.position = new Vector3(x, y, _positionPieceZ);
+        _mapCP[x, y].transform.position = new Vector3(x, y, _positionPieceZ);        
     }
-
-    private void Update()
-    {
-        if (_mapCP[5,7].type == ChessPieceType.Queen)
-        {
-            print("Queen");
-        }
-    }
+  
     private void SetOnPlace(int x, int y, int newX, int newY)
     {
         _mapCP[newX, newY] = _mapCP[x, y];
@@ -87,7 +81,7 @@ public class Distributor : MonoBehaviour
                 }
 
                 SetOnPlace(chessPiece.currentPositionX, chessPiece.currentPositionY, posChangeOnX, posChangeOnY);
-
+                onWasMadeMove.Invoke();
                 //Castling
                 if (chessPiece.type == ChessPieceType.King)
                 {
