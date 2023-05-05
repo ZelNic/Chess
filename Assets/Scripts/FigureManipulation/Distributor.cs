@@ -53,10 +53,12 @@ public class Distributor : MonoBehaviour
     }
     private void SetOnPlace(int x, int y, int newX, int newY, bool clearSell)
     {
-        _mapCP[newX, newY] = _mapCP[x, y];
-        _mapCP[newX, newY].transform.position = new Vector3(newX, newY, _positionPieceZ);
-        _mapCP[newX, newY].currentPositionX = newX;
-        _mapCP[newX, newY].currentPositionY = newY;
+      
+        
+            _mapCP[newX, newY] = _mapCP[x, y];
+            _mapCP[newX, newY].currentPositionX = newX;
+            _mapCP[newX, newY].currentPositionY = newY;
+            _mapCP[newX, newY].transform.position = new Vector3(newX, newY, _positionPieceZ);
         if (clearSell == true)
             _mapCP[x, y] = null;
     }
@@ -83,8 +85,9 @@ public class Distributor : MonoBehaviour
                     _mapCP[posChangeOnX, posChangeOnY].DestroyPiece();
                 }
 
-                SetOnPlace(chessPiece.currentPositionX, chessPiece.currentPositionY, posChangeOnX, posChangeOnY,true);
+                SetOnPlace(chessPiece.currentPositionX, chessPiece.currentPositionY, posChangeOnX, posChangeOnY, true);
                 onWasMadeMove.Invoke();
+                MovementJournal.onMovingChessPiece.Invoke(chessPiece);
                 //Castling
                 if (chessPiece.type == ChessPieceType.King)
                 {
