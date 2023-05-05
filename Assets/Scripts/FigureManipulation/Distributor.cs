@@ -26,7 +26,6 @@ public class Distributor : MonoBehaviour
         onDestroyPieces += DestroyPieces;
         onSetOnPlace += SetOnPlace;
     }
-
     private void Start() => _arrayTile = BoardCreator.onSendArrayTile?.Invoke();
     private void DestroyPieces()
     {
@@ -53,6 +52,7 @@ public class Distributor : MonoBehaviour
     }
     private void SetOnPlace(int x, int y, int newX, int newY, bool clearSell)
     {
+       
         _mapCP[newX, newY] = _mapCP[x, y];
         _mapCP[newX, newY].currentPositionX = newX;
         _mapCP[newX, newY].currentPositionY = newY;
@@ -108,6 +108,7 @@ public class Distributor : MonoBehaviour
                     onPawnOnEdgeBoard?.Invoke();
                 }
                 break;
-            }        
+            }
+       
     }
 }
