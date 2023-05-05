@@ -31,21 +31,21 @@ public class MovementJournal : MonoBehaviour
     {
         if (!CanUndo)
             return;
-        _moveCount--;
         Distributor.onSetOnPlace.Invoke((int)_moveLogChess[_moveCount].transform.position.x,
-                                 (int)_moveLogChess[_moveCount].transform.position.y,
-                                 (int)_moveLogVec[_moveCount].x, (int)_moveLogVec[_moveCount].y, true);
-      
+                                        (int)_moveLogChess[_moveCount].transform.position.y,
+                                        (int)_moveLogVec[_moveCount].x, (int)_moveLogVec[_moveCount].y,true);
+
+        _moveCount--;
     }
     public void RedoMovement()
     {
         if (!CanRedo)
             return;
+
         _moveCount++;
         Distributor.onSetOnPlace.Invoke((int)_moveLogChess[_moveCount].transform.position.x,
                                             (int)_moveLogChess[_moveCount].transform.position.y,
                                             (int)_moveLogVec[_moveCount].x, (int)_moveLogVec[_moveCount].y, true);
-
     }
 
     private void Update()
@@ -58,8 +58,8 @@ public class MovementJournal : MonoBehaviour
     {
         print(_moveCount);
         for (int i = 0; i <= _moveLogChess.Count - 1; i++)
-        {            
-            print(_moveLogVec[i] + " Figure");            
+        {
+            print(_moveLogVec[i] + " Figure");
         }
     }
 
