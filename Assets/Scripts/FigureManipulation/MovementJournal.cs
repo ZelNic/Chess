@@ -14,11 +14,18 @@ public class MovementJournal : MonoBehaviour
     private void OnEnable() => onMovingChessPiece += AddInListMovement;
     private void AddInListMovement(ChessPiece chessPiece)
     {
+        if (_moveLogChess.Count > 0)
+            for (int i = 0; i < _moveLogChess.Count; i++)
+                if (_moveLogChess[i] == chessPiece)
+                    if (_moveLogVec[i] == chessPiece.transform.position)
+                        return;
         CutOffLog();
         _moveLogChess.Add(chessPiece);
         _moveLogVec.Add(chessPiece.transform.position);
         _moveCount++;
     }
+
+
     private void CutOffLog()
     {
         int index = _moveCount + 1;
@@ -32,7 +39,7 @@ public class MovementJournal : MonoBehaviour
     public void UndoMovement()
     {
         if (!CanUndo)
-            return;
+            return;        
         Distributor.onSetOnPlace.Invoke((int)_moveLogChess[_moveCount].transform.position.x,
                                         (int)_moveLogChess[_moveCount].transform.position.y,
                                         (int)_moveLogVec[_moveCount].x, (int)_moveLogVec[_moveCount].y, true);

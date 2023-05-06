@@ -21,7 +21,7 @@ public class Distributor : MonoBehaviour
     private void OnEnable()
     {
         onStartDistribution += StartDistribute;
-        onChangePositionPiece += PositionAvailabilityCheck;
+        onChangePositionPiece += CheckingCell;
         onShowAviableMoves += ShowAviableMoves;
         onDestroyPieces += DestroyPieces;
         onSetOnPlace += SetOnPlace;
@@ -65,7 +65,7 @@ public class Distributor : MonoBehaviour
         for (int i = 0; i < avaibleMove.Count; i++)
             _arrayTile[avaibleMove[i].x, avaibleMove[i].y].OnHighlight();
     }
-    private void PositionAvailabilityCheck(ChessPiece chessPiece, int posChangeOnX, int posChangeOnY)
+    private void CheckingCell(ChessPiece chessPiece, int posChangeOnX, int posChangeOnY)
     {
         MovementJournal.onMovingChessPiece.Invoke(chessPiece);
         for (int i = 0; i < avaibleMove.Count; i++)
@@ -108,6 +108,6 @@ public class Distributor : MonoBehaviour
                 }
                 break;
             }
-       
+        MovementJournal.onMovingChessPiece.Invoke(chessPiece);
     }
 }
