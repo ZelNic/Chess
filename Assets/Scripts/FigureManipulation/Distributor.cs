@@ -13,7 +13,7 @@ public class Distributor : MonoBehaviour
     public static Action onWasMadeMove;
     public static Action<int, int, int, int, bool> onSetOnPlace;
 
-    private ChessPiece[,] _mapCP;
+    private  ChessPiece[,] _mapCP;
     private Tile[,] _arrayTile;
     private readonly int _positionPieceZ = -5;
     private List<Vector2Int> avaibleMove;
@@ -52,7 +52,6 @@ public class Distributor : MonoBehaviour
     }
     private void SetOnPlace(int x, int y, int newX, int newY, bool clearSell)
     {
-       
         _mapCP[newX, newY] = _mapCP[x, y];
         _mapCP[newX, newY].currentPositionX = newX;
         _mapCP[newX, newY].currentPositionY = newY;
