@@ -58,7 +58,6 @@ public class Distributor : MonoBehaviour
         _mapCP[newX, newY] = _mapCP[x, y];
         if (clearSell == true)
             _mapCP[x, y] = null;
-
     }
     private void ShowAviableMoves(ChessPiece chessPiece)
     {
