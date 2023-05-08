@@ -99,9 +99,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _renderer: {fileID: 6617997245855955017}
-  _baseColor: {r: 0.047058824, g: 0.08235294, b: 0.10980392, a: 1}
-  _offSetColor: {r: 0.89411765, g: 0.8980392, b: 0.91764706, a: 1}
-  _highlight: {r: 0.83853406, g: 0.9245283, b: 0.07413671, a: 1}
+  _baseColor: {r: 0.2, g: 0.21176471, b: 0.16078432, a: 1}
+  _offSetColor: {r: 0.8862745, g: 0.9019608, b: 0.84313726, a: 1}
+  _highlight: {r: 0.9235056, g: 0.9528302, b: 0.05842829, a: 1}
 --- !u!61 &-5747819337794914157
 BoxCollider2D:
   m_ObjectHideFlags: 0

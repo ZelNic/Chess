@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d940b6df6394d1d45a290d48695ef99d
+guid: 537b6d368cf467a4a9a706682857dc45
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 900
+  spritePixelsToUnits: 700
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -67,7 +67,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 1024
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: 4
     textureCompression: 1
@@ -129,127 +129,169 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: AtlasChess_0
+      name: AChess_0
       rect:
         serializedVersion: 2
-        x: 70
-        y: 845
-        width: 353
-        height: 555
+        x: 22
+        y: 1529
+        width: 534
+        height: 472
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dce7c667d40b80d4ca84a25104a8e78a
-      internalID: -1792896040
+      spriteID: 897f4227010616a46ad43b03d60cfb39
+      internalID: 1368205883
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AtlasChess_1
+      name: AChess_1
       rect:
         serializedVersion: 2
-        x: 528
-        y: 847
-        width: 409
-        height: 590
+        x: 610
+        y: 1383
+        width: 393
+        height: 609
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 90409fcdaabf68146b4f7aabf2b2c31c
-      internalID: 6032142
+      spriteID: 3343e145df861a54f8b357d5daec675c
+      internalID: -786809436
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AtlasChess_2
+      name: AChess_2
       rect:
         serializedVersion: 2
-        x: 1011
-        y: 847
-        width: 417
-        height: 703
+        x: 1054
+        y: 1377
+        width: 442
+        height: 576
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a2520bf1d14e4aa4fafcbe783f166cbe
-      internalID: -472798561
+      spriteID: 7ff1b5c9464d94540afa098d682c62d6
+      internalID: 101129889
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AtlasChess_3
+      name: AChess_3
       rect:
         serializedVersion: 2
-        x: 70
-        y: 52
-        width: 407
-        height: 703
+        x: 1566
+        y: 1376
+        width: 393
+        height: 609
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9bd39b03048dcd844a5d85be080c87e4
-      internalID: -1839155583
+      spriteID: ecce3a75d6352db489399806c673325b
+      internalID: 1170857847
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AtlasChess_4
+      name: AChess_4
       rect:
         serializedVersion: 2
-        x: 559
-        y: 52
-        width: 378
-        height: 748
+        x: 42
+        y: 339
+        width: 460
+        height: 326
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ccb776aa017a2524b9d00bf2105e4a16
-      internalID: -132428006
+      spriteID: 41027277a4a428c4d8b353dc757cb26a
+      internalID: 512831464
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AtlasChess_5
+      name: AChess_5
       rect:
         serializedVersion: 2
-        x: 1019
-        y: 52
-        width: 409
-        height: 748
+        x: 486
+        y: 757
+        width: 442
+        height: 610
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 817a07214ec20cc4998e9bb866114f6f
-      internalID: 1454034135
+      spriteID: 02826ddbdc882aa47b0bd02f8c3d9cf4
+      internalID: -3926162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AChess_6
+      rect:
+        serializedVersion: 2
+        x: 1023
+        y: 758
+        width: 442
+        height: 576
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4fffecc6b205b084e9387144969c325b
+      internalID: 1029846416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AChess_7
+      rect:
+        serializedVersion: 2
+        x: 1549
+        y: 770
+        width: 443
+        height: 543
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92cb64ed504bd2d4f8269eb6bc1b6d6f
+      internalID: 888328615
       vertices: []
       indices: 
       edges: []
@@ -265,12 +307,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      AtlasChess_0: -1792896040
-      AtlasChess_1: 6032142
-      AtlasChess_2: -472798561
-      AtlasChess_3: -1839155583
-      AtlasChess_4: -132428006
-      AtlasChess_5: 1454034135
+      AChess_0: 1368205883
+      AChess_1: -786809436
+      AChess_2: 101129889
+      AChess_3: 1170857847
+      AChess_4: 512831464
+      AChess_5: -3926162
+      AChess_6: 1029846416
+      AChess_7: 888328615
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
