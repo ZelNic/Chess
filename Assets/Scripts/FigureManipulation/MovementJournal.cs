@@ -1,27 +1,32 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class MovementJournal : MonoBehaviour
 {
     public static Action<ChessPiece> onMovingChessPiece;
     private List<Vector3> _moveLogVec = new();
     private List<ChessPiece> _moveLogChess = new();
     private int _moveCount = -1;
-
     private bool CanUndo { get { return _moveCount >= 0; } }
     private bool CanRedo { get { return _moveLogChess.Count > 0 && _moveCount < _moveLogChess.Count - 1; } }
-    private void OnEnable() => onMovingChessPiece += AddInListMovement;
+    private void OnEnable()
+    {
+        onMovingChessPiece += AddInListMovement;
+        RestartGame.onRestartGame += ClearMovementJournal;
+    }
+    private void ClearMovementJournal()
+    {
+        _moveCount = -1;
+        _moveLogChess.Clear();
+        _moveLogVec.Clear();
+    }
     private void AddInListMovement(ChessPiece chessPiece)
     {
-        CutOffLog();        
+        CutOffLog();
         _moveLogChess.Add(chessPiece);
         _moveLogVec.Add(chessPiece.transform.position);
         _moveCount++;
-        print(_moveCount);
     }
-
-
     private void CutOffLog()
     {
         int index = _moveCount + 1;
@@ -31,14 +36,14 @@ public class MovementJournal : MonoBehaviour
             _moveLogVec.RemoveRange(index, _moveLogVec.Count - index);
         }
     }
-
     public void UndoMovement()
     {
         if (!CanUndo)
             return;
 
         if (_moveLogChess[_moveCount].transform.position.x == _moveLogVec[_moveCount].x
-           && _moveLogChess[_moveCount].transform.position.y == _moveLogVec[_moveCount].y){
+           && _moveLogChess[_moveCount].transform.position.y == _moveLogVec[_moveCount].y)
+        {
             _moveCount--;
         }
         Distributor.onSetOnPlace.Invoke((int)_moveLogChess[_moveCount].transform.position.x,
@@ -55,7 +60,8 @@ public class MovementJournal : MonoBehaviour
         _moveCount++;
 
         if (_moveLogChess[_moveCount].transform.position.x == _moveLogVec[_moveCount].x)
-            if (_moveLogChess[_moveCount].transform.position.y == _moveLogVec[_moveCount].y) {
+            if (_moveLogChess[_moveCount].transform.position.y == _moveLogVec[_moveCount].y)
+            {
                 _moveCount++;
             }
 
@@ -63,28 +69,4 @@ public class MovementJournal : MonoBehaviour
                               (int)_moveLogChess[_moveCount].transform.position.y,
                               (int)_moveLogVec[_moveCount].x, (int)_moveLogVec[_moveCount].y, true);
     }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-            Show();
-    }
-    private void Show()
-    {
-        print(_moveCount);
-        for (int i = 0; i <= _moveLogChess.Count - 1; i++)
-        {
-            print(_moveLogVec[i] + " = " + _moveLogChess[i].gameObject.name);
-        }
-    }
-
 }
-/*_moveLogChess[_moveCount].currentPositionX = _moveLogChess[_moveCount].currentPositionX;
-       _moveLogChess[_moveCount].currentPositionY = _moveLogChess[_moveCount].currentPositionY;
-       _moveLogChess[_moveCount].transform.position = _moveLogVec[_moveCount];
-       _mapCP[_moveLogChess[_moveCount].currentPositionX, _moveLogChess[_moveCount].currentPositionY] = _moveLogChess[_moveCount];*/
-
-
-/* _moveLogChess[_moveCount].currentPositionX = _moveLogChess[_moveCount].currentPositionX;
-      _moveLogChess[_moveCount].currentPositionY = _moveLogChess[_moveCount].currentPositionY;
-      _moveLogChess[_moveCount].transform.position = _moveLogVec[_moveCount];
-      _mapCP[_moveLogChess[_moveCount].currentPositionX, _moveLogChess[_moveCount].currentPositionY] = _moveLogChess[_moveCount];*/

@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     private RaycastHit2D _rayHit;
     private GameObject _rayHitGO;
     private int _countClick = 0;
-    private bool _isWhite = true;
+    private bool _isStepWhite = true;
     private bool _isStopSelection = false;
 
     private void OnEnable()
@@ -20,8 +20,8 @@ public class Player : MonoBehaviour
         Distributor.onPawnOnEdgeBoard += SelectionSwitch;
         Distributor.onWasMadeMove += PlayerSwitch;
     }
-    private void SetIsWhiteTrue() => _isWhite = true;
-    private void PlayerSwitch() => _isWhite = _isWhite == true ? true : true;
+    private void SetIsWhiteTrue() => _isStepWhite = true;
+    private void PlayerSwitch() => _isStepWhite = _isStepWhite == true ? true : true;
     private void SelectionSwitch() => _isStopSelection = _isStopSelection == false ? true : false;
     private void Update() => SelectObject();
     private void SelectObject()
@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
             Tile.onSetDefautColor?.Invoke();
             _touchpointPiece.gameObject.SetActive(false);
             if (_rayHit.collider != null && _rayHitGO.layer == ConstantsLayer.PIECE && _countClick == 0)
-                if ((_isWhite == true && _rayHitGO.GetComponent<ChessPiece>().team == 0) || (_isWhite == false && _rayHitGO.GetComponent<ChessPiece>().team == 1))
+                if ((_isStepWhite == true && _rayHitGO.GetComponent<ChessPiece>().team == 0) || (_isStepWhite == false && _rayHitGO.GetComponent<ChessPiece>().team == 1))
                 {
                     _touchpointPiece.gameObject.SetActive(true);
                     _selectedPiece = _rayHitGO.GetComponent<ChessPiece>();
