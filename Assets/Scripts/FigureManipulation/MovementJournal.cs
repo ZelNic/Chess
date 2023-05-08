@@ -43,12 +43,10 @@ public class MovementJournal : MonoBehaviour
 
         if (_moveLogChess[_moveCount].transform.position.x == _moveLogVec[_moveCount].x
            && _moveLogChess[_moveCount].transform.position.y == _moveLogVec[_moveCount].y)
-        {
             _moveCount--;
-        }
-        Distributor.onSetOnPlace.Invoke((int)_moveLogChess[_moveCount].transform.position.x,
-                              (int)_moveLogChess[_moveCount].transform.position.y,
-                              (int)_moveLogVec[_moveCount].x, (int)_moveLogVec[_moveCount].y, true);
+
+
+        Distributor.onSetOnPlace.Invoke(_moveLogChess[_moveCount], (int)_moveLogVec[_moveCount].x, (int)_moveLogVec[_moveCount].y, true);
         _moveCount--;
     }
 
@@ -61,12 +59,8 @@ public class MovementJournal : MonoBehaviour
 
         if (_moveLogChess[_moveCount].transform.position.x == _moveLogVec[_moveCount].x)
             if (_moveLogChess[_moveCount].transform.position.y == _moveLogVec[_moveCount].y)
-            {
                 _moveCount++;
-            }
 
-        Distributor.onSetOnPlace.Invoke((int)_moveLogChess[_moveCount].transform.position.x,
-                              (int)_moveLogChess[_moveCount].transform.position.y,
-                              (int)_moveLogVec[_moveCount].x, (int)_moveLogVec[_moveCount].y, true);
+        Distributor.onSetOnPlace.Invoke(_moveLogChess[_moveCount], (int)_moveLogVec[_moveCount].x, (int)_moveLogVec[_moveCount].y, true);
     }
 }

@@ -11,7 +11,7 @@ public class Distributor : MonoBehaviour
     public static Action<ChessPiece[,], ChessPiece> onSendToReplaceType;
     public static Action onPawnOnEdgeBoard;
     public static Action onWasMadeMove;
-    public static Action<int, int, int, int, bool> onSetOnPlace;
+    public static Action<ChessPiece, int, int, bool> onSetOnPlace;
 
     private ChessPiece[,] _mapCP;
     private Tile[,] _arrayTile;
@@ -50,8 +50,14 @@ public class Distributor : MonoBehaviour
         _mapCP[x, y].currentPositionY = y;
         _mapCP[x, y].transform.position = new Vector3(x, y, _positionPieceZ);
     }
-    private void SetOnPlace(int x, int y, int newX, int newY, bool clearSell)
+    private void SetOnPlace(ChessPiece chessPiece, int newX, int newY, bool clearSell)
     {
+        if (chessPiece.gameObject.activeInHierarchy == false)
+            chessPiece.gameObject.SetActive(true);
+
+        int x = chessPiece.currentPositionX;
+        int y = chessPiece.currentPositionY;
+
         _mapCP[x, y].currentPositionX = newX;
         _mapCP[x, y].currentPositionY = newY;
         _mapCP[x, y].transform.position = new Vector3(newX, newY, _positionPieceZ);
@@ -66,7 +72,7 @@ public class Distributor : MonoBehaviour
             _arrayTile[avaibleMove[i].x, avaibleMove[i].y].OnHighlight();
     }
     private void CheckingCell(ChessPiece chessPiece, int posChangeOnX, int posChangeOnY)
-    {       
+    {
         for (int i = 0; i < avaibleMove.Count; i++)
             if (avaibleMove[i] == new Vector2Int(posChangeOnX, posChangeOnY))
             {
@@ -77,10 +83,11 @@ public class Distributor : MonoBehaviour
                     //Checking which king was killed
                     if (_mapCP[posChangeOnX, posChangeOnY].type == ChessPieceType.King)
                         GameResult.onShowWhoWins.Invoke(chessPiece.team);
-                    _mapCP[posChangeOnX, posChangeOnY].DestroyPiece();
+                    MovementJournal.onMovingChessPiece.Invoke(_mapCP[posChangeOnX, posChangeOnY]);
+                    _mapCP[posChangeOnX, posChangeOnY].gameObject.SetActive(false);
                 }
 
-                SetOnPlace(chessPiece.currentPositionX, chessPiece.currentPositionY, posChangeOnX, posChangeOnY, true);
+                SetOnPlace(chessPiece, posChangeOnX, posChangeOnY, true);
                 MovementJournal.onMovingChessPiece.Invoke(chessPiece);
                 onWasMadeMove.Invoke();
                 //Castling
@@ -90,13 +97,13 @@ public class Distributor : MonoBehaviour
                         if (chessPiece.GetComponent<King>().FirstStep == true && _mapCP[0, posChangeOnY].GetComponent<Rock>().FirstStep == true)
                         {
                             _mapCP[0, posChangeOnY].GetComponent<Rock>().MakeMove();
-                            SetOnPlace(0, posChangeOnY, 3, posChangeOnY, true);
+                            SetOnPlace(chessPiece, 3, posChangeOnY, true);
                         }
                     if (avaibleMove[i] == new Vector2Int(6, posChangeOnY))
                         if (chessPiece.GetComponent<King>().FirstStep == true && _mapCP[7, posChangeOnY].GetComponent<Rock>().FirstStep == true)
                         {
                             _mapCP[7, posChangeOnY].GetComponent<Rock>().MakeMove();
-                            SetOnPlace(7, posChangeOnY, 5, posChangeOnY, true);
+                            SetOnPlace(chessPiece, 5, posChangeOnY, true);
                         }
                     chessPiece.GetComponent<King>().MakeMove();
                 }
