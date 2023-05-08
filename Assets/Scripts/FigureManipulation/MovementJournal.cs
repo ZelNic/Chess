@@ -10,14 +10,20 @@ public class MovementJournal : MonoBehaviour
     private int _moveCount = -1;
 
     private bool CanUndo { get { return _moveCount >= 0; } }
-    private bool CanRedo { get { return _moveLogVec.Count > 0 && _moveCount < _moveLogVec.Count - 1; } }
+    private bool CanRedo { get { return _moveLogChess.Count > 0 && _moveCount < _moveLogChess.Count - 1; } }
     private void OnEnable() => onMovingChessPiece += AddInListMovement;
     private void AddInListMovement(ChessPiece chessPiece)
     {
         CutOffLog();
+        if (_moveLogChess.Count > 0)
+            for (int i = 0; i < _moveLogChess.Count; i++)
+                if (_moveLogChess[i] == chessPiece)
+                    if (_moveLogVec[i] == chessPiece.transform.position)
+                        return;
         _moveLogChess.Add(chessPiece);
         _moveLogVec.Add(chessPiece.transform.position);
         _moveCount++;
+        print(_moveCount);
     }
 
 
@@ -37,8 +43,10 @@ public class MovementJournal : MonoBehaviour
             return;
 
         if (_moveLogChess[_moveCount].transform.position.x == _moveLogVec[_moveCount].x
-            && _moveLogChess[_moveCount].transform.position.y == _moveLogVec[_moveCount].y)
+           && _moveLogChess[_moveCount].transform.position.y == _moveLogVec[_moveCount].y){
             _moveCount--;
+        }
+        
 
         Distributor.onSetOnPlace.Invoke((int)_moveLogChess[_moveCount].transform.position.x,
                               (int)_moveLogChess[_moveCount].transform.position.y,
@@ -50,10 +58,13 @@ public class MovementJournal : MonoBehaviour
     {
         if (!CanRedo)
             return;
+
         _moveCount++;
+
         if (_moveLogChess[_moveCount].transform.position.x == _moveLogVec[_moveCount].x)
-            if (_moveLogChess[_moveCount].transform.position.y == _moveLogVec[_moveCount].y)
+            if (_moveLogChess[_moveCount].transform.position.y == _moveLogVec[_moveCount].y) {
                 _moveCount++;
+            }
 
         Distributor.onSetOnPlace.Invoke((int)_moveLogChess[_moveCount].transform.position.x,
                               (int)_moveLogChess[_moveCount].transform.position.y,

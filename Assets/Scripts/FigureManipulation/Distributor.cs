@@ -66,11 +66,11 @@ public class Distributor : MonoBehaviour
             _arrayTile[avaibleMove[i].x, avaibleMove[i].y].OnHighlight();
     }
     private void CheckingCell(ChessPiece chessPiece, int posChangeOnX, int posChangeOnY)
-    {
-        MovementJournal.onMovingChessPiece.Invoke(chessPiece);
+    {       
         for (int i = 0; i < avaibleMove.Count; i++)
             if (avaibleMove[i] == new Vector2Int(posChangeOnX, posChangeOnY))
             {
+                MovementJournal.onMovingChessPiece.Invoke(chessPiece);
                 //Ñhecking for an enemy
                 if (_mapCP[posChangeOnX, posChangeOnY] != null && _mapCP[posChangeOnX, posChangeOnY].team != chessPiece.team)
                 {
@@ -81,6 +81,7 @@ public class Distributor : MonoBehaviour
                 }
 
                 SetOnPlace(chessPiece.currentPositionX, chessPiece.currentPositionY, posChangeOnX, posChangeOnY, true);
+                MovementJournal.onMovingChessPiece.Invoke(chessPiece);
                 onWasMadeMove.Invoke();
                 //Castling
                 if (chessPiece.type == ChessPieceType.King)
@@ -108,6 +109,5 @@ public class Distributor : MonoBehaviour
                 }
                 break;
             }
-        MovementJournal.onMovingChessPiece.Invoke(chessPiece);
     }
 }
