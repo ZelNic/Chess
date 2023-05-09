@@ -12,6 +12,7 @@ public class Distributor : MonoBehaviour
     public static Action onPawnOnEdgeBoard;
     public static Action onWasMadeMove;
     public static Action<ChessPiece, int, int, bool> onSetOnPlace;
+    public static Func<ChessPiece, int, int,bool> onCheckBusyCellEnemy;
 
     private ChessPiece[,] _mapCP;
     private Tile[,] _arrayTile;
@@ -25,6 +26,7 @@ public class Distributor : MonoBehaviour
         onShowAviableMoves += ShowAviableMoves;
         onDestroyPieces += DestroyPieces;
         onSetOnPlace += SetOnPlace;
+        onCheckBusyCellEnemy += CheckBusyCellEnemy; 
     }
     private void Start() => _arrayTile = BoardCreator.onSendArrayTile?.Invoke();
     private void DestroyPieces()
@@ -52,11 +54,10 @@ public class Distributor : MonoBehaviour
     }
     private void SetOnPlace(ChessPiece chessPiece, int newX, int newY, bool clearSell)
     {
-        if (chessPiece.gameObject.activeInHierarchy == false)
-            chessPiece.gameObject.SetActive(true);
-
         int x = chessPiece.currentPositionX;
         int y = chessPiece.currentPositionY;
+        if (_mapCP[x, y] == null)
+            _mapCP[x, y] = chessPiece;
 
         _mapCP[x, y].currentPositionX = newX;
         _mapCP[x, y].currentPositionY = newY;
@@ -76,20 +77,19 @@ public class Distributor : MonoBehaviour
         for (int i = 0; i < avaibleMove.Count; i++)
             if (avaibleMove[i] == new Vector2Int(posChangeOnX, posChangeOnY))
             {
-                MovementJournal.onMovingChessPiece.Invoke(chessPiece);
-                //Ñhecking for an enemy
-                if (_mapCP[posChangeOnX, posChangeOnY] != null && _mapCP[posChangeOnX, posChangeOnY].team != chessPiece.team)
+
+                if(CheckBusyCellEnemy(chessPiece, posChangeOnX, posChangeOnY) == true)
                 {
-                    //Checking which king was killed
-                    if (_mapCP[posChangeOnX, posChangeOnY].type == ChessPieceType.King)
-                        GameResult.onShowWhoWins.Invoke(chessPiece.team);
                     MovementJournal.onMovingChessPiece.Invoke(_mapCP[posChangeOnX, posChangeOnY]);
                     _mapCP[posChangeOnX, posChangeOnY].gameObject.SetActive(false);
                 }
 
+                MovementJournal.onMovingChessPiece.Invoke(chessPiece);
                 SetOnPlace(chessPiece, posChangeOnX, posChangeOnY, true);
                 MovementJournal.onMovingChessPiece.Invoke(chessPiece);
+
                 onWasMadeMove.Invoke();
+
                 //Castling
                 if (chessPiece.type == ChessPieceType.King)
                 {
@@ -107,7 +107,6 @@ public class Distributor : MonoBehaviour
                         }
                     chessPiece.GetComponent<King>().MakeMove();
                 }
-
                 //Checking for change type piece
                 if (chessPiece.type == ChessPieceType.Pawn && (chessPiece.currentPositionY == _mapCP.GetLength(1) - 1 || chessPiece.currentPositionY == 0))
                 {
@@ -116,5 +115,18 @@ public class Distributor : MonoBehaviour
                 }
                 break;
             }
+    }
+
+    private bool CheckBusyCellEnemy(ChessPiece chessPiece, int posChangeOnX, int posChangeOnY)
+    {
+        if (_mapCP[posChangeOnX, posChangeOnY] != null && _mapCP[posChangeOnX, posChangeOnY].team != chessPiece.team)
+        {
+            if (_mapCP[posChangeOnX, posChangeOnY].type == ChessPieceType.King)
+            {
+                GameResult.onShowWhoWins.Invoke(chessPiece.team);
+            }           
+            return true;
+        }
+        return false;
     }
 }

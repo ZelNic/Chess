@@ -5,10 +5,10 @@ public class MovementJournal : MonoBehaviour
 {
     public static Action<ChessPiece> onMovingChessPiece;
     private List<Vector3> _moveLogVec = new();
-    private List<ChessPiece> _moveLogChess = new();
-    private int _moveCount = -1;
-    private bool CanUndo { get { return _moveCount >= 0; } }
-    private bool CanRedo { get { return _moveLogChess.Count > 0 && _moveCount < _moveLogChess.Count - 1; } }
+    private List<ChessPiece> _chessPiece = new();
+    private int _stepIndex = -1;
+    private bool CanUndo { get { return _stepIndex >= 0; } }
+    private bool CanRedo { get { return _chessPiece.Count > 0 && _stepIndex < _chessPiece.Count - 1; } }
     private void OnEnable()
     {
         onMovingChessPiece += AddInListMovement;
@@ -16,23 +16,23 @@ public class MovementJournal : MonoBehaviour
     }
     private void ClearMovementJournal()
     {
-        _moveCount = -1;
-        _moveLogChess.Clear();
+        _stepIndex = -1;
+        _chessPiece.Clear();
         _moveLogVec.Clear();
     }
     private void AddInListMovement(ChessPiece chessPiece)
     {
         CutOffLog();
-        _moveLogChess.Add(chessPiece);
+        _chessPiece.Add(chessPiece);
         _moveLogVec.Add(chessPiece.transform.position);
-        _moveCount++;
+        _stepIndex++;
     }
     private void CutOffLog()
     {
-        int index = _moveCount + 1;
-        if (index < _moveLogChess.Count)
+        int index = _stepIndex + 1;
+        if (index < _chessPiece.Count)
         {
-            _moveLogChess.RemoveRange(index, _moveLogChess.Count - index);
+            _chessPiece.RemoveRange(index, _chessPiece.Count - index);
             _moveLogVec.RemoveRange(index, _moveLogVec.Count - index);
         }
     }
@@ -41,26 +41,63 @@ public class MovementJournal : MonoBehaviour
         if (!CanUndo)
             return;
 
-        if (_moveLogChess[_moveCount].transform.position.x == _moveLogVec[_moveCount].x
-           && _moveLogChess[_moveCount].transform.position.y == _moveLogVec[_moveCount].y)
-            _moveCount--;
+        if (_chessPiece[_stepIndex].transform.position.x == _moveLogVec[_stepIndex].x
+           && _chessPiece[_stepIndex].transform.position.y == _moveLogVec[_stepIndex].y)
+            _stepIndex--;
 
+        Distributor.onSetOnPlace.Invoke(_chessPiece[_stepIndex], (int)_moveLogVec[_stepIndex].x, (int)_moveLogVec[_stepIndex].y, true);
 
-        Distributor.onSetOnPlace.Invoke(_moveLogChess[_moveCount], (int)_moveLogVec[_moveCount].x, (int)_moveLogVec[_moveCount].y, true);
-        _moveCount--;
+        _stepIndex--;
+
+        if (!CanUndo)
+            return;
+
+        if (_chessPiece[_stepIndex].gameObject.activeInHierarchy == false)
+        {
+            _chessPiece[_stepIndex].gameObject.SetActive(true);
+            Distributor.onSetOnPlace.Invoke(_chessPiece[_stepIndex], (int)_moveLogVec[_stepIndex].x, (int)_moveLogVec[_stepIndex].y, false);
+            if (_chessPiece[_stepIndex].transform.position.x == _moveLogVec[_stepIndex].x
+           && _chessPiece[_stepIndex].transform.position.y == _moveLogVec[_stepIndex].y)
+                _stepIndex--;
+        }
     }
-
     public void RedoMovement()
     {
         if (!CanRedo)
             return;
 
-        _moveCount++;
+        if (_chessPiece[_stepIndex].transform.position.x == _moveLogVec[_stepIndex].x)
+            if (_chessPiece[_stepIndex].transform.position.y == _moveLogVec[_stepIndex].y)
+                _stepIndex++;
 
-        if (_moveLogChess[_moveCount].transform.position.x == _moveLogVec[_moveCount].x)
-            if (_moveLogChess[_moveCount].transform.position.y == _moveLogVec[_moveCount].y)
-                _moveCount++;
+        if (Distributor.onCheckBusyCellEnemy(_chessPiece[_stepIndex], (int)_moveLogVec[_stepIndex + 1].x, (int)_moveLogVec[_stepIndex + 1].y) == true)
+        {
+            if (_chessPiece[_stepIndex + 1].gameObject.activeInHierarchy == true)
+            {
+                _chessPiece[_stepIndex + 1].gameObject.SetActive(false);
+                Distributor.onSetOnPlace.Invoke(_chessPiece[_stepIndex + 1], (int)_moveLogVec[_stepIndex + 1].x, (int)_moveLogVec[_stepIndex + 1].y, true);
+            }
+        }
+        _stepIndex++;      
 
-        Distributor.onSetOnPlace.Invoke(_moveLogChess[_moveCount], (int)_moveLogVec[_moveCount].x, (int)_moveLogVec[_moveCount].y, true);
+        Distributor.onSetOnPlace.Invoke(_chessPiece[_stepIndex], (int)_moveLogVec[_stepIndex].x, (int)_moveLogVec[_stepIndex].y, true);
+    }
+
+    public void Update()
+    {
+        Show();
+    }
+
+    private void Show()
+    {
+        print(_stepIndex);
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+
+            for (int i = 0; i < _chessPiece.Count; i++)
+            {
+                print(_moveLogVec[i]);
+            }
+        }
     }
 }
