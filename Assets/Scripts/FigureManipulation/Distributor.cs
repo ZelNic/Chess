@@ -12,7 +12,7 @@ public class Distributor : MonoBehaviour
     public static Action onPawnOnEdgeBoard;
     public static Action onWasMadeMove;
     public static Action<ChessPiece, int, int, bool> onSetOnPlace;
-    public static Func<ChessPiece, int, int,bool> onCheckBusyCellEnemy;
+    public static Func<ChessPiece, int, int, bool> onCheckBusyCellEnemy;
 
     private ChessPiece[,] _mapCP;
     private Tile[,] _arrayTile;
@@ -26,7 +26,7 @@ public class Distributor : MonoBehaviour
         onShowAviableMoves += ShowAviableMoves;
         onDestroyPieces += DestroyPieces;
         onSetOnPlace += SetOnPlace;
-        onCheckBusyCellEnemy += CheckBusyCellEnemy; 
+        onCheckBusyCellEnemy += CheckBusyCellEnemy;
     }
     private void Start() => _arrayTile = BoardCreator.onSendArrayTile?.Invoke();
     private void DestroyPieces()
@@ -56,6 +56,7 @@ public class Distributor : MonoBehaviour
     {
         int x = chessPiece.currentPositionX;
         int y = chessPiece.currentPositionY;
+       
         if (_mapCP[x, y] == null)
             _mapCP[x, y] = chessPiece;
 
@@ -63,6 +64,7 @@ public class Distributor : MonoBehaviour
         _mapCP[x, y].currentPositionY = newY;
         _mapCP[x, y].transform.position = new Vector3(newX, newY, _positionPieceZ);
         _mapCP[newX, newY] = _mapCP[x, y];
+
         if (clearSell == true)
             _mapCP[x, y] = null;
     }
@@ -78,10 +80,10 @@ public class Distributor : MonoBehaviour
             if (avaibleMove[i] == new Vector2Int(posChangeOnX, posChangeOnY))
             {
 
-                if(CheckBusyCellEnemy(chessPiece, posChangeOnX, posChangeOnY) == true)
+                if (CheckBusyCellEnemy(chessPiece, posChangeOnX, posChangeOnY) == true)
                 {
                     MovementJournal.onMovingChessPiece.Invoke(_mapCP[posChangeOnX, posChangeOnY]);
-                    _mapCP[posChangeOnX, posChangeOnY].gameObject.SetActive(false);
+
                 }
 
                 MovementJournal.onMovingChessPiece.Invoke(chessPiece);
@@ -124,7 +126,8 @@ public class Distributor : MonoBehaviour
             if (_mapCP[posChangeOnX, posChangeOnY].type == ChessPieceType.King)
             {
                 GameResult.onShowWhoWins.Invoke(chessPiece.team);
-            }           
+            }
+            _mapCP[posChangeOnX, posChangeOnY].gameObject.SetActive(false);
             return true;
         }
         return false;
