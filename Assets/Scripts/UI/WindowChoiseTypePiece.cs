@@ -7,7 +7,7 @@ public class WindowChoiseTypePiece : MonoBehaviour
     public static Action<ChessPieceType> onChosenType;
     [SerializeField] private Image _selectionWindow;
 
-    private void OnEnable() => ChangeTypePiece.onActiveChoise += SwitchActivity;
+    private void OnEnable() => ConverterType.onActiveChoise += SwitchActivity;
     private void SwitchActivity()
     {
         if (_selectionWindow.gameObject.activeInHierarchy == false)

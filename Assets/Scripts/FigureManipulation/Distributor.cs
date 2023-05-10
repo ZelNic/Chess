@@ -5,16 +5,19 @@ using UnityEngine;
 public class Distributor : MonoBehaviour
 {
     public static Action onDestroyPieces;
-    public static Action<ChessPiece[,]> onStartDistribution;
-    public static Action<ChessPiece, int, int> onChangePositionPiece;
-    public static Action<ChessPiece> onShowAviableMoves;
-    public static Action<ChessPiece[,], ChessPiece> onSendToReplaceType;
     public static Action onPawnOnEdgeBoard;
     public static Action onWasMadeMove;
-    public static Action<ChessPiece, int, int, bool> onSetOnPlace;
-    public static Func<ChessPiece, int, int, bool> onCheckBusyCellEnemy;
 
-    private ChessPiece[,] _mapCP;
+    public static Action<ChessPieceTemplate[,]> onStartDistribution;
+    public static Action<ChessPieceTemplate, int, int> onChangePositionPiece;
+    public static Action<ChessPieceTemplate> onChoose—hessPiece;
+    public static Action<ChessPieceTemplate> onSendToReplaceType;
+    public static Action<ChessPieceTemplate, int, int, bool> onSetOnPlace;
+
+    public static Func<ChessPieceTemplate, int, int, bool> onCheckBusyCellEnemy;
+    public static Func<ChessPieceTemplate[,], ChessPieceTemplate, List<Vector2Int>> onShowAviableMoves;
+
+    private ChessPieceTemplate[,] _mapCP;
     private Tile[,] _arrayTile;
     private readonly int _positionPieceZ = -5;
     private List<Vector2Int> avaibleMove;
@@ -23,10 +26,10 @@ public class Distributor : MonoBehaviour
     {
         onStartDistribution += StartDistribute;
         onChangePositionPiece += CheckingCell;
-        onShowAviableMoves += ShowAviableMoves;
         onDestroyPieces += DestroyPieces;
         onSetOnPlace += SetOnPlace;
         onCheckBusyCellEnemy += CheckBusyCellEnemy;
+        onChoose—hessPiece += ShowAvailableMoves;
     }
     private void Start() => _arrayTile = BoardCreator.onSendArrayTile?.Invoke();
     private void DestroyPieces()
@@ -38,7 +41,7 @@ public class Distributor : MonoBehaviour
                     Destroy(_mapCP[x, y].gameObject);
                 }
     }
-    private void StartDistribute(ChessPiece[,] chessPieces)
+    private void StartDistribute(ChessPieceTemplate[,] chessPieces)
     {
         _mapCP = chessPieces;
         for (int x = 0; x < _mapCP.GetLength(0); x++)
@@ -52,7 +55,7 @@ public class Distributor : MonoBehaviour
         _mapCP[x, y].currentPositionY = y;
         _mapCP[x, y].transform.position = new Vector3(x, y, _positionPieceZ);
     }
-    private void SetOnPlace(ChessPiece chessPiece, int newX, int newY, bool clearSell)
+    private void SetOnPlace(ChessPieceTemplate chessPiece, int newX, int newY, bool clearSell)
     {
         int x = chessPiece.currentPositionX;
         int y = chessPiece.currentPositionY;
@@ -68,13 +71,13 @@ public class Distributor : MonoBehaviour
         if (clearSell == true)
             _mapCP[x, y] = null;
     }
-    private void ShowAviableMoves(ChessPiece chessPiece)
+    private void ShowAvailableMoves(ChessPieceTemplate chessPiece)
     {
-        avaibleMove = chessPiece.ShowAviableMove(_mapCP);
+        avaibleMove = onShowAviableMoves?.Invoke(_mapCP, chessPiece);
         for (int i = 0; i < avaibleMove.Count; i++)
             _arrayTile[avaibleMove[i].x, avaibleMove[i].y].OnHighlight();
     }
-    private void CheckingCell(ChessPiece chessPiece, int posChangeOnX, int posChangeOnY)
+    private void CheckingCell(ChessPieceTemplate chessPiece, int posChangeOnX, int posChangeOnY)
     {
         for (int i = 0; i < avaibleMove.Count; i++)
             if (avaibleMove[i] == new Vector2Int(posChangeOnX, posChangeOnY))
@@ -82,14 +85,14 @@ public class Distributor : MonoBehaviour
 
                 if (CheckBusyCellEnemy(chessPiece, posChangeOnX, posChangeOnY) == true)
                 {
-                    MovementJournal.onMovingChessPiece.Invoke(_mapCP[posChangeOnX, posChangeOnY]);
+                    Changelog.onMovingChessPiece.Invoke(_mapCP[posChangeOnX, posChangeOnY]);
                     if (_mapCP[posChangeOnX, posChangeOnY].type == ChessPieceType.King)
                         break;
                 }
 
-                MovementJournal.onMovingChessPiece.Invoke(chessPiece);
+                Changelog.onMovingChessPiece.Invoke(chessPiece);
                 SetOnPlace(chessPiece, posChangeOnX, posChangeOnY, true);
-                MovementJournal.onMovingChessPiece.Invoke(chessPiece);
+                Changelog.onMovingChessPiece.Invoke(chessPiece);
                 onWasMadeMove.Invoke();
 
                 //Castling
@@ -112,14 +115,14 @@ public class Distributor : MonoBehaviour
                 //Checking for change type piece
 
                 if (chessPiece.type == ChessPieceType.Pawn && (chessPiece.currentPositionY == _mapCP.GetLength(1) - 1 || chessPiece.currentPositionY == 0))
-                {                    
-                    onSendToReplaceType?.Invoke(_mapCP, chessPiece);
+                {
+                    onSendToReplaceType?.Invoke(chessPiece);
                     onPawnOnEdgeBoard?.Invoke();
                 }
                 break;
             }
     }
-    private bool CheckBusyCellEnemy(ChessPiece chessPiece, int posChangeOnX, int posChangeOnY)
+    private bool CheckBusyCellEnemy(ChessPieceTemplate chessPiece, int posChangeOnX, int posChangeOnY)
     {
         if (_mapCP[posChangeOnX, posChangeOnY] != null && _mapCP[posChangeOnX, posChangeOnY].team != chessPiece.team)
         {
@@ -132,5 +135,5 @@ public class Distributor : MonoBehaviour
         }
         return false;
     }
-    private void CheckWhoWins(ChessPiece chessPiece) => Judge.onShowWhoWins.Invoke(chessPiece.team);
+    private void CheckWhoWins(ChessPieceTemplate chessPiece) => Judge.onShowWhoWins.Invoke(chessPiece.team);
 }

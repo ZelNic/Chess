@@ -129,13 +129,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: AChess_0
+      name: AChess_10
       rect:
         serializedVersion: 2
-        x: 22
-        y: 1529
-        width: 534
-        height: 472
+        x: 39
+        y: 1546
+        width: 500
+        height: 438
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -150,13 +150,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AChess_1
+      name: AChess_5
       rect:
         serializedVersion: 2
-        x: 610
-        y: 1383
-        width: 393
-        height: 609
+        x: 627
+        y: 1400
+        width: 359
+        height: 576
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -171,13 +171,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AChess_2
+      name: AChess_0
       rect:
         serializedVersion: 2
-        x: 1054
-        y: 1377
-        width: 442
-        height: 576
+        x: 1070
+        y: 1396
+        width: 408
+        height: 540
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -192,13 +192,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AChess_3
+      name: AChess_4
       rect:
         serializedVersion: 2
-        x: 1566
-        y: 1376
-        width: 393
-        height: 609
+        x: 1582
+        y: 1393
+        width: 360
+        height: 575
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -213,13 +213,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AChess_4
+      name: AChess_9
       rect:
         serializedVersion: 2
-        x: 42
-        y: 339
-        width: 460
-        height: 326
+        x: 58
+        y: 356
+        width: 427
+        height: 292
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -234,13 +234,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AChess_5
+      name: AChess_3
       rect:
         serializedVersion: 2
-        x: 486
-        y: 757
-        width: 442
-        height: 610
+        x: 503
+        y: 774
+        width: 408
+        height: 576
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -255,13 +255,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AChess_6
+      name: AChess_1
       rect:
         serializedVersion: 2
-        x: 1023
-        y: 758
-        width: 442
-        height: 576
+        x: 1040
+        y: 776
+        width: 408
+        height: 541
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -276,13 +276,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AChess_7
+      name: AChess_2
       rect:
         serializedVersion: 2
-        x: 1549
-        y: 770
-        width: 443
-        height: 543
+        x: 1566
+        y: 786
+        width: 409
+        height: 510
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -307,14 +307,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      AChess_0: 1368205883
-      AChess_1: -786809436
-      AChess_2: 101129889
-      AChess_3: 1170857847
-      AChess_4: 512831464
-      AChess_5: -3926162
-      AChess_6: 1029846416
-      AChess_7: 888328615
+      AChess_0: 101129889
+      AChess_1: 1029846416
+      AChess_10: -786809436
+      AChess_2: 888328615
+      AChess_3: -3926162
+      AChess_4: 1170857847
+      AChess_5: -786809436
+      AChess_9: 512831464
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

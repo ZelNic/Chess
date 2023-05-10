@@ -12,20 +12,11 @@ public enum ChessPieceType
     King = 6
 }
 
-public class ChessPiece : MonoBehaviour
+public class ChessPieceTemplate : MonoBehaviour
 {
     public ChessPieceType type;
     public int team; // 0 - white / 1 - black
     public int currentPositionX;
     public int currentPositionY;
-    public void DestroyPiece()
-    {
-        Destroy(gameObject);
-    }
-
-    public virtual List<Vector2Int> ShowAviableMove(ChessPiece[,] _mapCP)
-    {
-        List<Vector2Int> avaibleMove = new();
-        return avaibleMove;
-    }
+ 
 }

@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-public class MovementJournal : MonoBehaviour
+public class Changelog : MonoBehaviour
 {
-    public static Action<ChessPiece> onMovingChessPiece;
+    public static Action<ChessPieceTemplate> onMovingChessPiece;
     private List<Vector3> _LogVector = new();
-    private List<ChessPiece> _chessPiece = new();
+    private List<ChessPieceTemplate> _chessPiece = new();
     private int _stepIndex = -1;
     private bool CanUndo { get { return _stepIndex >= 0; } }
     private bool CanRedo { get { return _chessPiece.Count > 0 && _stepIndex < _chessPiece.Count - 1; } }
@@ -20,7 +20,7 @@ public class MovementJournal : MonoBehaviour
         _chessPiece.Clear();
         _LogVector.Clear();
     }
-    private void AddInListMovement(ChessPiece chessPiece)
+    private void AddInListMovement(ChessPieceTemplate chessPiece)
     {
         CutOffLog();
         _chessPiece.Add(chessPiece);
