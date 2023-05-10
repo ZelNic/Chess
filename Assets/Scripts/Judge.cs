@@ -2,19 +2,18 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameResult : MonoBehaviour
+public class Judge : MonoBehaviour
 {
     public static Action<int> onShowWhoWins;
+    public static Action onStopGame;
     [SerializeField] private Button _white;
     [SerializeField] private Button _black;
 
-    private void OnEnable()
-    {
-        onShowWhoWins += ShowWhoWins;
-    }
+    private void OnEnable() => onShowWhoWins += ShowWhoWins;
 
     private void ShowWhoWins(int whoWins)
     {
+        onStopGame?.Invoke();
         if (whoWins == 0)
             _white.gameObject.SetActive(true);
         else
@@ -26,7 +25,4 @@ public class GameResult : MonoBehaviour
         _white.gameObject.SetActive(false);
         _black.gameObject.SetActive(false);
     }
-
-
-
 }

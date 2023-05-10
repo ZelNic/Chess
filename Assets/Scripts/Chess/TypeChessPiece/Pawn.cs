@@ -25,7 +25,7 @@ public class Pawn : ChessPiece
                 if (_mapCP[currentPositionX + 1, currentPositionY + direction].team != team)
                     avaibleMove.Add(new Vector2Int(currentPositionX + 1, currentPositionY + direction));
 
-        if (currentPositionX == _mapCP.GetLength(0) - 1)
+        if (currentPositionX == sizeMap - 1)
             if (_mapCP[currentPositionX - 1, currentPositionY + direction] != null)
                 if (_mapCP[currentPositionX - 1, currentPositionY + direction].team != team)
                     avaibleMove.Add(new Vector2Int(currentPositionX - 1, currentPositionY + direction));

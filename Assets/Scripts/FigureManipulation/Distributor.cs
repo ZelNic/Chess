@@ -56,7 +56,7 @@ public class Distributor : MonoBehaviour
     {
         int x = chessPiece.currentPositionX;
         int y = chessPiece.currentPositionY;
-       
+
         if (_mapCP[x, y] == null)
             _mapCP[x, y] = chessPiece;
 
@@ -83,13 +83,13 @@ public class Distributor : MonoBehaviour
                 if (CheckBusyCellEnemy(chessPiece, posChangeOnX, posChangeOnY) == true)
                 {
                     MovementJournal.onMovingChessPiece.Invoke(_mapCP[posChangeOnX, posChangeOnY]);
-
+                    if (_mapCP[posChangeOnX, posChangeOnY].type == ChessPieceType.King)
+                        break;
                 }
 
                 MovementJournal.onMovingChessPiece.Invoke(chessPiece);
                 SetOnPlace(chessPiece, posChangeOnX, posChangeOnY, true);
                 MovementJournal.onMovingChessPiece.Invoke(chessPiece);
-
                 onWasMadeMove.Invoke();
 
                 //Castling
@@ -110,26 +110,27 @@ public class Distributor : MonoBehaviour
                     chessPiece.GetComponent<King>().MakeMove();
                 }
                 //Checking for change type piece
+
                 if (chessPiece.type == ChessPieceType.Pawn && (chessPiece.currentPositionY == _mapCP.GetLength(1) - 1 || chessPiece.currentPositionY == 0))
-                {
+                {                    
                     onSendToReplaceType?.Invoke(_mapCP, chessPiece);
                     onPawnOnEdgeBoard?.Invoke();
                 }
                 break;
             }
     }
-
     private bool CheckBusyCellEnemy(ChessPiece chessPiece, int posChangeOnX, int posChangeOnY)
     {
         if (_mapCP[posChangeOnX, posChangeOnY] != null && _mapCP[posChangeOnX, posChangeOnY].team != chessPiece.team)
         {
             if (_mapCP[posChangeOnX, posChangeOnY].type == ChessPieceType.King)
             {
-                GameResult.onShowWhoWins.Invoke(chessPiece.team);
+                CheckWhoWins(chessPiece);
             }
             _mapCP[posChangeOnX, posChangeOnY].gameObject.SetActive(false);
             return true;
         }
         return false;
     }
+    private void CheckWhoWins(ChessPiece chessPiece) => Judge.onShowWhoWins.Invoke(chessPiece.team);
 }
