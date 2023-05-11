@@ -1,4 +1,4 @@
-public class Bishop : ChessPieceTemplate
+public class Bishop : ChessPiece
 {
 
 }

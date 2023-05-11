@@ -1,4 +1,4 @@
-public class Knight : ChessPieceTemplate
+public class Knight : ChessPiece
 {
 }
 

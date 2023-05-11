@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Changelog : MonoBehaviour
 {
-    public static Action<ChessPieceTemplate> onMovingChessPiece;
+    public static Action<ChessPiece> onMovingChessPiece;
+    public static Action<ChessPiece,ChessPieceType> onChangeType;
     private List<Vector3> _LogVector = new();
-    private List<ChessPieceTemplate> _chessPiece = new();
+    private List<ChessPiece> _chessPiece = new();
     private int _stepIndex = -1;
     private bool CanUndo { get { return _stepIndex >= 0; } }
     private bool CanRedo { get { return _chessPiece.Count > 0 && _stepIndex < _chessPiece.Count - 1; } }
@@ -20,7 +21,7 @@ public class Changelog : MonoBehaviour
         _chessPiece.Clear();
         _LogVector.Clear();
     }
-    private void AddInListMovement(ChessPieceTemplate chessPiece)
+    private void AddInListMovement(ChessPiece chessPiece)
     {
         CutOffLog();
         _chessPiece.Add(chessPiece);
@@ -56,6 +57,8 @@ public class Changelog : MonoBehaviour
             if (_chessPiece[_stepIndex].transform.position == _LogVector[_stepIndex])
                 _stepIndex--;
         }
+
+        CompareWithBaseType();
     }
     public void RedoMovement()
     {
@@ -73,5 +76,29 @@ public class Changelog : MonoBehaviour
         Distributor.onCheckBusyCellEnemy.Invoke(_chessPiece[_stepIndex], (int)_LogVector[_stepIndex].x, (int)_LogVector[_stepIndex].y);
         Distributor.onSetOnPlace.Invoke(_chessPiece[_stepIndex], (int)_LogVector[_stepIndex].x, (int)_LogVector[_stepIndex].y, true);
         Distributor.onWasMadeMove.Invoke();
+        CompareWithNewType();
+    }
+
+    private void CompareWithBaseType()
+    {
+        if (_chessPiece[_stepIndex].GetComponent<Pawn>() != null)
+        {
+            Pawn pawn = _chessPiece[_stepIndex].GetComponent<Pawn>();
+            if(pawn.type != pawn.DefaultType)
+            {
+                onChangeType?.Invoke(_chessPiece[_stepIndex], pawn.DefaultType);
+            }
+        }
+    }
+    private void CompareWithNewType()
+    {
+        if (_chessPiece[_stepIndex].GetComponent<Pawn>() != null)
+        {
+            Pawn pawn = _chessPiece[_stepIndex].GetComponent<Pawn>();
+            if (pawn.type != pawn.NewType)
+            {
+                onChangeType?.Invoke(_chessPiece[_stepIndex], pawn.NewType);
+            }
+        }
     }
 }

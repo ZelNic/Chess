@@ -1,4 +1,4 @@
-public class Rock : ChessPieceTemplate
+public class Rock : ChessPiece
 {
     private bool _firstStep = true;
     public bool FirstStep

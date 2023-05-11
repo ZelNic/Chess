@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class AccessibilityCell : MonoBehaviour
@@ -10,7 +9,7 @@ public class AccessibilityCell : MonoBehaviour
 
     private void OnEnable() => Distributor.onShowAviableMoves += ShowAvailableMoves;
 
-    private List<Vector2Int> ShowAvailableMoves(ChessPieceTemplate[,] _mapCP, ChessPieceTemplate chessPiece)
+    private List<Vector2Int> ShowAvailableMoves(ChessPiece[,] _mapCP, ChessPiece chessPiece)
     {
         sizeMap = _mapCP.GetLength(0);
         posX = chessPiece.currentPositionX;
@@ -28,8 +27,7 @@ public class AccessibilityCell : MonoBehaviour
         }
         return avaibleMove;
     }
-
-    private List<Vector2Int> ShowAvailableMovesPawn(ChessPieceTemplate[,] _mapCP, ChessPieceTemplate chessPiece)
+    private List<Vector2Int> ShowAvailableMovesPawn(ChessPiece[,] _mapCP, ChessPiece chessPiece)
     {
         int direction = (chessPiece.team == 0) ? 1 : -1;
         List<Vector2Int> avaibleMove = new List<Vector2Int>();
@@ -66,7 +64,7 @@ public class AccessibilityCell : MonoBehaviour
                     avaibleMove.Add(new Vector2Int(posX + 1, posY + direction));
         return avaibleMove;
     }
-    private List<Vector2Int> ShowAvailableMovesRock(ChessPieceTemplate[,] _mapCP, ChessPieceTemplate chessPiece)
+    private List<Vector2Int> ShowAvailableMovesRock(ChessPiece[,] _mapCP, ChessPiece chessPiece)
     {
         List<Vector2Int> avaibleMove = new List<Vector2Int>();
 
@@ -131,7 +129,7 @@ public class AccessibilityCell : MonoBehaviour
 
         return avaibleMove;
     }
-    private List<Vector2Int> ShowAvailableMovesKnight(ChessPieceTemplate[,] _mapCP, ChessPieceTemplate chessPiece)
+    private List<Vector2Int> ShowAvailableMovesKnight(ChessPiece[,] _mapCP, ChessPiece chessPiece)
     {
         List<Vector2Int> avaibleMove = new List<Vector2Int>();
         //UpR
@@ -179,7 +177,7 @@ public class AccessibilityCell : MonoBehaviour
 
         return avaibleMove;
     }
-    private List<Vector2Int> ShowAvailableMovesBishop(ChessPieceTemplate[,] _mapCP, ChessPieceTemplate chessPiece)
+    private List<Vector2Int> ShowAvailableMovesBishop(ChessPiece[,] _mapCP, ChessPiece chessPiece)
     {
         List<Vector2Int> avaibleMove = new List<Vector2Int>();
 
@@ -265,14 +263,14 @@ public class AccessibilityCell : MonoBehaviour
 
         return avaibleMove;
     }
-    private List<Vector2Int> ShowAvailableMovesQueen(ChessPieceTemplate[,] _mapCP, ChessPieceTemplate chessPiece)
+    private List<Vector2Int> ShowAvailableMovesQueen(ChessPiece[,] _mapCP, ChessPiece chessPiece)
     {
         List<Vector2Int> avaibleMove = new List<Vector2Int>();
         avaibleMove = ShowAvailableMovesRock(_mapCP, chessPiece);
         avaibleMove.AddRange(ShowAvailableMovesBishop(_mapCP, chessPiece));
         return avaibleMove;
     }
-    private List<Vector2Int> ShowAvailableMovesKing(ChessPieceTemplate[,] _mapCP, ChessPieceTemplate chessPiece)
+    private List<Vector2Int> ShowAvailableMovesKing(ChessPiece[,] _mapCP, ChessPiece chessPiece)
     {
         List<Vector2Int> avaibleMove = new List<Vector2Int>();
 
@@ -351,8 +349,8 @@ public class AccessibilityCell : MonoBehaviour
             {
                 if (_mapCP[x, posY] != null)
                     break;
-                if (x == 1 && _mapCP[x - 1, posY].type == ChessPieceType.Rook && _mapCP[x - 1, posY].GetComponent<Rock>().FirstStep == true) { }
-                avaibleMove.Add(new Vector2Int(2, posY));
+                if (x == 1 && _mapCP[x - 1, posY].type == ChessPieceType.Rook && _mapCP[x - 1, posY].GetComponent<Rock>().FirstStep == true)
+                    avaibleMove.Add(new Vector2Int(2, posY));
             }
 
             for (int x = posX + 1; x < sizeMap - 1; x++)

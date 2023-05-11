@@ -1,4 +1,4 @@
-public class Queen : ChessPieceTemplate
+public class Queen : ChessPiece
 {
 
 }

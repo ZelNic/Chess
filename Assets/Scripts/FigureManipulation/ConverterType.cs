@@ -1,19 +1,19 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ConverterType : MonoBehaviour
 {
     [SerializeField] private Sprite[] _sprites;
     public static Action onActiveChoise;
-    private ChessPieceTemplate _pieceToReplace;
+    private ChessPiece _pieceToReplace;
 
     private void OnEnable()
     {
         WindowChoiseTypePiece.onChosenType += ReplacePiece;
         Distributor.onSendToReplaceType += GetPieceForReplacement;
+        Changelog.onChangeType += ReplacePiece;
     }
-    public void GetPieceForReplacement(ChessPieceTemplate piece)
+    public void GetPieceForReplacement(ChessPiece piece)
     {
         _pieceToReplace = piece;
         onActiveChoise?.Invoke();
@@ -21,10 +21,24 @@ public class ConverterType : MonoBehaviour
     private void ReplacePiece(ChessPieceType type)
     {
         _pieceToReplace.type = type;
+        _pieceToReplace.GetComponent<Pawn>().SaveNewType();
+        SetSprite(type);
+    }
+
+    private void ReplacePiece(ChessPiece chessPiece,ChessPieceType type)
+    {
+        _pieceToReplace = chessPiece;
+        _pieceToReplace.type = type;
+        SetSprite(type);
+    }
+
+    private void SetSprite(ChessPieceType type)
+    {
         int number = 0;
 
         switch (type)
         {
+            case ChessPieceType.Pawn: number = 0 ; break;
             case ChessPieceType.Rook: number = 1; break;
             case ChessPieceType.Knight: number = 2; break;
             case ChessPieceType.Bishop: number = 3; break;
@@ -32,18 +46,4 @@ public class ConverterType : MonoBehaviour
         }
         _pieceToReplace.GetComponent<SpriteRenderer>().sprite = _sprites[number];
     }
-
-
-
 }
-
-
-
-
-
-//ChessPiece newCP = CreaterSingleChessPiece.onCreateSinglePiece.Invoke(type, _pieceToReplace.team);
-//newCP.currentPositionX = _mapCP[_pieceToReplace.currentPositionX, _pieceToReplace.currentPositionY].currentPositionX;
-//    newCP.currentPositionY = _mapCP[_pieceToReplace.currentPositionX, _pieceToReplace.currentPositionY].currentPositionY;
-//    newCP.transform.position = _pieceToReplace.transform.position;
-//    _mapCP[_pieceToReplace.currentPositionX, _pieceToReplace.currentPositionY] = newCP;
-//    _pieceToReplace.DestroyPiece();

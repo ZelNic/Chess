@@ -1,4 +1,4 @@
-public class King : ChessPieceTemplate
+public class King : ChessPiece
 {
     private bool _firstStep = true;
     public bool FirstStep

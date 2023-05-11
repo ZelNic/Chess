@@ -2,7 +2,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private GameObject _touchpointPiece;
-    private ChessPieceTemplate _selectedPiece;
+    private ChessPiece _selectedPiece;
     private RaycastHit2D _rayHit;
     private GameObject _rayHitGO;
     private int _countClick = 0;
@@ -18,11 +18,11 @@ public class Player : MonoBehaviour
     }
     private void OnEnable()
     {
-        Distributor.onDestroyPieces += SetIsWhiteTrue;
+        Distributor.onDestroyPieces += SetIsStepWhite;
         Distributor.onWasMadeMove += PlayerSwitch;
         Judge.onStopGame += SelectionSwitch;
     }
-    private void SetIsWhiteTrue() => _isStepWhite = true;
+    private void SetIsStepWhite() => _isStepWhite = true;
     private void PlayerSwitch() => _isStepWhite = _isStepWhite == true ? true : true;
     private void SelectionSwitch() => IsGameOver = IsGameOver == false ? true : false;
     private void Update() => SelectObject();
@@ -37,11 +37,11 @@ public class Player : MonoBehaviour
 
             Tile.onSetDefautColor?.Invoke();
             _touchpointPiece.gameObject.SetActive(false);
-            if (_rayHit.collider != null && _rayHitGO.gameObject.GetComponent<ChessPieceTemplate>() != null && _countClick == 0)
-                if ((_isStepWhite == true && _rayHitGO.GetComponent<ChessPieceTemplate>().team == 0) || (_isStepWhite == false && _rayHitGO.GetComponent<ChessPieceTemplate>().team == 1))
+            if (_rayHit.collider != null && _rayHitGO.gameObject.GetComponent<ChessPiece>() != null && _countClick == 0)
+                if ((_isStepWhite == true && _rayHitGO.GetComponent<ChessPiece>().team == 0) || (_isStepWhite == false && _rayHitGO.GetComponent<ChessPiece>().team == 1))
                 {
                     _touchpointPiece.gameObject.SetActive(true);
-                    _selectedPiece = _rayHitGO.GetComponent<ChessPieceTemplate>();
+                    _selectedPiece = _rayHitGO.GetComponent<ChessPiece>();
                     _touchpointPiece.transform.position = _rayHitGO.transform.position;
                     _countClick++;
                     Distributor.onChoose—hessPiece?.Invoke(_selectedPiece);
@@ -54,19 +54,19 @@ public class Player : MonoBehaviour
                 Distributor.onChangePositionPiece?.Invoke(_selectedPiece, (int)_rayHitGO.transform.position.x, (int)_rayHitGO.transform.position.y);
             }
 
-            if (_countClick > 0 && _rayHitGO.gameObject.GetComponent<ChessPieceTemplate>() != null)
+            if (_countClick > 0 && _rayHitGO.gameObject.GetComponent<ChessPiece>() != null)
             {
-                if (_selectedPiece.team != _rayHitGO.GetComponent<ChessPieceTemplate>().team)
+                if (_selectedPiece.team != _rayHitGO.GetComponent<ChessPiece>().team)
                 {
                     _countClick = 0;
                     Distributor.onChangePositionPiece?.Invoke(_selectedPiece, (int)_rayHitGO.transform.position.x, (int)_rayHitGO.transform.position.y);
                 }
 
-                if (_selectedPiece.team == _rayHitGO.GetComponent<ChessPieceTemplate>().team)
+                if (_selectedPiece.team == _rayHitGO.GetComponent<ChessPiece>().team)
                 {
                     _touchpointPiece.gameObject.SetActive(true);
                     _touchpointPiece.transform.position = _rayHitGO.transform.position;
-                    _selectedPiece = _rayHitGO.GetComponent<ChessPieceTemplate>();
+                    _selectedPiece = _rayHitGO.GetComponent<ChessPiece>();
                     Distributor.onChoose—hessPiece?.Invoke(_selectedPiece);
                 }
             }

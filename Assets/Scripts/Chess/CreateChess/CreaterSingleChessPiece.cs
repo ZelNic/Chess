@@ -3,17 +3,17 @@ using UnityEngine;
 
 public class CreaterSingleChessPiece : MonoBehaviour
 {
-    public static Func<ChessPieceType, int, ChessPieceTemplate> onCreateSinglePiece;
-    [SerializeField] private ChessPieceTemplate[] _chessPiece;
+    public static Func<ChessPieceType, int, ChessPiece> onCreateSinglePiece;
+    [SerializeField] private ChessPiece[] _chessPiece;
     [SerializeField] private Color[] _colorsTeam; // 0 - white / 1 - black
 
     private void OnEnable()
     {
         onCreateSinglePiece += CreateSinglePiece;
     }
-    private ChessPieceTemplate CreateSinglePiece(ChessPieceType type, int team)
+    private ChessPiece CreateSinglePiece(ChessPieceType type, int team)
     {
-        ChessPieceTemplate piece = Instantiate(_chessPiece[(int)type - 1], transform).GetComponent<ChessPieceTemplate>();       
+        ChessPiece piece = Instantiate(_chessPiece[(int)type - 1], transform).GetComponent<ChessPiece>();       
         piece.type = type;
         piece.team = team;
         if(team == 0)   

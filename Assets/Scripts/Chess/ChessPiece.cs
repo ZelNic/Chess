@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum ChessPieceType
@@ -12,11 +11,11 @@ public enum ChessPieceType
     King = 6
 }
 
-public class ChessPieceTemplate : MonoBehaviour
+public class ChessPiece : MonoBehaviour
 {
     public ChessPieceType type;
     public int team; // 0 - white / 1 - black
     public int currentPositionX;
     public int currentPositionY;
- 
+
 }

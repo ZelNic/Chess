@@ -4,14 +4,14 @@ using UnityEngine;
 public class CreaterAllChessPiece : MonoBehaviour
 {
     public static Action onCreateAllChessPiece;
-    private ChessPieceTemplate[,] _mapCP;
+    private ChessPiece[,] _mapCP;
 
     private void OnEnable()
     {
         onCreateAllChessPiece += SendCreationChessPieces;        
         BoardCreator.onSendSize += GetSizeBoard;        
     }
-    private void GetSizeBoard(int width, int height) => _mapCP = new ChessPieceTemplate[width, height];   
+    private void GetSizeBoard(int width, int height) => _mapCP = new ChessPiece[width, height];   
     private void SendCreationChessPieces()
     {
         //White
