@@ -43,6 +43,8 @@ public class Changelog : MonoBehaviour
 
         if (_chessPiece[_stepIndex].transform.position == _LogVector[_stepIndex])
             _stepIndex--;
+        if (_chessPiece[_stepIndex].transform.position == _LogVector[_stepIndex])
+            _stepIndex--;
 
         Distributor.onSetOnPlace.Invoke(_chessPiece[_stepIndex], (int)_LogVector[_stepIndex].x, (int)_LogVector[_stepIndex].y, true);
         Distributor.onWasMadeMove.Invoke();

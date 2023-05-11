@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AccessibilityCell : MonoBehaviour
+public class AccessibilityMove : MonoBehaviour
 {
     private int posX;
     private int posY;

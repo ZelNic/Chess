@@ -5,7 +5,7 @@ public class CameraOptions : MonoBehaviour
     private void OnEnable() => BoardCreator.onSendSize += TuneCamera;
     private void TuneCamera(int SizeByX, int SizeByY)
     {
-        int coefficient = 5;
+        float coefficient = 4.5f;
         int optimalPosZ = -10;
         float x = Screen.width;
         float y = Screen.height;
