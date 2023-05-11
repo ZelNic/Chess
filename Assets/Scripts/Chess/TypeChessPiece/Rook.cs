@@ -1,4 +1,4 @@
-public class King : ChessPiece
+public class Rook : ChessPiece
 {
     private bool _isZeroStep = true;
     public bool IsFirstStep
@@ -7,6 +7,6 @@ public class King : ChessPiece
         private set { _isZeroStep = value; }
     }
     public void MakeStep() => IsFirstStep = false;
-    public void ResetStep() => IsFirstStep = true;
 
+    public void ResetStep() => IsFirstStep = true;
 }

@@ -90,14 +90,13 @@ public class Distributor : MonoBehaviour
                 }
 
                 Changelog.onMovingChessPiece.Invoke(chessPiece);
-
                 //Castling
                 if (chessPiece.type == ChessPieceType.King)
                 {
                     if (avaibleMove[i] == new Vector2Int(2, posChangeOnY))
-                        if (chessPiece.GetComponent<King>().FirstStep == true && _mapCP[0, posChangeOnY].GetComponent<Rock>().FirstStep == true)
+                        if (chessPiece.GetComponent<King>().IsFirstStep == true && _mapCP[0, posChangeOnY].GetComponent<Rook>().IsFirstStep == true)
                         {
-                            _mapCP[0, posChangeOnY].GetComponent<Rock>().MakeMove();
+                            _mapCP[0, posChangeOnY].GetComponent<Rook>().MakeStep();
                             Changelog.onMovingChessPiece.Invoke(_mapCP[0, posChangeOnY]);
                             SetOnPlace(_mapCP[0, posChangeOnY], 3, posChangeOnY, true);
                             Changelog.onMovingChessPiece.Invoke(_mapCP[3, posChangeOnY]);
@@ -105,19 +104,20 @@ public class Distributor : MonoBehaviour
                             Changelog.onMovingChessPiece.Invoke(chessPiece);
                         }
                     if (avaibleMove[i] == new Vector2Int(6, posChangeOnY))
-                        if (chessPiece.GetComponent<King>().FirstStep == true && _mapCP[7, posChangeOnY].GetComponent<Rock>().FirstStep == true)
+                        if (chessPiece.GetComponent<King>().IsFirstStep == true && _mapCP[7, posChangeOnY].GetComponent<Rook>().IsFirstStep == true)
                         {
-                            _mapCP[7, posChangeOnY].GetComponent<Rock>().MakeMove();
+                            _mapCP[7, posChangeOnY].GetComponent<Rook>().MakeStep();
                             Changelog.onMovingChessPiece.Invoke(_mapCP[7, posChangeOnY]);
                             SetOnPlace(_mapCP[7, posChangeOnY], 5, posChangeOnY, true);
                             Changelog.onMovingChessPiece.Invoke(_mapCP[5, posChangeOnY]);
                             SetOnPlace(chessPiece, 6, posChangeOnY, true);
-                            Changelog.onMovingChessPiece.Invoke(chessPiece);
-                            chessPiece.GetComponent<King>().MakeMove();
-                            onWasMadeMove.Invoke();
+                            Changelog.onMovingChessPiece.Invoke(chessPiece);                           
                         }
+                    chessPiece.GetComponent<King>().MakeStep();
+                    onWasMadeMove.Invoke();
                     break;
                 }
+
 
                 SetOnPlace(chessPiece, posChangeOnX, posChangeOnY, true);
                 Changelog.onMovingChessPiece.Invoke(chessPiece);
@@ -125,6 +125,8 @@ public class Distributor : MonoBehaviour
 
                 CheckPossibleReplacePawn(chessPiece);
                 break;
+
+
             }
     }
 

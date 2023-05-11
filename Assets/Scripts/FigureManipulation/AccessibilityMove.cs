@@ -343,13 +343,13 @@ public class AccessibilityMove : MonoBehaviour
         }
 
         //Castling with Rock
-        if (chessPiece.GetComponent<King>().FirstStep == true)
+        if (chessPiece.GetComponent<King>().IsFirstStep == true)
         {
             for (int x = posX - 1; x >= 0; x--)
             {
                 if (_mapCP[x, posY] != null)
                     break;
-                if (x == 1 && _mapCP[x - 1, posY].type == ChessPieceType.Rook && _mapCP[x - 1, posY].GetComponent<Rock>().FirstStep == true)
+                if (x == 1 && _mapCP[x - 1, posY].type == ChessPieceType.Rook && _mapCP[x - 1, posY].GetComponent<Rook>().IsFirstStep == true)
                     avaibleMove.Add(new Vector2Int(2, posY));
             }
 
@@ -357,7 +357,7 @@ public class AccessibilityMove : MonoBehaviour
             {
                 if (_mapCP[x, posY] != null)
                     break;
-                if (x == sizeMap - 2 && _mapCP[sizeMap - 1, posY].type == ChessPieceType.Rook && _mapCP[sizeMap - 1, posY].GetComponent<Rock>().FirstStep == true)
+                if (x == sizeMap - 2 && _mapCP[sizeMap - 1, posY].type == ChessPieceType.Rook && _mapCP[sizeMap - 1, posY].GetComponent<Rook>().IsFirstStep == true)
                     avaibleMove.Add(new Vector2Int(sizeMap - 2, posY));
             }
         }

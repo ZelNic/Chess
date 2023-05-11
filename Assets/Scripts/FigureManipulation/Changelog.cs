@@ -4,7 +4,7 @@ using UnityEngine;
 public class Changelog : MonoBehaviour
 {
     public static Action<ChessPiece> onMovingChessPiece;
-    public static Action<ChessPiece,ChessPieceType> onChangeType;
+    public static Action<ChessPiece, ChessPieceType> onChangeType;
     private List<Vector3> _LogVector = new();
     private List<ChessPiece> _chessPiece = new();
     private int _stepIndex = -1;
@@ -42,12 +42,17 @@ public class Changelog : MonoBehaviour
         if (!CanUndo) return;
 
         if (_chessPiece[_stepIndex].transform.position == _LogVector[_stepIndex])
+        {
             _stepIndex--;
-        if (_chessPiece[_stepIndex].transform.position == _LogVector[_stepIndex])
-            _stepIndex--;
+            if (_chessPiece[_stepIndex].transform.position == _LogVector[_stepIndex])
+                _stepIndex--;
+        }
 
         Distributor.onSetOnPlace.Invoke(_chessPiece[_stepIndex], (int)_LogVector[_stepIndex].x, (int)_LogVector[_stepIndex].y, true);
         Distributor.onWasMadeMove.Invoke();
+        ChangeFlagMovementKing();
+        ChangeFlagMovementRock();
+
         _stepIndex--;
 
         if (!CanUndo) return;
@@ -79,6 +84,8 @@ public class Changelog : MonoBehaviour
         Distributor.onSetOnPlace.Invoke(_chessPiece[_stepIndex], (int)_LogVector[_stepIndex].x, (int)_LogVector[_stepIndex].y, true);
         Distributor.onWasMadeMove.Invoke();
         CompareWithNewType();
+        ChangeFlagMovementKing();
+        ChangeFlagMovementRock();
     }
 
     private void CompareWithBaseType()
@@ -86,7 +93,7 @@ public class Changelog : MonoBehaviour
         if (_chessPiece[_stepIndex].GetComponent<Pawn>() != null)
         {
             Pawn pawn = _chessPiece[_stepIndex].GetComponent<Pawn>();
-            if(pawn.type != pawn.DefaultType)
+            if (pawn.type != pawn.DefaultType)
             {
                 onChangeType?.Invoke(_chessPiece[_stepIndex], pawn.DefaultType);
             }
@@ -100,6 +107,42 @@ public class Changelog : MonoBehaviour
             if (pawn.type != pawn.NewType)
             {
                 onChangeType?.Invoke(_chessPiece[_stepIndex], pawn.NewType);
+            }
+        }
+    }
+
+    private void ChangeFlagMovementKing()
+    {
+        if (_chessPiece[_stepIndex].type == ChessPieceType.King)
+        {
+            if (_chessPiece[_stepIndex].team == 0 && _LogVector[_stepIndex] == new Vector3(4, 0, -5))
+                _chessPiece[_stepIndex].GetComponent<King>().ResetStep();
+
+            if (_chessPiece[_stepIndex].team == 1 && _LogVector[_stepIndex] == new Vector3(4, 7, -5))
+                _chessPiece[_stepIndex].GetComponent<King>().ResetStep();
+        }
+    }
+
+    private void ChangeFlagMovementRock()
+    {
+        if (_chessPiece[_stepIndex].type == ChessPieceType.Rook)
+        {
+            if (_chessPiece[_stepIndex].team == 0)
+            {
+                if (_LogVector[_stepIndex] == new Vector3(0, 0, -5) && _chessPiece[_stepIndex].transform.position == _LogVector[_stepIndex])
+                    _chessPiece[_stepIndex].GetComponent<Rook>().ResetStep();
+
+                if (_LogVector[_stepIndex] == new Vector3(7, 0, -5) && _chessPiece[_stepIndex].transform.position == _LogVector[_stepIndex])
+                    _chessPiece[_stepIndex].GetComponent<Rook>().ResetStep();
+            }
+
+            if (_chessPiece[_stepIndex].team == 1)
+            {
+                if (_LogVector[_stepIndex] == new Vector3(0, 7, -5) && _chessPiece[_stepIndex].transform.position == _LogVector[_stepIndex])
+                    _chessPiece[_stepIndex].GetComponent<Rook>().ResetStep();
+
+                if (_LogVector[_stepIndex] == new Vector3(7, 7, -5) && _chessPiece[_stepIndex].transform.position == _LogVector[_stepIndex])
+                    _chessPiece[_stepIndex].GetComponent<Rook>().ResetStep();
             }
         }
     }
