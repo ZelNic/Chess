@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
         Judge.onStopGame += SelectionSwitch;
     }
     private void SetIsStepWhite() => _isStepWhite = true;
-    private void PlayerSwitch() => _isStepWhite = _isStepWhite == true ? true : true;
+    private void PlayerSwitch() => _isStepWhite = _isStepWhite == true ? false : true;
     private void SelectionSwitch() => IsGameOver = IsGameOver == false ? true : false;
     private void Update() => SelectObject();
     private void SelectObject()

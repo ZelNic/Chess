@@ -100,8 +100,6 @@ public class Distributor : MonoBehaviour
                             Changelog.onMovingChessPiece.Invoke(_mapCP[0, posChangeOnY]);
                             SetOnPlace(_mapCP[0, posChangeOnY], 3, posChangeOnY, true);
                             Changelog.onMovingChessPiece.Invoke(_mapCP[3, posChangeOnY]);
-                            SetOnPlace(chessPiece, 2, posChangeOnY, true);
-                            Changelog.onMovingChessPiece.Invoke(chessPiece);
                         }
                     if (avaibleMove[i] == new Vector2Int(6, posChangeOnY))
                         if (chessPiece.GetComponent<King>().IsFirstStep == true && _mapCP[7, posChangeOnY].GetComponent<Rook>().IsFirstStep == true)
@@ -110,14 +108,20 @@ public class Distributor : MonoBehaviour
                             Changelog.onMovingChessPiece.Invoke(_mapCP[7, posChangeOnY]);
                             SetOnPlace(_mapCP[7, posChangeOnY], 5, posChangeOnY, true);
                             Changelog.onMovingChessPiece.Invoke(_mapCP[5, posChangeOnY]);
-                            SetOnPlace(chessPiece, 6, posChangeOnY, true);
-                            Changelog.onMovingChessPiece.Invoke(chessPiece);                           
                         }
+
+                    //SetOnPlace(chessPiece, posChangeOnX, posChangeOnY, true);
+                    //Changelog.onMovingChessPiece.Invoke(chessPiece);
+                    //onWasMadeMove.Invoke();
+                    //break;
                     chessPiece.GetComponent<King>().MakeStep();
-                    onWasMadeMove.Invoke();
-                    break;
+
                 }
 
+                if (chessPiece.GetComponent<Rook>() != null)
+                {
+                    chessPiece.GetComponent<Rook>().MakeStep();
+                }
 
                 SetOnPlace(chessPiece, posChangeOnX, posChangeOnY, true);
                 Changelog.onMovingChessPiece.Invoke(chessPiece);

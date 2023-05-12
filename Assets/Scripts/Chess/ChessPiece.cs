@@ -10,12 +10,11 @@ public enum ChessPieceType
     Queen = 5,
     King = 6
 }
-
 public class ChessPiece : MonoBehaviour
 {
     public ChessPieceType type;
     public int team; // 0 - white / 1 - black
     public int currentPositionX;
     public int currentPositionY;
-
+   
 }

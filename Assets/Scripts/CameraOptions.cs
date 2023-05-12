@@ -1,9 +1,16 @@
+using System;
 using UnityEngine;
 
 public class CameraOptions : MonoBehaviour
 {
-    private void OnEnable() => BoardCreator.onSendSize += TuneCamera;
-    private void TuneCamera(int SizeByX, int SizeByY)
+    public static Action onRotateCamera;
+    private void OnEnable()
+    {
+        BoardCreator.onSendSize += CustomizeCamera;
+        Distributor.onWasMadeMove += RotateCamera;
+    }
+
+    private void CustomizeCamera(int SizeByX, int SizeByY)
     {
         float coefficient = 4.5f;
         int optimalPosZ = -10;
@@ -12,5 +19,11 @@ public class CameraOptions : MonoBehaviour
         float proportion = y / x;
         Camera.main.orthographicSize = proportion * coefficient;
         Camera.main.transform.position = new Vector3(SizeByX / 2 - 0.5f, SizeByY / 2 - 0.5f, optimalPosZ);
+    }
+
+    private void RotateCamera()
+    {
+        Camera.main.transform.Rotate(new Vector3(0, 0, 180));
+        onRotateCamera.Invoke();
     }
 }
