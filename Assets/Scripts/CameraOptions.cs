@@ -8,8 +8,8 @@ public class CameraOptions : MonoBehaviour
     {
         BoardCreator.onSendSize += CustomizeCamera;
         Distributor.onWasMadeMove += RotateCamera;
+        RestartGame.onRestartGame += ResetAngleRotation;
     }
-
     private void CustomizeCamera(int SizeByX, int SizeByY)
     {
         float coefficient = 4.5f;
@@ -20,10 +20,13 @@ public class CameraOptions : MonoBehaviour
         Camera.main.orthographicSize = proportion * coefficient;
         Camera.main.transform.position = new Vector3(SizeByX / 2 - 0.5f, SizeByY / 2 - 0.5f, optimalPosZ);
     }
-
     private void RotateCamera()
     {
         Camera.main.transform.Rotate(new Vector3(0, 0, 180));
         onRotateCamera.Invoke();
+    }
+    private void ResetAngleRotation()
+    {
+        Camera.main.transform.rotation = new Quaternion(0,0,0,1);
     }
 }
