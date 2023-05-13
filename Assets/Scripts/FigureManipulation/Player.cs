@@ -8,10 +8,10 @@ public class Player : MonoBehaviour
     private RaycastHit2D _rayHit;
     private GameObject _rayHitGO;
     private int _countClick = 0;
-    private int _isStepWhite = 0;
+    private bool _isStepWhite = true;
     private bool _isGameOver = false;
 
-    public int IsStepWhite { get { return _isStepWhite; } private set { _isStepWhite = value; } }
+    public bool IsStepWhite { get { return _isStepWhite; } private set { _isStepWhite = value; } }
     public bool IsGameOver { get { return _isGameOver; } private set { _isGameOver = value; } }
     private void OnEnable()
     {
@@ -21,9 +21,15 @@ public class Player : MonoBehaviour
         RestartGame.onRestartGame += SetIsNoGameOver;
         RestartGame.onRestartGame += SetIsStepWhite;
     }
-    private void SetIsStepWhite() => IsStepWhite = 0;
+    private void Reset()
+    {
+        IsStepWhite = true;
+        IsGameOver = false;
+        _touchpointPiece.gameObject.SetActive(false);
+    }
+    private void SetIsStepWhite() => IsStepWhite = true;
     private void SetIsNoGameOver() => IsGameOver = false;
-    private void PlayerSwitch() => IsStepWhite = IsStepWhite == 0 ? 1 : 0;
+    private void PlayerSwitch() => IsStepWhite = IsStepWhite == true ? false : true;
     private void SetIsGameOver() => IsGameOver = true;
     private void Update() => SelectObject();
     private void SelectObject()
@@ -38,7 +44,7 @@ public class Player : MonoBehaviour
             Tile.onSetDefautColor?.Invoke();
             _touchpointPiece.gameObject.SetActive(false);
             if (_rayHit.collider != null && _rayHitGO.gameObject.GetComponent<ChessPiece>() != null && _countClick == 0)
-                if ((IsStepWhite == 0 && _rayHitGO.GetComponent<ChessPiece>().team == 0) || (IsStepWhite == 1 && _rayHitGO.GetComponent<ChessPiece>().team == 1))
+                if ((IsStepWhite == true && _rayHitGO.GetComponent<ChessPiece>().team == 0) || (IsStepWhite == false && _rayHitGO.GetComponent<ChessPiece>().team == 1))
                 {
                     _touchpointPiece.gameObject.SetActive(true);
                     _selectedPiece = _rayHitGO.GetComponent<ChessPiece>();

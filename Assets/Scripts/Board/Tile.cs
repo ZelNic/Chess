@@ -6,6 +6,7 @@ public class Tile : MonoBehaviour
     public static Action onSetDefautColor;
     [SerializeField] private SpriteRenderer _renderer;
     [SerializeField] private Color _baseColor, _offSetColor;
+    [SerializeField] private Color _colorAttack;
     [SerializeField] private Color _highlight;
     private Color _defaultColor;
     private void OnEnable() => onSetDefautColor += SetDefaultColor;
@@ -15,6 +16,10 @@ public class Tile : MonoBehaviour
         _renderer.color = isOffSet ? _baseColor : _offSetColor;
         _defaultColor = _renderer.color;
     }  
+    public void ShowAttackEnemy()
+    {
+        _renderer.color = _colorAttack;
+    }
     private void SetDefaultColor()
     {
         if (_renderer.color == _defaultColor)

@@ -128,4 +128,3 @@ MonoBehaviour:
   team: 0
   currentPositionX: 0
   currentPositionY: 0
-  _spriteRenderer: {fileID: 1553741801222802128}

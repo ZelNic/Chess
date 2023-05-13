@@ -1,5 +1,5 @@
 public class King : ChessPiece
-{
+{   
     private bool _isZeroStep = true;
     public bool IsFirstStep
     {

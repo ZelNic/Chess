@@ -78,7 +78,14 @@ public class Distributor : MonoBehaviour
         if (checkmate == true)
         {
             for (int i = 0; i < availableMove.Count; i++)
+            {
                 _arrayTile[availableMove[i].x, availableMove[i].y].OnHighlight();
+                if (_mapCP[availableMove[i].x, availableMove[i].y] != null)
+                    if (_mapCP[availableMove[i].x, availableMove[i].y].team != chessPiece.team)
+                    {
+                        _arrayTile[availableMove[i].x, availableMove[i].y].ShowAttackEnemy();
+                    }
+            }
         }
     }
     private void CheckingCell(ChessPiece chessPiece, int posChangeOnX, int posChangeOnY)
@@ -126,8 +133,8 @@ public class Distributor : MonoBehaviour
                 CheckPossibleReplacePawn(chessPiece);
                 break;
             }
-        ShowAvailableMoves(chessPiece,false);
-        if (Checkmate(chessPiece) == true) return;
+        ShowAvailableMoves(chessPiece, false);
+        Checkmate(chessPiece);
     }
 
     private bool CheckBusyCellEnemy(ChessPiece chessPiece, int posChangeOnX, int posChangeOnY)
@@ -162,7 +169,7 @@ public class Distributor : MonoBehaviour
             if (_mapCP[x, y] != null)
                 if (_mapCP[x, y].type == ChessPieceType.King && chessPiece.team != _mapCP[x, y].team)
                 {
-                    CheckWhoWins(chessPiece);
+                    _arrayTile[x, y].ShowAttackEnemy();
                     return true;
                 }
         }

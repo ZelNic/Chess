@@ -27,6 +27,7 @@ public class AccessibilityMove : MonoBehaviour
         }
         return avaibleMove;
     }
+
     private List<Vector2Int> ShowAvailableMovesPawn(ChessPiece[,] _mapCP, ChessPiece chessPiece)
     {
         int direction = (chessPiece.team == 0) ? 1 : -1;
