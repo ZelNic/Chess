@@ -1,6 +1,8 @@
+using System;
 using UnityEngine;
 public class Player : MonoBehaviour
 {
+    public static Action<ChessPiece, bool> onChoose—hessPiece;
     [SerializeField] private GameObject _touchpointPiece;
     private ChessPiece _selectedPiece;
     private RaycastHit2D _rayHit;
@@ -21,6 +23,7 @@ public class Player : MonoBehaviour
         Distributor.onDestroyPieces += SetIsStepWhite;
         Distributor.onWasMadeMove += PlayerSwitch;
         Judge.onStopGame += SelectionSwitch;
+        RestartGame.onRestartGame += SelectionSwitch;
     }
     private void SetIsStepWhite() => _isStepWhite = true;
     private void PlayerSwitch() => _isStepWhite = _isStepWhite == true ? false : true;
@@ -28,7 +31,7 @@ public class Player : MonoBehaviour
     private void Update() => SelectObject();
     private void SelectObject()
     {        
-        if (Input.GetMouseButtonDown(0) && _isGameOver == false)
+        if (Input.GetMouseButtonDown(0) && IsGameOver == false)
         {
             Vector2 cursorPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             _rayHit = Physics2D.Raycast(cursorPosition, Vector2.zero);
@@ -44,7 +47,7 @@ public class Player : MonoBehaviour
                     _selectedPiece = _rayHitGO.GetComponent<ChessPiece>();
                     _touchpointPiece.transform.position = _rayHitGO.transform.position;
                     _countClick++;
-                    Distributor.onChoose—hessPiece?.Invoke(_selectedPiece);
+                    onChoose—hessPiece?.Invoke(_selectedPiece, true);
                 }
             
             if (_countClick > 0 && _rayHitGO.gameObject.GetComponent<Tile>() != null)
@@ -67,7 +70,7 @@ public class Player : MonoBehaviour
                     _touchpointPiece.gameObject.SetActive(true);
                     _touchpointPiece.transform.position = _rayHitGO.transform.position;
                     _selectedPiece = _rayHitGO.GetComponent<ChessPiece>();
-                    Distributor.onChoose—hessPiece?.Invoke(_selectedPiece);
+                    onChoose—hessPiece?.Invoke(_selectedPiece, true);
                 }
             }
         }

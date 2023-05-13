@@ -22,8 +22,8 @@ public class CameraOptions : MonoBehaviour
     }
     private void RotateCamera()
     {
-        Camera.main.transform.Rotate(new Vector3(0, 0, 180));
-        onRotateCamera.Invoke();
+        //Camera.main.transform.Rotate(new Vector3(0, 0, 180));
+        //onRotateCamera.Invoke();
     }
     private void ResetAngleRotation()
     {

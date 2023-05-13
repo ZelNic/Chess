@@ -10,7 +10,6 @@ public class Distributor : MonoBehaviour
 
     public static Action<ChessPiece[,]> onStartDistribution;
     public static Action<ChessPiece, int, int> onChangePositionPiece;
-    public static Action<ChessPiece> onChoose—hessPiece;
     public static Action<ChessPiece> onSendToReplaceType;
     public static Action<ChessPiece, int, int, bool> onSetOnPlace;
 
@@ -20,7 +19,7 @@ public class Distributor : MonoBehaviour
     private ChessPiece[,] _mapCP;
     private Tile[,] _arrayTile;
     private readonly int _positionPieceZ = -5;
-    private List<Vector2Int> avaibleMove;
+    private List<Vector2Int> availableMove;
 
     private void OnEnable()
     {
@@ -29,7 +28,7 @@ public class Distributor : MonoBehaviour
         onDestroyPieces += DestroyPieces;
         onSetOnPlace += SetOnPlace;
         onCheckBusyCellEnemy += CheckBusyCellEnemy;
-        onChoose—hessPiece += ShowAvailableMoves;
+        Player.onChoose—hessPiece += ShowAvailableMoves;
     }
     private void Start() => _arrayTile = BoardCreator.onSendArrayTile?.Invoke();
     private void DestroyPieces()
@@ -71,16 +70,20 @@ public class Distributor : MonoBehaviour
         if (clearSell == true)
             _mapCP[x, y] = null;
     }
-    private void ShowAvailableMoves(ChessPiece chessPiece)
+    private void ShowAvailableMoves(ChessPiece chessPiece, bool checkmate)
     {
-        avaibleMove = onShowAviableMoves?.Invoke(_mapCP, chessPiece);
-        for (int i = 0; i < avaibleMove.Count; i++)
-            _arrayTile[avaibleMove[i].x, avaibleMove[i].y].OnHighlight();
+        availableMove = onShowAviableMoves?.Invoke(_mapCP, chessPiece);
+        if (Checkmate(chessPiece) == true) return;
+        if (checkmate == true)
+        {
+            for (int i = 0; i < availableMove.Count; i++)
+                _arrayTile[availableMove[i].x, availableMove[i].y].OnHighlight();
+        }
     }
     private void CheckingCell(ChessPiece chessPiece, int posChangeOnX, int posChangeOnY)
     {
-        for (int i = 0; i < avaibleMove.Count; i++)
-            if (avaibleMove[i] == new Vector2Int(posChangeOnX, posChangeOnY))
+        for (int i = 0; i < availableMove.Count; i++)
+            if (availableMove[i] == new Vector2Int(posChangeOnX, posChangeOnY))
             {
                 if (CheckBusyCellEnemy(chessPiece, posChangeOnX, posChangeOnY) == true)
                 {
@@ -93,7 +96,7 @@ public class Distributor : MonoBehaviour
                 //Castling
                 if (chessPiece.type == ChessPieceType.King)
                 {
-                    if (avaibleMove[i] == new Vector2Int(2, posChangeOnY))
+                    if (availableMove[i] == new Vector2Int(2, posChangeOnY))
                         if (chessPiece.GetComponent<King>().IsFirstStep == true && _mapCP[0, posChangeOnY].GetComponent<Rook>().IsFirstStep == true)
                         {
                             _mapCP[0, posChangeOnY].GetComponent<Rook>().MakeStep();
@@ -101,7 +104,7 @@ public class Distributor : MonoBehaviour
                             SetOnPlace(_mapCP[0, posChangeOnY], 3, posChangeOnY, true);
                             Changelog.onMovingChessPiece.Invoke(_mapCP[3, posChangeOnY]);
                         }
-                    if (avaibleMove[i] == new Vector2Int(6, posChangeOnY))
+                    if (availableMove[i] == new Vector2Int(6, posChangeOnY))
                         if (chessPiece.GetComponent<King>().IsFirstStep == true && _mapCP[7, posChangeOnY].GetComponent<Rook>().IsFirstStep == true)
                         {
                             _mapCP[7, posChangeOnY].GetComponent<Rook>().MakeStep();
@@ -109,29 +112,21 @@ public class Distributor : MonoBehaviour
                             SetOnPlace(_mapCP[7, posChangeOnY], 5, posChangeOnY, true);
                             Changelog.onMovingChessPiece.Invoke(_mapCP[5, posChangeOnY]);
                         }
-
-                    //SetOnPlace(chessPiece, posChangeOnX, posChangeOnY, true);
-                    //Changelog.onMovingChessPiece.Invoke(chessPiece);
-                    //onWasMadeMove.Invoke();
-                    //break;
                     chessPiece.GetComponent<King>().MakeStep();
-
                 }
 
                 if (chessPiece.GetComponent<Rook>() != null)
                 {
                     chessPiece.GetComponent<Rook>().MakeStep();
                 }
-
                 SetOnPlace(chessPiece, posChangeOnX, posChangeOnY, true);
                 Changelog.onMovingChessPiece.Invoke(chessPiece);
                 onWasMadeMove.Invoke();
-
                 CheckPossibleReplacePawn(chessPiece);
                 break;
-
-
             }
+        ShowAvailableMoves(chessPiece,false);
+        if (Checkmate(chessPiece) == true) return;
     }
 
     private bool CheckBusyCellEnemy(ChessPiece chessPiece, int posChangeOnX, int posChangeOnY)
@@ -148,7 +143,6 @@ public class Distributor : MonoBehaviour
         return false;
     }
     private void CheckWhoWins(ChessPiece chessPiece) => Judge.onShowWhoWins.Invoke(chessPiece.team);
-
     private void CheckPossibleReplacePawn(ChessPiece chessPiece)
     {
         if (chessPiece.GetComponent<Pawn>() != null && (chessPiece.currentPositionY == _mapCP.GetLength(1) - 1 || chessPiece.currentPositionY == 0))
@@ -156,6 +150,22 @@ public class Distributor : MonoBehaviour
             onSendToReplaceType?.Invoke(chessPiece);
             onPawnOnEdgeBoard?.Invoke();
         }
+    }
+
+    private bool Checkmate(ChessPiece chessPiece)
+    {
+        for (int i = 0; i < availableMove.Count; i++)
+        {
+            int x = availableMove[i].x;
+            int y = availableMove[i].y;
+            if (_mapCP[x, y] != null)
+                if (_mapCP[x, y].type == ChessPieceType.King && chessPiece.team != _mapCP[x, y].team)
+                {
+                    CheckWhoWins(chessPiece);
+                    return true;
+                }
+        }
+        return false;
     }
 }
 
