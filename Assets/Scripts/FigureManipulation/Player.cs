@@ -8,29 +8,26 @@ public class Player : MonoBehaviour
     private RaycastHit2D _rayHit;
     private GameObject _rayHitGO;
     private int _countClick = 0;
-    private bool _isStepWhite = true;
+    private int _isStepWhite = 0;
     private bool _isGameOver = false;
-    public bool IsGameOver
-    {
-        get { return _isGameOver; }
-        private set
-        {
-            _isGameOver = value;
-        }
-    }
+
+    public int IsStepWhite { get { return _isStepWhite; } private set { _isStepWhite = value; } }
+    public bool IsGameOver { get { return _isGameOver; } private set { _isGameOver = value; } }
     private void OnEnable()
     {
         Distributor.onDestroyPieces += SetIsStepWhite;
         Distributor.onWasMadeMove += PlayerSwitch;
-        Judge.onStopGame += SelectionSwitch;
-        RestartGame.onRestartGame += SelectionSwitch;
+        Judge.onStopGame += SetIsGameOver;
+        RestartGame.onRestartGame += SetIsNoGameOver;
+        RestartGame.onRestartGame += SetIsStepWhite;
     }
-    private void SetIsStepWhite() => _isStepWhite = true;
-    private void PlayerSwitch() => _isStepWhite = _isStepWhite == true ? false : true;
-    private void SelectionSwitch() => IsGameOver = IsGameOver == false ? true : false;
+    private void SetIsStepWhite() => IsStepWhite = 0;
+    private void SetIsNoGameOver() => IsGameOver = false;
+    private void PlayerSwitch() => IsStepWhite = IsStepWhite == 0 ? 1 : 0;
+    private void SetIsGameOver() => IsGameOver = true;
     private void Update() => SelectObject();
     private void SelectObject()
-    {        
+    {
         if (Input.GetMouseButtonDown(0) && IsGameOver == false)
         {
             Vector2 cursorPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -41,7 +38,7 @@ public class Player : MonoBehaviour
             Tile.onSetDefautColor?.Invoke();
             _touchpointPiece.gameObject.SetActive(false);
             if (_rayHit.collider != null && _rayHitGO.gameObject.GetComponent<ChessPiece>() != null && _countClick == 0)
-                if ((_isStepWhite == true && _rayHitGO.GetComponent<ChessPiece>().team == 0) || (_isStepWhite == false && _rayHitGO.GetComponent<ChessPiece>().team == 1))
+                if ((IsStepWhite == 0 && _rayHitGO.GetComponent<ChessPiece>().team == 0) || (IsStepWhite == 1 && _rayHitGO.GetComponent<ChessPiece>().team == 1))
                 {
                     _touchpointPiece.gameObject.SetActive(true);
                     _selectedPiece = _rayHitGO.GetComponent<ChessPiece>();
@@ -49,7 +46,7 @@ public class Player : MonoBehaviour
                     _countClick++;
                     onChooseÑhessPiece?.Invoke(_selectedPiece, true);
                 }
-            
+
             if (_countClick > 0 && _rayHitGO.gameObject.GetComponent<Tile>() != null)
             {
                 _countClick = 0;

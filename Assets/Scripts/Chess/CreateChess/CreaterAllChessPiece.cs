@@ -9,7 +9,8 @@ public class CreaterAllChessPiece : MonoBehaviour
     private void OnEnable()
     {
         onCreateAllChessPiece += SendCreationChessPieces;        
-        BoardCreator.onSendSize += GetSizeBoard;        
+        BoardCreator.onSendSize += GetSizeBoard;
+        RestartGame.onRestartGame += SendCreationChessPieces;
     }
     private void GetSizeBoard(int width, int height) => _mapCP = new ChessPiece[width, height];   
     private void SendCreationChessPieces()

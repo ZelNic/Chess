@@ -29,6 +29,7 @@ public class Distributor : MonoBehaviour
         onSetOnPlace += SetOnPlace;
         onCheckBusyCellEnemy += CheckBusyCellEnemy;
         Player.onChooseÑhessPiece += ShowAvailableMoves;
+        RestartGame.onRestartGame += DestroyPieces;
     }
     private void Start() => _arrayTile = BoardCreator.onSendArrayTile?.Invoke();
     private void DestroyPieces()

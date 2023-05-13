@@ -427,8 +427,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2038590683}
-        m_TargetAssemblyTypeName: Restart, Assembly-CSharp
-        m_MethodName: RestartScene
+        m_TargetAssemblyTypeName: RestartGame, Assembly-CSharp
+        m_MethodName: Restart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -713,6 +713,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 2038590683}
+    - target: {fileID: 86205708184266653, guid: 9282e2cfdc2c75642a128d538c6613ab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Restart
+      objectReference: {fileID: 0}
+    - target: {fileID: 86205708184266653, guid: 9282e2cfdc2c75642a128d538c6613ab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: RestartGame, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 86205708184266655, guid: 9282e2cfdc2c75642a128d538c6613ab, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -725,6 +733,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 2038590683}
+    - target: {fileID: 86205708673971326, guid: 9282e2cfdc2c75642a128d538c6613ab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Restart
+      objectReference: {fileID: 0}
+    - target: {fileID: 86205708673971326, guid: 9282e2cfdc2c75642a128d538c6613ab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: RestartGame, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 86205708673971327, guid: 9282e2cfdc2c75642a128d538c6613ab, type: 3}
       propertyPath: m_Color.b
       value: 0.34127605
