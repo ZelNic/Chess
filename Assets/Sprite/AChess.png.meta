@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 700
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -129,34 +129,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: AChess_10
+      name: AChess_1
       rect:
         serializedVersion: 2
-        x: 39
-        y: 1546
-        width: 500
-        height: 438
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 897f4227010616a46ad43b03d60cfb39
-      internalID: 1368205883
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: AChess_5
-      rect:
-        serializedVersion: 2
-        x: 627
-        y: 1400
-        width: 359
-        height: 576
+        x: 106
+        y: 268
+        width: 88
+        height: 120
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -171,13 +150,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AChess_0
+      name: AChess_10
       rect:
         serializedVersion: 2
-        x: 1070
-        y: 1396
-        width: 408
-        height: 540
+        x: 3
+        y: 410
+        width: 110
+        height: 95
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -192,13 +171,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AChess_4
+      name: AChess_0
       rect:
         serializedVersion: 2
-        x: 1582
-        y: 1393
-        width: 360
-        height: 575
+        x: 5
+        y: 268
+        width: 88
+        height: 120
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -213,34 +192,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AChess_9
+      name: AChess_6
       rect:
         serializedVersion: 2
-        x: 58
-        y: 356
-        width: 427
-        height: 292
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 41027277a4a428c4d8b353dc757cb26a
-      internalID: 512831464
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: AChess_3
-      rect:
-        serializedVersion: 2
-        x: 503
-        y: 774
-        width: 408
-        height: 576
+        x: 310
+        y: 217
+        width: 77
+        height: 78
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -255,13 +213,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AChess_1
+      name: AChess_9
       rect:
         serializedVersion: 2
-        x: 1040
-        y: 776
-        width: 408
-        height: 541
+        x: 130
+        y: 427
+        width: 92
+        height: 60
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -276,13 +234,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AChess_2
+      name: AChess_8
       rect:
         serializedVersion: 2
-        x: 1566
-        y: 786
-        width: 409
-        height: 510
+        x: 242
+        y: 409
+        width: 124
+        height: 96
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -292,6 +250,132 @@ TextureImporter:
       bones: []
       spriteID: 92cb64ed504bd2d4f8269eb6bc1b6d6f
       internalID: 888328615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AChess_2
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 268
+        width: 88
+        height: 112
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6661415deae58d449bc281941a2c24c9
+      internalID: 581048004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AChess_7
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 311
+        width: 77
+        height: 78
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da6cd28d9a2c569459d957ea0f96e435
+      internalID: -229140479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AChess_3
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 125
+        width: 88
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fde2de15e78e4cf45864a95b13498f85
+      internalID: 1351695725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AChess_4
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 125
+        width: 76
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f93e5303176fd5479bb46f1a7e265cd
+      internalID: 1138488247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AChess_5
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 125
+        width: 76
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ec78a4a4e3ab34449f8eb8ce74f328d
+      internalID: 796935968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AChess_11
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 17
+        width: 123
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3628b00f230952242bef0d2fa0563b38
+      internalID: 341043085
       vertices: []
       indices: 
       edges: []
@@ -307,14 +391,25 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      AChess_0: 101129889
-      AChess_1: 1029846416
-      AChess_10: -786809436
-      AChess_2: 888328615
-      AChess_3: -3926162
-      AChess_4: 1170857847
-      AChess_5: -786809436
-      AChess_9: 512831464
+      AChess_0: 1170857847
+      AChess_1: -786809436
+      AChess_10: 101129889
+      AChess_11: 341043085
+      AChess_12: 706667902
+      AChess_13: -348081841
+      AChess_16: 408215211
+      AChess_17: 1860825284
+      AChess_19: 54686535
+      AChess_2: 581048004
+      AChess_20: -678345240
+      AChess_21: 1090827291
+      AChess_3: 1351695725
+      AChess_4: 1138488247
+      AChess_5: 796935968
+      AChess_6: 1351695725
+      AChess_7: -229140479
+      AChess_8: 888328615
+      AChess_9: 1029846416
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

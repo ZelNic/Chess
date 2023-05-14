@@ -1,5 +1,5 @@
-using UnityEngine;
 using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class RotateCamera : MonoBehaviour
@@ -9,11 +9,17 @@ public class RotateCamera : MonoBehaviour
 
     private void OnEnable()
     {
-        Setting.onActivatedSettingsGame += ActivateRotateCamera;
+        Setting.onActivatedSettingsGame += SwitchActiveButton;
     }
 
-    public void ActivateRotateCamera()
+    private void SwitchActiveButton()
     {
-       onEnabledRotate?.Invoke();
+        if (_buttonRotate.gameObject.activeInHierarchy == true)
+
+            _buttonRotate.gameObject.SetActive(false);
+
+        else
+            _buttonRotate.gameObject.SetActive(true);
     }
+    public void ActivateRotateCamera() => onEnabledRotate?.Invoke();
 }
