@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class SoundStep : MonoBehaviour
@@ -17,7 +16,8 @@ public class SoundStep : MonoBehaviour
     }
 
     private void PlaySound()
-    {        
+    {
+        _audioSource.pitch = Random.Range(1f, 3f);
         _audioSource.Play();
     }
 }
