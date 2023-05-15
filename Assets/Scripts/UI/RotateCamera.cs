@@ -1,5 +1,4 @@
 using System;
-using UnityEditor.Timeline.Actions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -44,5 +43,5 @@ public class RotateCamera : MonoBehaviour
         }
         onEnabledRotate?.Invoke();
     }
-    
+
 }
