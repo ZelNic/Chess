@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 150
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -67,7 +67,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: 4
     textureCompression: 1
@@ -132,10 +132,10 @@ TextureImporter:
       name: AChess_1
       rect:
         serializedVersion: 2
-        x: 106
-        y: 268
-        width: 88
-        height: 120
+        x: 103
+        y: 265
+        width: 94
+        height: 126
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,10 +153,10 @@ TextureImporter:
       name: AChess_10
       rect:
         serializedVersion: 2
-        x: 3
-        y: 410
-        width: 110
-        height: 95
+        x: 1
+        y: 408
+        width: 115
+        height: 100
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,10 +174,10 @@ TextureImporter:
       name: AChess_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 268
-        width: 88
-        height: 120
+        x: 2
+        y: 265
+        width: 94
+        height: 126
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,10 +195,10 @@ TextureImporter:
       name: AChess_6
       rect:
         serializedVersion: 2
-        x: 310
-        y: 217
-        width: 77
-        height: 78
+        x: 308
+        y: 215
+        width: 82
+        height: 82
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -237,10 +237,10 @@ TextureImporter:
       name: AChess_8
       rect:
         serializedVersion: 2
-        x: 242
-        y: 409
-        width: 124
-        height: 96
+        x: 239
+        y: 406
+        width: 130
+        height: 102
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -258,10 +258,10 @@ TextureImporter:
       name: AChess_2
       rect:
         serializedVersion: 2
-        x: 207
-        y: 268
-        width: 88
-        height: 112
+        x: 204
+        y: 265
+        width: 94
+        height: 118
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -279,10 +279,10 @@ TextureImporter:
       name: AChess_7
       rect:
         serializedVersion: 2
-        x: 310
-        y: 311
-        width: 77
-        height: 78
+        x: 308
+        y: 309
+        width: 82
+        height: 82
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -300,10 +300,10 @@ TextureImporter:
       name: AChess_3
       rect:
         serializedVersion: 2
-        x: 10
-        y: 125
-        width: 88
-        height: 128
+        x: 7
+        y: 122
+        width: 94
+        height: 134
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -321,10 +321,10 @@ TextureImporter:
       name: AChess_4
       rect:
         serializedVersion: 2
-        x: 117
-        y: 125
-        width: 76
-        height: 128
+        x: 114
+        y: 122
+        width: 82
+        height: 134
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -342,10 +342,10 @@ TextureImporter:
       name: AChess_5
       rect:
         serializedVersion: 2
-        x: 218
-        y: 125
-        width: 76
-        height: 128
+        x: 215
+        y: 122
+        width: 82
+        height: 134
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -363,12 +363,12 @@ TextureImporter:
       name: AChess_11
       rect:
         serializedVersion: 2
-        x: 10
-        y: 17
-        width: 123
-        height: 83
+        x: 7
+        y: 14
+        width: 129
+        height: 89
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
