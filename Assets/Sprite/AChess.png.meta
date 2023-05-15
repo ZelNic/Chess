@@ -363,10 +363,10 @@ TextureImporter:
       name: AChess_11
       rect:
         serializedVersion: 2
-        x: 7
-        y: 14
-        width: 129
-        height: 89
+        x: 11
+        y: 9
+        width: 101
+        height: 108
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -376,6 +376,48 @@ TextureImporter:
       bones: []
       spriteID: 3628b00f230952242bef0d2fa0563b38
       internalID: 341043085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AChess_12
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 3
+        width: 116
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 384252854b37d4c489027d2bc232cdd4
+      internalID: 706667902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AChess_13
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 1
+        width: 119
+        height: 121
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2361bca3d8b31114da613e93297271d6
+      internalID: -348081841
       vertices: []
       indices: 
       edges: []

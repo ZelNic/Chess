@@ -14,7 +14,10 @@ public class RestartGame : MonoBehaviour
 
     private void ActiveButtonRestart()
     {
-        
+        if (_buttonRestart.gameObject.activeInHierarchy == true)
+            _buttonRestart.gameObject.SetActive(false);
+        else
+            _buttonRestart.gameObject.SetActive(true);
     }
 
     public void Restart()

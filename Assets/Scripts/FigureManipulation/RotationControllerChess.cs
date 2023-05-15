@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RotationController : MonoBehaviour
+public class RotationControllerChess : MonoBehaviour
 {
     private ChessPiece[,] _mapCP;
     private void OnEnable()

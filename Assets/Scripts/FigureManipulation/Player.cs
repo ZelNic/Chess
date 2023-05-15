@@ -18,8 +18,7 @@ public class Player : MonoBehaviour
         Distributor.onDestroyPieces += SetIsStepWhite;
         Distributor.onWasMadeMove += PlayerSwitch;
         Judge.onStopGame += SetIsGameOver;
-        RestartGame.onRestartGame += SetIsNoGameOver;
-        RestartGame.onRestartGame += SetIsStepWhite;
+        RestartGame.onRestartGame += Reset;
     }
     private void Reset()
     {
