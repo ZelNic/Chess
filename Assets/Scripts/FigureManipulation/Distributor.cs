@@ -153,7 +153,7 @@ public class Distributor : MonoBehaviour
     private void CheckWhoWins(ChessPiece chessPiece) => Judge.onShowWhoWins.Invoke(chessPiece.team);
     private void CheckPossibleReplacePawn(ChessPiece chessPiece)
     {
-        if (chessPiece.GetComponent<Pawn>() != null && (chessPiece.currentPositionY == _mapCP.GetLength(1) - 1 || chessPiece.currentPositionY == 0))
+        if (chessPiece.type == ChessPieceType.Pawn && (chessPiece.currentPositionY == _mapCP.GetLength(1) - 1 || chessPiece.currentPositionY == 0))
         {
             onSendToReplaceType?.Invoke(chessPiece);
             onPawnOnEdgeBoard?.Invoke();
