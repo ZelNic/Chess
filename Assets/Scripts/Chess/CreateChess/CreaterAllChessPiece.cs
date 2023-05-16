@@ -4,6 +4,7 @@ using UnityEngine;
 public class CreaterAllChessPiece : MonoBehaviour
 {
     public static Action onCreateAllChessPiece;
+
     private ChessPiece[,] _mapCP;
 
     private void OnEnable()

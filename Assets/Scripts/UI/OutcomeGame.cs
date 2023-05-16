@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Judge : MonoBehaviour
+public class OutcomeGame : MonoBehaviour
 {
     public static Action<int> onShowWhoWins;
     public static Action onStopGame;

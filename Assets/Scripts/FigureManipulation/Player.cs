@@ -3,6 +3,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public static Action<ChessPiece, bool> onChoose—hessPiece;
+
     [SerializeField] private GameObject _touchpointPiece;
     private ChessPiece _selectedPiece;
     private RaycastHit2D _rayHit;
@@ -17,7 +18,7 @@ public class Player : MonoBehaviour
     {
         Distributor.onDestroyPieces += SetIsStepWhite;
         Distributor.onWasMadeMove += PlayerSwitch;
-        Judge.onStopGame += SetIsGameOver;
+        OutcomeGame.onStopGame += SetIsGameOver;
         RestartGame.onRestartGame += Reset;
     }
     private void Reset()

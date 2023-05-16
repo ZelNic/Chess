@@ -24,6 +24,4 @@ public class RotationControllerChess : MonoBehaviour
                 if (_mapCP[i, j] != null)
                     _mapCP[i, j].transform.rotation = new Quaternion(0, 0, 0, 1);
     }
-
-
 }

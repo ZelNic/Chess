@@ -13,7 +13,7 @@ public class SoundStep : MonoBehaviour
 
     private void OnEnable()
     {
-        Setting.onActivatedSettingsGame += SwitchActiveButton;
+        SettingGame.onActivatedSettingsGame += SwitchActiveButton;
         Distributor.onWasMadeMove += PlaySound;
     }
     private void Start()

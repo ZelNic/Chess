@@ -13,7 +13,7 @@ public class RotateCamera : MonoBehaviour
 
     private void OnEnable()
     {
-        Setting.onActivatedSettingsGame += SwitchActiveButton;
+        SettingGame.onActivatedSettingsGame += SwitchActiveButton;
     }
 
     private void Start()

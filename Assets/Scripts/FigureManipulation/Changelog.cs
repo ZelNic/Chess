@@ -5,6 +5,7 @@ public class Changelog : MonoBehaviour
 {
     public static Action<ChessPiece> onMovingChessPiece;
     public static Action<ChessPiece, ChessPieceType> onChangeType;
+
     private List<Vector3> _LogVector = new();
     private List<ChessPiece> _chessPiece = new();
     private int _stepIndex = -1;
@@ -87,7 +88,6 @@ public class Changelog : MonoBehaviour
         ChangeFlagMovementKing();
         ChangeFlagMovementRock();
     }
-
     private void CompareWithBaseType()
     {
         if (_chessPiece[_stepIndex].GetComponent<Pawn>() != null)
@@ -110,7 +110,6 @@ public class Changelog : MonoBehaviour
             }
         }
     }
-
     private void ChangeFlagMovementKing()
     {
         if (_chessPiece[_stepIndex].type == ChessPieceType.King)
@@ -122,7 +121,6 @@ public class Changelog : MonoBehaviour
                 _chessPiece[_stepIndex].GetComponent<King>().ResetStep();
         }
     }
-
     private void ChangeFlagMovementRock()
     {
         if (_chessPiece[_stepIndex].type == ChessPieceType.Rook)

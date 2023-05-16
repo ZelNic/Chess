@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Setting : MonoBehaviour
+public class SettingGame : MonoBehaviour
 {
     public static Action onActivatedSettingsGame;
     [SerializeField] private Button _buttonSetting;

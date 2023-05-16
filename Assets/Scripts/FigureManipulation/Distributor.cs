@@ -19,7 +19,7 @@ public class Distributor : MonoBehaviour
     private ChessPiece[,] _mapCP;
     private Tile[,] _arrayTile;
     private readonly int _positionPieceZ = -5;
-    private List<Vector2Int> availableMove;
+    private List<Vector2Int> _availableMove;
 
     private void OnEnable()
     {
@@ -73,25 +73,25 @@ public class Distributor : MonoBehaviour
     }
     private void ShowAvailableMoves(ChessPiece chessPiece, bool checkmate)
     {
-        availableMove = onShowAviableMoves?.Invoke(_mapCP, chessPiece);
+        _availableMove = onShowAviableMoves?.Invoke(_mapCP, chessPiece);
         if (Checkmate(chessPiece) == true) return;
         if (checkmate == true)
         {
-            for (int i = 0; i < availableMove.Count; i++)
+            for (int i = 0; i < _availableMove.Count; i++)
             {
-                _arrayTile[availableMove[i].x, availableMove[i].y].OnHighlight();
-                if (_mapCP[availableMove[i].x, availableMove[i].y] != null)
-                    if (_mapCP[availableMove[i].x, availableMove[i].y].team != chessPiece.team)
+                _arrayTile[_availableMove[i].x, _availableMove[i].y].OnHighlight();
+                if (_mapCP[_availableMove[i].x, _availableMove[i].y] != null)
+                    if (_mapCP[_availableMove[i].x, _availableMove[i].y].team != chessPiece.team)
                     {
-                        _arrayTile[availableMove[i].x, availableMove[i].y].ShowAttackEnemy();
+                        _arrayTile[_availableMove[i].x, _availableMove[i].y].ShowAttackEnemy();
                     }
             }
         }
     }
     private void CheckingCell(ChessPiece chessPiece, int posChangeOnX, int posChangeOnY)
     {
-        for (int i = 0; i < availableMove.Count; i++)
-            if (availableMove[i] == new Vector2Int(posChangeOnX, posChangeOnY))
+        for (int i = 0; i < _availableMove.Count; i++)
+            if (_availableMove[i] == new Vector2Int(posChangeOnX, posChangeOnY))
             {
                 if (CheckBusyCellEnemy(chessPiece, posChangeOnX, posChangeOnY) == true)
                 {
@@ -99,35 +99,14 @@ public class Distributor : MonoBehaviour
                     if (_mapCP[posChangeOnX, posChangeOnY].type == ChessPieceType.King)
                         break;
                 }
-
                 Changelog.onMovingChessPiece.Invoke(chessPiece);
-                //Castling
-                if (chessPiece.type == ChessPieceType.King)
-                {
-                    if (availableMove[i] == new Vector2Int(2, posChangeOnY))
-                        if (chessPiece.GetComponent<King>().IsFirstStep == true && _mapCP[0, posChangeOnY].GetComponent<Rook>().IsFirstStep == true)
-                        {
-                            _mapCP[0, posChangeOnY].GetComponent<Rook>().MakeStep();
-                            Changelog.onMovingChessPiece.Invoke(_mapCP[0, posChangeOnY]);
-                            SetOnPlace(_mapCP[0, posChangeOnY], 3, posChangeOnY, true);
-                            Changelog.onMovingChessPiece.Invoke(_mapCP[3, posChangeOnY]);
-                        }
-                    if (availableMove[i] == new Vector2Int(6, posChangeOnY))
-                        if (chessPiece.GetComponent<King>().IsFirstStep == true && _mapCP[7, posChangeOnY].GetComponent<Rook>().IsFirstStep == true)
-                        {
-                            _mapCP[7, posChangeOnY].GetComponent<Rook>().MakeStep();
-                            Changelog.onMovingChessPiece.Invoke(_mapCP[7, posChangeOnY]);
-                            SetOnPlace(_mapCP[7, posChangeOnY], 5, posChangeOnY, true);
-                            Changelog.onMovingChessPiece.Invoke(_mapCP[5, posChangeOnY]);
-                        }
-                    chessPiece.GetComponent<King>().MakeStep();
-                }
+             
+                CheckPossibilityCastling(chessPiece, posChangeOnY, i);                
 
-                if (chessPiece.GetComponent<Rook>() != null)
-                {
-                    chessPiece.GetComponent<Rook>().MakeStep();
-                }
+                if (chessPiece.GetComponent<Rook>() != null) chessPiece.GetComponent<Rook>().MakeStep();
+
                 SetOnPlace(chessPiece, posChangeOnX, posChangeOnY, true);
+
                 Changelog.onMovingChessPiece.Invoke(chessPiece);
                 onWasMadeMove.Invoke();
                 CheckPossibleReplacePawn(chessPiece);
@@ -137,6 +116,29 @@ public class Distributor : MonoBehaviour
         Checkmate(chessPiece);
     }
 
+    private void CheckPossibilityCastling(ChessPiece chessPiece,  int posChangeOnY,int i)
+    {
+        if (chessPiece.type == ChessPieceType.King)
+        {
+            if (_availableMove[i] == new Vector2Int(2, posChangeOnY))
+                if (chessPiece.GetComponent<King>().IsFirstStep == true && _mapCP[0, posChangeOnY].GetComponent<Rook>().IsFirstStep == true)
+                {
+                    _mapCP[0, posChangeOnY].GetComponent<Rook>().MakeStep();
+                    Changelog.onMovingChessPiece.Invoke(_mapCP[0, posChangeOnY]);
+                    SetOnPlace(_mapCP[0, posChangeOnY], 3, posChangeOnY, true);
+                    Changelog.onMovingChessPiece.Invoke(_mapCP[3, posChangeOnY]);
+                }
+            if (_availableMove[i] == new Vector2Int(6, posChangeOnY))
+                if (chessPiece.GetComponent<King>().IsFirstStep == true && _mapCP[7, posChangeOnY].GetComponent<Rook>().IsFirstStep == true)
+                {
+                    _mapCP[7, posChangeOnY].GetComponent<Rook>().MakeStep();
+                    Changelog.onMovingChessPiece.Invoke(_mapCP[7, posChangeOnY]);
+                    SetOnPlace(_mapCP[7, posChangeOnY], 5, posChangeOnY, true);
+                    Changelog.onMovingChessPiece.Invoke(_mapCP[5, posChangeOnY]);
+                }
+            chessPiece.GetComponent<King>().MakeStep();
+        }
+    }
     private bool CheckBusyCellEnemy(ChessPiece chessPiece, int posChangeOnX, int posChangeOnY)
     {
         if (_mapCP[posChangeOnX, posChangeOnY] != null && _mapCP[posChangeOnX, posChangeOnY].team != chessPiece.team)
@@ -150,7 +152,7 @@ public class Distributor : MonoBehaviour
         }
         return false;
     }
-    private void CheckWhoWins(ChessPiece chessPiece) => Judge.onShowWhoWins.Invoke(chessPiece.team);
+    private void CheckWhoWins(ChessPiece chessPiece) => OutcomeGame.onShowWhoWins.Invoke(chessPiece.team);
     private void CheckPossibleReplacePawn(ChessPiece chessPiece)
     {
         if (chessPiece.type == ChessPieceType.Pawn && (chessPiece.currentPositionY == _mapCP.GetLength(1) - 1 || chessPiece.currentPositionY == 0))
@@ -159,13 +161,12 @@ public class Distributor : MonoBehaviour
             onPawnOnEdgeBoard?.Invoke();
         }
     }
-
     private bool Checkmate(ChessPiece chessPiece)
     {
-        for (int i = 0; i < availableMove.Count; i++)
+        for (int i = 0; i < _availableMove.Count; i++)
         {
-            int x = availableMove[i].x;
-            int y = availableMove[i].y;
+            int x = _availableMove[i].x;
+            int y = _availableMove[i].y;
             if (_mapCP[x, y] != null)
                 if (_mapCP[x, y].type == ChessPieceType.King && chessPiece.team != _mapCP[x, y].team)
                 {
