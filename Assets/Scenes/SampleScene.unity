@@ -450,7 +450,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2038590685}
-        m_TargetAssemblyTypeName: Setting, Assembly-CSharp
+        m_TargetAssemblyTypeName: SettingGame, Assembly-CSharp
         m_MethodName: SwitchActiveSetting
         m_Mode: 1
         m_Arguments:
@@ -1165,7 +1165,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2038590678}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8de1c967368a2c4418e76f1b57b09628, type: 3}
+  m_Script: {fileID: 11500000, guid: 2697bb4eb8b1c5344b5c23e48c19fa45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _buttonSetting: {fileID: 1341554421}
